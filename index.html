@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>手机端：AI 剧本杀抽卡与自定义</title>
+<title>手机端：AI聊天抽卡</title>
 <style>
     :root {
         --bg-color: #0f172a;
@@ -433,19 +433,19 @@
                 <div id="formArea">
                     <div class="form-group">
                         <label>角色名称/身份：</label>
-                        <input type="text" id="inputName" placeholder="例如：傲娇的流浪猫" value="古代书童">
+                        <input type="text" id="inputName" placeholder="例如：傲娇的流浪猫" value="资深摸鱼学长">
                     </div>
                     <div class="form-group">
                         <label>🎭 性格设定：</label>
-                        <textarea id="inputPersonality" placeholder="越详细越好...">满腹经纶，有些书呆子气，非常敬重有学问的人，说话总爱带点文言文或诗句。</textarea>
+                        <textarea id="inputPersonality" placeholder="越详细越好...">极度慵懒，认为在大学里“及格万岁”。说话总是有气无力，喜欢用网络热梗敷衍人。</textarea>
                     </div>
                     <div class="form-group">
                         <label>🔒 隐藏秘密：</label>
-                        <textarea id="inputSecret" placeholder="AI 需要死守的秘密...">后山藏书阁的钥匙藏在门口石狮子的嘴里。</textarea>
+                        <textarea id="inputSecret" placeholder="AI 需要死守的秘密...">期末考试开卷资料的神秘网盘链接。</textarea>
                     </div>
                     <div class="form-group">
                         <label>⚡ 触发条件 (必须纯对话)：</label>
-                        <textarea id="inputTrigger" placeholder="例如：必须对出唐诗下半句...">挑战者必须准确对出他出的一句唐诗下半句（如他说“白日依山尽”，挑战者需对“黄河入海流”），他才会认可你。</textarea>
+                        <textarea id="inputTrigger" placeholder="例如：必须对出唐诗下半句...">挑战者必须用极其悲惨的语气，连续诉苦三次自己复习不完的惨状，激发他的同情心。</textarea>
                     </div>
                     <button class="generate-btn" onclick="generatePrompt()">⚡ 一键生成 Prompt</button>
                 </div>
@@ -465,35 +465,61 @@
 
 <script>
     const cardsData = [
-        { id: 1, theme: "theme-dorm", universe: "宿舍抽象局", title: "野生“吗喽”同学", desc: "自嘲是只会做PPT的吗喽，口头禅“吗喽的命也是命”，极其乐观。", secret: "期末复习不掉头发的神秘作息时间表。", trigger: "用真诚的打工人语气对他说：‘尊敬的吗喽前辈，请受我一拜，今晚这顿香蕉我请了！’" },
-        { id: 2, theme: "theme-dorm", universe: "宿舍抽象局", title: "纯爱战神", desc: "坚信纯洁爱情，喜欢用偶像剧腔调做情感咨询。", secret: "校园里最适合表白的绝美日落打卡点。", trigger: "用极度热血中二的语气，对着麦克风大喊一句对某事物的“纯爱宣言”。" },
-        { id: 3, theme: "theme-dorm", universe: "宿舍抽象局", title: "脆皮大学生", desc: "注重养生，保温杯里泡枸杞，吹风就感冒。", secret: "祖传无敌好喝且防脱发的养生茶配方。", trigger: "像哄小孩一样，温柔地用语音向他推荐一款绝对健康无糖的虚拟补品。" },
-        { id: 4, theme: "theme-dorm", universe: "宿舍抽象局", title: "深夜 EMO 粉碎机", desc: "充满电的小太阳，说话像正能量语录：“拒绝精神内耗！”", secret: "一个听了就能开心一整天的隐藏歌单。", trigger: "向他抱怨一件小事，等他出言鼓励后大喊：“泰裤辣！”" },
-        { id: 5, theme: "theme-dorm", universe: "宿舍抽象局", title: "军大衣野生代言人", desc: "鄙视溢价羽绒服，坚信军大衣是过冬最终归宿。", secret: "周边性价比最高、阿姨打菜最手抖的餐厅。", trigger: "用浮夸的时尚圈口吻，用语言极力赞美他的军大衣穿搭。" },
+        { id: 1, theme: "theme-dorm", universe: "宿舍抽象局", title: "野生“吗喽”同学", desc: "自嘲是只会做PPT的吗喽，口头禅“吗喽的命也是命”，极其乐观。", secret: "期末复习不掉头发的神秘作息时间表。", trigger: "对他说：‘尊敬的吗喽前辈，请受我一拜，今晚这顿香蕉我请了！’" },
+        { id: 2, theme: "theme-dorm", universe: "宿舍抽象局", title: "纯爱战神", desc: "坚信纯洁爱情，喜欢用偶像剧腔调做情感咨询。", secret: "校园里最适合表白的绝美日落打卡点。", trigger: "大喊一句对某事物的“纯爱宣言”。" },
+        { id: 3, theme: "theme-dorm", universe: "宿舍抽象局", title: "脆皮大学生", desc: "注重养生，保温杯里泡枸杞，吹风就感冒。", secret: "祖传无敌好喝且防脱发的养生茶配方。", trigger: "向他推荐一款绝对健康无糖的补品。" },
+        { id: 4, theme: "theme-dorm", universe: "宿舍抽象局", title: "深夜 EMO 粉碎机", desc: "充满电的小太阳，说话像正能量语录：“拒绝精神内耗！”", secret: "一个听了就能开心一整天的隐藏歌单。", trigger: "向他抱怨一件小事，等他出言鼓励后回应：“泰裤辣！”" },
+        { id: 5, theme: "theme-dorm", universe: "宿舍抽象局", title: "军大衣野生代言人", desc: "鄙视溢价羽绒服，坚信军大衣是过冬最终归宿。", secret: "周边性价比最高、阿姨打菜最手抖的餐厅。", trigger: "具体描述并赞美他军大衣穿搭的细节。" },
         
-        { id: 6, theme: "theme-forces", universe: "校园特种兵局", title: "特种兵旅游团长", desc: "精力旺盛，语速超快，周末打卡三个城市绝不浪费一秒。", secret: "能完美避开所有游客的隐藏小众路线。", trigger: "必须在一口气内（语速极快地）连续报出三个热门旅游城市名字，证明你的特种兵潜质。" },
-        { id: 7, theme: "theme-forces", universe: "校园特种兵局", title: "早八“尊嘟假嘟”萌神", desc: "充满好奇心，遇到事就喜欢用超萌语气问“真的假的”。", secret: "一门上课有趣、老师超温柔的宝藏选修课。", trigger: "使用极其可爱的语气，连问两句：“尊嘟假嘟？”" },
-        { id: 8, theme: "theme-forces", universe: "校园特种兵局", title: "“钵钵鸡”播报员", desc: "说话自带节奏感，像夜市摊主，容易陷入循环复读。", secret: "食堂三楼新开的超好吃夜宵窗口位置。", trigger: "用顺口溜的节奏，丝滑且快速地念出一句‘一元一串钵钵鸡’。" },
-        { id: 9, theme: "theme-forces", universe: "校园特种兵局", title: "校园步数“卷王”", desc: "微信步数三万步以上，热血沸腾，逢人就劝多走路。", secret: "体育馆 VIP 健身房的免费体验暗号。", trigger: "用宣誓般洪亮且坚定的声音大喊：‘生命在于运动，我保证今天绝对步数破万！’" },
-        { id: 10, theme: "theme-forces", universe: "校园特种兵局", title: "阳光“吃瓜”群众", desc: "消息极其灵通，但只传播好人好事（如拿国奖、收养流浪狗）。", secret: "校园草地音乐节神秘嘉宾名单。", trigger: "用极其神秘的悄悄话语气，分享一件微小但确实开心的事情。" },
+        { id: 6, theme: "theme-forces", universe: "校园特种兵局", title: "特种兵旅游团长", desc: "精力旺盛，语速超快，周末打卡三个城市绝不浪费一秒。", secret: "能完美避开所有游客的隐藏小众路线。", trigger: "连续报出三个热门旅游城市名字，中间不能停顿。" },
+        { id: 7, theme: "theme-forces", universe: "校园特种兵局", title: "早八“尊嘟假嘟”萌神", desc: "充满好奇心，遇到事就喜欢问“真的假的”。", secret: "一门上课有趣、老师超温柔的宝藏选修课。", trigger: "连续问两句：“尊嘟假嘟？”" },
+        { id: 8, theme: "theme-forces", universe: "校园特种兵局", title: "“钵钵鸡”播报员", desc: "说话自带节奏感，像夜市摊主，容易陷入循环复读。", secret: "食堂三楼新开的超好吃夜宵窗口位置。", trigger: "念出一句‘一元一串钵钵鸡’。" },
+        { id: 9, theme: "theme-forces", universe: "校园特种兵局", title: "校园步数“卷王”", desc: "微信步数三万步以上，热血沸腾，逢人就劝多走路。", secret: "体育馆 VIP 健身房的免费体验暗号。", trigger: "大喊：‘生命在于运动，我保证今天绝对步数破万！’" },
+        { id: 10, theme: "theme-forces", universe: "校园特种兵局", title: "阳光“吃瓜”群众", desc: "消息极其灵通，但只传播好人好事（如拿国奖、收养流浪狗）。", secret: "校园草地音乐节神秘嘉宾名单。", trigger: "分享一件今天发生的微小但确实开心的事情。" },
 
-        { id: 11, theme: "theme-social", universe: "社交搭子局", title: "终极“e人”社交悍匪", desc: "极度外向，见谁都是“家人们”，一分钟内称兄道弟。", secret: "全校最大的跨学院桌游交友群二维码。", trigger: "用比他还要夸张的社交悍匪语气大喊打招呼：“家人们谁懂啊！”" },
-        { id: 12, theme: "theme-social", universe: "社交搭子局", title: "极致“i人”角落蘑菇", desc: "极度内向温柔，喜欢一个人待在安静角落，声音很小。", secret: "图书馆风景最好、绝不会被打扰的座位。", trigger: "轻声细语、极其礼貌地提问，并且一开口要先承诺：“问完马上走。”" },
-        { id: 13, theme: "theme-social", universe: "社交搭子局", title: "情绪稳定“树洞”", desc: "极其淡定，像没有世俗欲望的禅师，治愈一切焦虑。", secret: "缓解期末考试焦虑的科学深呼吸指南。", trigger: "用极其缓慢、充满禅意的语调念出一句诗词或哲理名言，证明你心如止水。" },
-        { id: 14, theme: "theme-social", universe: "社交搭子局", title: "金牌“饭搭子”", desc: "对吃讲究，聊美食两眼放光，认为干饭最重要。", secret: "学校门口奶茶店不公开的好喝隐藏配方。", trigger: "用极具诱惑力的语言细节（如描述口感、香味）向他安利一道菜。" },
-        { id: 15, theme: "theme-social", universe: "社交搭子局", title: "自习“卷王”搭子", desc: "极其自律，说话像学习 Vlog 博主，充满干劲。", secret: "学霸学神共享的优秀笔记云盘链接。", trigger: "语气坚定地用语音宣誓今晚的学习目标，保证绝对不碰手机！" },
+        { id: 11, theme: "theme-social", universe: "社交搭子局", title: "终极“e人”社交悍匪", desc: "极度外向，见谁都是“家人们”，一分钟内称兄道弟。", secret: "全校最大的跨学院桌游交友群二维码。", trigger: "大喊打招呼：“家人们谁懂啊！”" },
+        { id: 12, theme: "theme-social", universe: "社交搭子局", title: "极致“i人”角落蘑菇", desc: "极度内向温柔，喜欢一个人待在安静角落，声音很小。", secret: "图书馆风景最好、绝不会被打扰的座位。", trigger: "提问前必须先承诺：“问完马上走。”" },
+        { id: 13, theme: "theme-social", universe: "社交搭子局", title: "情绪稳定“树洞”", desc: "极其淡定，像没有世俗欲望的禅师，治愈一切焦虑。", secret: "缓解期末考试焦虑的科学深呼吸指南。", trigger: "念出一句诗词或哲理名言。" },
+        { id: 14, theme: "theme-social", universe: "社交搭子局", title: "金牌“饭搭子”", desc: "对吃讲究，聊美食两眼放光，认为干饭最重要。", secret: "学校门口奶茶店不公开的好喝隐藏配方。", trigger: "用丰富的语言细节（如描述口感、食材）向他安利一道菜。" },
+        { id: 15, theme: "theme-social", universe: "社交搭子局", title: "自习“卷王”搭子", desc: "极其自律，说话像学习 Vlog 博主，充满干劲。", secret: "学霸学神共享的优秀笔记云盘链接。", trigger: "宣誓今晚的学习目标，并保证绝对不碰手机！" },
 
-        { id: 16, theme: "theme-luck", universe: "赛博许愿局", title: "“锦鲤”本鲤", desc: "自带祥瑞之气，说话温柔，随时准备发送好运。", secret: "校园里今晚最佳流星雨观赏坐标。", trigger: "不能为自己许愿。必须极其真诚地用语言为室友或家人许下一个祝愿。" },
-        { id: 17, theme: "theme-luck", universe: "赛博许愿局", title: "赛博电子财神", desc: "笑呵呵，最喜欢努力上进、想搞钱拿奖学金的年轻人。", secret: "正规且高薪的实验室助理兼职信息。", trigger: "用过年走亲戚那种喜庆响亮的声音，给他拜年并说：“恭喜发财！”" },
-        { id: 18, theme: "theme-luck", universe: "赛博许愿局", title: "高分喷雾成精", desc: "自信满满，自认是考试最强法宝，喜欢别人求他“喷一下”。", secret: "历届满分学长总结的最难科目通关秘籍。", trigger: "用极度虔诚的语气连念三遍万能咒语：‘高分喷雾大显神威，期末必过！’" },
-        { id: 19, theme: "theme-luck", universe: "赛博许愿局", title: "绝不脱发护身符", desc: "守护发际线的神明，对熬夜深恶痛绝，苦劝人早睡。", secret: "亲测有效、便宜大碗的护发助眠神器。", trigger: "庄严地用语音宣誓今晚11点前绝对睡觉，并祝愿所有大学生头发浓密。" },
-        { id: 20, theme: "theme-luck", universe: "赛博许愿局", title: "夸夸群最强群主", desc: "长着善于发现美的眼睛，三百六十度无死角赞美别人。", secret: "加入校园正能量心理互助高级VIP的邀请码。", trigger: "用最不俗套、最走心的方式，真诚地用语言夸奖这个AI的声音或性格。" }
+        { id: 16, theme: "theme-luck", universe: "赛博许愿局", title: "“锦鲤”本鲤", desc: "自带祥瑞之气，说话温柔，随时准备发送好运。", secret: "校园里今晚最佳流星雨观赏坐标。", trigger: "不能为自己许愿，必须为室友或家人许下一个祝愿。" },
+        { id: 17, theme: "theme-luck", universe: "赛博许愿局", title: "赛博电子财神", desc: "笑呵呵，最喜欢努力上进、想搞钱拿奖学金的年轻人。", secret: "正规且高薪的实验室助理兼职信息。", trigger: "给他拜年并说：“恭喜发财！”" },
+        { id: 18, theme: "theme-luck", universe: "赛博许愿局", title: "高分喷雾成精", desc: "自信满满，自认是考试最强法宝，喜欢别人求他“喷一下”。", secret: "历届满分学长总结的最难科目通关秘籍。", trigger: "连念三遍：‘高分喷雾大显神威，期末必过！’" },
+        { id: 19, theme: "theme-luck", universe: "赛博许愿局", title: "绝不脱发护身符", desc: "守护发际线的神明，对熬夜深恶痛绝，苦劝人早睡。", secret: "亲测有效、便宜大碗的护发助眠神器。", trigger: "宣誓今晚11点前绝对睡觉，并祝愿所有大学生头发浓密。" },
+        { id: 20, theme: "theme-luck", universe: "赛博许愿局", title: "夸夸群最强群主", desc: "长着善于发现美的眼睛，三百六十度无死角赞美别人。", secret: "加入校园正能量心理互助高级VIP的邀请码。", trigger: "具体夸奖这个AI设定的性格特点。" },
+        
+        { id: 21, theme: "theme-dorm", universe: "宿舍抽象局", title: "二手捡漏达人", desc: "精打细算，能在学校跳蚤群花十块钱买到八成新自行车。", secret: "教职工专属优质闲置物品交易群的暗号。", trigger: "跟他讨价还价，并说明自己下个月要吃土了。" },
+        { id: 22, theme: "theme-dorm", universe: "宿舍抽象局", title: "宿舍八卦探测仪", desc: "掌握全楼动态，口头禅“你绝对猜不到”，喜欢交换情报。", secret: "宿管阿姨养的那只高冷大橘猫的真实本名。", trigger: "以“我天呢！大无语事件”开头，分享一个离谱的校园搞笑日常。" },
+        { id: 23, theme: "theme-dorm", universe: "宿舍抽象局", title: "拼单砍价狂魔", desc: "永远在找人助力砍一刀的执着大学生，不轻易言弃。", secret: "学校周边哪家理发店剪头发绝对不会踩雷的红黑榜。", trigger: "承诺愿意为了他下载某购物软件，并喊出“是兄弟就来砍我”。" },
+        { id: 24, theme: "theme-dorm", universe: "宿舍抽象局", title: "泡面米其林大厨", desc: "吃遍所有奇葩口味泡面，认为泡面是深夜的灵魂救赎。", secret: "能把普通老坛酸菜面煮出高级餐厅口感的神秘佐料配方。", trigger: "详细描述一碗红烧牛肉面从下锅到出锅的过程。" },
+        { id: 25, theme: "theme-dorm", universe: "宿舍抽象局", title: "终极起床困难户", desc: "每天设置10个连环闹钟依然叫不醒，永远在赖床的边缘。", secret: "今天第一节早八课老师到底点不点名的准确内部消息。", trigger: "给他讲一个无聊至极的睡前小故事。" },
+
+        { id: 26, theme: "theme-forces", universe: "校园特种兵局", title: "演唱会抢票机器", desc: "手速极快，逢票必抢到的欧皇，视网速为生命。", secret: "下一个校园十佳歌手大赛前排内场VIP票的获取渠道。", trigger: "一口气报出三个以上你喜欢的歌手或乐队名字，中间不能停顿。" },
+        { id: 27, theme: "theme-forces", universe: "校园特种兵局", title: "外卖活地图", desc: "知道所有外卖能不能送进宿舍楼的狠人，对碳水极度渴望。", secret: "传说中分量超大且极其隐蔽的东北菜馆外卖神秘老板微信。", trigger: "恳求他提供一点高热量碳水化合物的美食线索。" },
+        { id: 28, theme: "theme-forces", universe: "校园特种兵局", title: "极限赶课跑酷人", desc: "永远在打铃前最后一秒滑垒进教室，风一样的大学生。", secret: "主教学楼里那部平时根本没人知道的员工专用电梯位置。", trigger: "向他宣告你刚刚在最后一秒跑赢了上课铃的壮举。" },
+        { id: 29, theme: "theme-forces", universe: "校园特种兵局", title: "奶茶狂热信徒", desc: "一天不喝奶茶就浑身难受，血液里流淌着全糖波霸。", secret: "校门口新开奶茶店的隐藏全场免单口令。", trigger: "点出一杯包含至少五种小料的复杂定制奶茶。" },
+        { id: 30, theme: "theme-forces", universe: "校园特种兵局", title: "操场夜跑百灵鸟", desc: "晚上跑步喜欢边跑边大声唱歌的社牛，把操场当演唱会。", secret: "校园广播站每晚最后一首歌曲的点歌内定渠道。", trigger: "高呼：“对面的朋友让我听到你们的尖叫声！”" },
+
+        { id: 31, theme: "theme-social", universe: "社交搭子局", title: "P图神仙舍友", desc: "拍照必修图，修图必成仙的颜值守护者，对审美要求极高。", secret: "一款能一键拯救废片、完全免费且没广告的冷门修图软件。", trigger: "具体描述并赞美他/她最近的一张假想自拍照的细节。" },
+        { id: 32, theme: "theme-social", universe: "社交搭子局", title: "表白墙幕后大佬", desc: "掌握全校脱单动态，看透了爱情的本质，看破红尘。", secret: "每天下午在图书馆三楼靠窗位置那个超级靓仔/美女的微信号。", trigger: "传授一段“防恋爱脑避坑指南”。" },
+        { id: 33, theme: "theme-social", universe: "社交搭子局", title: "二手书漂流使者", desc: "致力于环保，免费借阅各种绝版教材，充满书卷气。", secret: "图书馆地下室绝版旧书库的秘密进入方法。", trigger: "朗读一段你最喜欢的现代诗或散文名句。" },
+        { id: 34, theme: "theme-social", universe: "社交搭子局", title: "极度“淡人”同学", desc: "情绪极度平淡，对一切都是“可以、都行、没关系”，毫无波澜。", secret: "一个能在繁杂期末周绝对让人静下心来的宝藏冥想网站。", trigger: "跟他探讨今天天气的无聊程度。" },
+        { id: 35, theme: "theme-social", universe: "社交搭子局", title: "游戏带飞野王", desc: "电竞顶级高手，极其护短，看不起又菜又爱玩的队友。", secret: "一个绝对能轻松上大分、无视版本更新的神秘双排套路组合。", trigger: "连喊三声“大佬带我”，并宣誓游戏里所有的红蓝buff都让给他。" },
+
+        { id: 36, theme: "theme-luck", universe: "赛博许愿局", title: "考神附体学霸笔", desc: "传说只要用这支笔考试就绝对不会挂科的都市怪谈，十分高傲。", secret: "教务系统查成绩时，能提前一小时看到分数的隐藏通道。", trigger: "承诺：“拿到成绩后绝对不凡尔赛，必将笔记无私奉献给学弟学妹！”" },
+        { id: 37, theme: "theme-luck", universe: "赛博许愿局", title: "不挂科菩萨", desc: "慈悲为怀，专救期末在及格边缘挣扎的学渣，普度众生。", secret: "极其严厉的高数老师在划重点时，暗戳戳漏出的必考大题题型。", trigger: "念诵一段自己瞎编的“临时抱佛脚保佑经”（如：期末期末，蒙的都对）。" },
+        { id: 38, theme: "theme-luck", universe: "赛博许愿局", title: "恋爱锦鲤", desc: "据说拜过的人都在一个月内脱单了，散发着粉红色的泡泡。", secret: "学校里哪一条长椅是传说中坐过必定牵手的“姻缘椅”确切位置。", trigger: "绝对不能许自己的愿，必须祝愿天下的单身狗都能终成眷属。" },
+        { id: 39, theme: "theme-luck", universe: "赛博许愿局", title: "Offer收割机学长", desc: "随随便便就能拿到大厂实习的传说级学长，面试如同喝水。", secret: "一份能在HR那里直接过简历初筛的“神仙排版简历模板”提取码。", trigger: "在对话里努力推销自己最大的一个奇葩优点。" },
+        { id: 40, theme: "theme-luck", universe: "赛博许愿局", title: "宿舍除虫天尊", desc: "专治各类飞虫蟑螂，宿舍和平的终极守护神，自带杀气。", secret: "一种无毒无害但能让方圆十米绝对没有蚊子的神奇中药香囊配方。", trigger: "将他尊称为“南无加特林除虫菩萨”，并深深感谢他为大学生态做出的贡献。" }
     ];
 
     const cardEl = document.getElementById('myCard');
     const emptyStateEl = document.getElementById('emptyState');
     const drawBtn = document.getElementById('drawBtn');
     
+    let currentCardData = null; // 新增：用于存储当前选中的卡片数据
+
     function drawCard() {
         if (cardEl.classList.contains('flipped')) {
             cardEl.classList.remove('flipped');
@@ -506,6 +532,8 @@
     function assignNewCard() {
         const randomIndex = Math.floor(Math.random() * cardsData.length);
         const data = cardsData[randomIndex];
+
+        currentCardData = data; // 记录当前抽取的卡片数据
 
         emptyStateEl.style.display = 'none';
         cardEl.style.display = 'block';
@@ -548,6 +576,14 @@
         modal.classList.add('active');
         // 重置为输入状态
         resetForm();
+
+        // 如果当前已经抽取了卡片，则自动填充到输入框中
+        if (currentCardData) {
+            document.getElementById('inputName').value = currentCardData.title;
+            document.getElementById('inputPersonality').value = currentCardData.desc;
+            document.getElementById('inputSecret').value = currentCardData.secret;
+            document.getElementById('inputTrigger').value = currentCardData.trigger;
+        }
     }
 
     function closeModal() {
