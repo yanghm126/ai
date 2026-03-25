@@ -25,7 +25,7 @@
 <body class="flex flex-col md:flex-row h-screen overflow-hidden">
 
     <!-- 侧边栏导航 -->
-    <nav class="sidebar w-full md:w-64 bg-slate-800 text-white h-auto md:h-screen overflow-y-auto flex-shrink-0 flex flex-col shadow-xl z-10">
+    <nav id="sidebar" class="sidebar w-full md:w-64 bg-slate-800 text-white h-auto md:h-screen overflow-y-auto flex-shrink-0 flex flex-col shadow-xl z-10 transition-transform">
         <div class="p-6">
             <h1 class="text-2xl font-extrabold tracking-wider mb-2">统计学习<br><span class="text-blue-400 text-lg">通俗指南</span></h1>
             <p class="text-slate-400 text-sm">90分钟大课专用讲义</p>
@@ -37,14 +37,25 @@
             <li><a href="#sec4" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-users w-6"></i> 4. 聚类：KNN算法</a></li>
             <li><a href="#sec5" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-road w-6"></i> 5. 支持向量机(SVM)</a></li>
             <li><a href="#sec6" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-toolbox w-6"></i> 6. 机器的工具箱</a></li>
-        </ul>
-        <div class="p-4 bg-slate-900 text-xs text-slate-500 text-center">
-            Designed for Non-CS Students
-        </div>
-    </nav>
+    </ul>
+    <div class="p-4 bg-slate-900 text-xs text-slate-500 text-center">
+        Designed for Non-CS Students
+    </div>
+</nav>
 
-    <!-- 主体内容区 -->
-    <main class="flex-1 h-screen overflow-y-auto p-6 md:p-12 lg:px-24 bg-white relative">
+<!-- 主体内容区 -->
+<main class="flex-1 h-screen overflow-y-auto bg-white relative flex flex-col scroll-pt-20">
+    
+    <!-- 顶部工具栏 (含折叠按钮) -->
+    <header class="sticky top-0 bg-white/95 backdrop-blur-sm z-20 border-b border-slate-100 px-6 py-4 flex items-center shadow-sm">
+        <button id="toggleSidebar" class="text-slate-500 hover:text-blue-600 focus:outline-none transition p-2 rounded-md hover:bg-slate-100" title="隐藏/显示侧边栏">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+        <span class="ml-4 font-bold text-slate-700 hidden sm:inline-block">课程大纲 - 统计机器学习</span>
+    </header>
+
+    <!-- 实际内容区域 -->
+    <div class="p-6 md:p-12 lg:px-24">
         
         <!-- Section 1 -->
         <section id="sec1" class="content-section pt-4">
@@ -298,16 +309,25 @@
             </div>
 
             <p class="mt-8 text-center text-slate-500 italic">
-                “机器学习并不是要把人类变成机器，而是要让机器帮助人类更好地理解这个充满数据的世界。”<br>
-                <span class="font-bold text-blue-600 mt-2 block text-lg">Thank you! Questions?</span>
-            </p>
-        </section>
+            “机器学习并不是要把人类变成机器，而是要让机器帮助人类更好地理解这个充满数据的世界。”<br>
+            <span class="font-bold text-blue-600 mt-2 block text-lg">Thank you! Questions?</span>
+        </p>
+    </section>
 
-    </main>
+    </div>
+</main>
 
-    <script>
-        // 简单交互：高亮当前所在的侧边栏目录
-        const sections = document.querySelectorAll("section");
+<script>
+    // 侧边栏隐藏/显示逻辑
+    const toggleSidebarBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+
+    toggleSidebarBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hidden');
+    });
+
+    // 简单交互：高亮当前所在的侧边栏目录
+    const sections = document.querySelectorAll("section");
         const navLi = document.querySelectorAll(".sidebar ul li a");
 
         window.addEventListener("scroll", () => {
