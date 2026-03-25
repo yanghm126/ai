@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>统计机器学习通俗指南 - 给非程序员的AI课</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; scroll-behavior: smooth; background-color: #f8fafc; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .content-section { min-height: 80vh; padding-top: 4rem; padding-bottom: 4rem; border-bottom: 1px dashed #e2e8f0; }
+        .concept-box { border-left: 4px solid #3b82f6; background-color: #eff6ff; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .analogy-box { border-left: 4px solid #f59e0b; background-color: #fffbeb; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .interactive-box { border-left: 4px solid #10b981; background-color: #ecfdf5; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .math-reveal { cursor: pointer; color: #64748b; font-size: 0.9em; text-decoration: underline; }
+        .math-content { display: none; background: #f1f5f9; padding: 1rem; border-radius: 0.5rem; margin-top: 0.5rem; font-family: monospace; }
+        h1, h2, h3 { color: #1e293b; font-weight: bold; }
+        h2 { font-size: 2rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        p { line-height: 1.8; color: #334155; margin-bottom: 1rem; font-size: 1.1rem; }
+        .highlight { background: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%); padding: 0.1em 0.3em; border-radius: 0.2em; font-weight: bold; }
+    </style>
+</head>
+<body class="flex flex-col md:flex-row h-screen overflow-hidden">
+
+    <!-- 侧边栏导航 -->
+    <nav class="sidebar w-full md:w-64 bg-slate-800 text-white h-auto md:h-screen overflow-y-auto flex-shrink-0 flex flex-col shadow-xl z-10">
+        <div class="p-6">
+            <h1 class="text-2xl font-extrabold tracking-wider mb-2">统计学习<br><span class="text-blue-400 text-lg">通俗指南</span></h1>
+            <p class="text-slate-400 text-sm">90分钟大课专用讲义</p>
+        </div>
+        <ul class="flex-1 px-4 space-y-2 pb-6">
+            <li><a href="#sec1" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-robot w-6"></i> 1. 机器学习是什么</a></li>
+            <li><a href="#sec2" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-magic w-6"></i> 2. 震撼的应用场景</a></li>
+            <li><a href="#sec3" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-chart-line w-6"></i> 3. 线性模型与回归</a></li>
+            <li><a href="#sec4" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-users w-6"></i> 4. 聚类：KNN算法</a></li>
+            <li><a href="#sec5" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-road w-6"></i> 5. 支持向量机(SVM)</a></li>
+            <li><a href="#sec6" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-toolbox w-6"></i> 6. 机器的工具箱</a></li>
+        </ul>
+        <div class="p-4 bg-slate-900 text-xs text-slate-500 text-center">
+            Designed for Non-CS Students
+        </div>
+    </nav>
+
+    <!-- 主体内容区 -->
+    <main class="flex-1 h-screen overflow-y-auto p-6 md:p-12 lg:px-24 bg-white relative">
+        
+        <!-- Section 1 -->
+        <section id="sec1" class="content-section pt-4">
+            <h2 class="text-blue-600"><i class="fas fa-robot"></i> 第一章：揭开机器学习的面纱</h2>
+            <p class="text-xl text-slate-500 mb-8">别被复杂的名词吓倒，它其实只是一种“找规律”的艺术。</p>
+
+            <h3>1.1 什么是机器学习？</h3>
+            <p>在传统的计算机程序中，我们给电脑**“规则”**和**“数据”**，电脑给我们**“答案”**。比如：计算器。规则是加法，数据是1和1，答案是2。</p>
+            <p>但在<span class="highlight">机器学习(Machine Learning, ML)</span>中，我们给电脑**“数据”**和**“答案”**，让电脑自己去寻找**“规则”**！</p>
+            
+            <div class="analogy-box">
+                <strong><i class="fas fa-lightbulb"></i> 通俗比喻：学生复习考试</strong><br>
+                想象一个学生在做历年真题（数据）和对答案（答案）。做多了之后，他掌握了解题的套路（规律/规则）。等到了真正的考场上，遇到没见过的新题目，他也能用总结出的套路解出来。这就是机器学习！
+            </div>
+
+            <p>它是一门多领域交叉学科，涉及概率论、统计学等。核心目的就是：**模拟人类的学习行为，从经验（历史数据）中获取知识，从而预测未来。**</p>
+
+            <h3>1.2 AI、机器学习与深度学习的关系</h3>
+            <p>经常在新闻里听到这三个词，它们是一回事吗？你可以把它们想象成俄罗斯套娃：</p>
+            <div class="flex justify-center my-6">
+                <div class="bg-green-100 p-8 rounded-full border-4 border-green-300 text-center font-bold text-green-800" style="width: 300px; height: 300px;">
+                    人工智能 (AI)
+                    <div class="bg-blue-100 p-6 rounded-full border-4 border-blue-300 mt-4 mx-auto text-blue-800" style="width: 220px; height: 220px;">
+                        机器学习 (ML)
+                        <div class="bg-purple-100 p-4 rounded-full border-4 border-purple-300 mt-4 mx-auto text-purple-800" style="width: 140px; height: 140px; line-height: 90px;">
+                            深度学习
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-disc pl-8 mb-4 text-slate-700 space-y-2">
+                <li>**人工智能 (最外层)：** 只要是让机器模仿人类智慧的技术，都算AI。（甚至包括早期的扫雷游戏里的死板规则）</li>
+                <li>**机器学习 (中间层)：** AI的一个子集，不靠死板的规则，而是靠喂数据让机器自己学。</li>
+                <li>**深度学习 (最内层)：** 机器学习的一种高级方式，使用“人工神经网络”（模仿人类大脑神经元）来学习极其复杂的数据，比如人脸、语音。</li>
+            </ul>
+
+            <div class="concept-box">
+                <strong><i class="fas fa-book"></i> 核心理论支撑：大数定律</strong><br>
+                统计学中的大数定律告诉我们：抛硬币几次，你可能觉得全是正面。但如果你抛一万次、十万次，正面的概率一定会无限趋近于50%。机器学习就是建立在海量数据上的，**数据越多，找出的规律越稳定**。
+            </div>
+
+            <p>机器学习的主要任务其实只有两个：**分类**（这是猫还是狗？是垃圾邮件还是正常邮件？）和**回归**（预测明天股票是多少钱？这套房子值多少钱？）。</p>
+        </section>
+
+        <!-- Section 2 -->
+        <section id="sec2" class="content-section">
+            <h2 class="text-blue-600"><i class="fas fa-magic"></i> 第二章：震撼的应用场景</h2>
+            <p>机器学习不是实验室里的玩具，它已经深深嵌入了我们生活的方方面面。让我们来看看它能干什么：</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <!-- App 1 -->
+                <div class="bg-slate-50 p-6 rounded-lg border border-slate-200 shadow-sm">
+                    <h4 class="text-xl font-bold mb-2 text-indigo-700">1. 模式识别与计算机视觉</h4>
+                    <p class="text-sm">机器能“看懂”图片了！从简单的**图像分类**（分辨图里是斑点蝾螈还是火蜥蜴），到复杂的**目标检测**（用方框精准圈出图里的猫、狗、鸭子，甚至绵羊的每一根轮廓）。这是人脸识别、监控安防的基础。</p>
+                    <div class="mt-4 text-center text-slate-400 bg-slate-200 py-4 rounded"></div>
+                </div>
+
+                <!-- App 2 -->
+                <div class="bg-slate-50 p-6 rounded-lg border border-slate-200 shadow-sm">
+                    <h4 class="text-xl font-bold mb-2 text-indigo-700">2. 自然语言处理与机器翻译</h4>
+                    <p class="text-sm">机器不再是逐字翻译的傻瓜。它通过“编码器”把中文的“知识就是力量”转化成某种数学概念，再通过“解码器”还原成英文的“Knowledge is power”。它不仅懂词义，还懂语境。</p>
+                    <div class="mt-4 text-center text-slate-400 bg-slate-200 py-4 rounded"></div>
+                </div>
+
+                <!-- App 3 -->
+                <div class="bg-slate-50 p-6 rounded-lg border border-slate-200 shadow-sm">
+                    <h4 class="text-xl font-bold mb-2 text-indigo-700">3. 复杂博弈（如下围棋）</h4>
+                    <p class="text-sm">2016年，Google的AlphaGo击败了人类围棋世界冠军。围棋的变化数量比宇宙中的原子还要多，穷举法是不可能的。AlphaGo通过深度学习，学会了像人类大师一样拥有“直觉”和“大局观”。</p>
+                    <div class="mt-4 text-center text-slate-400 bg-slate-200 py-4 rounded"></div>
+                </div>
+
+                <!-- App 4 -->
+                <div class="bg-slate-50 p-6 rounded-lg border border-slate-200 shadow-sm">
+                    <h4 class="text-xl font-bold mb-2 text-indigo-700">4. 端到端自动驾驶</h4>
+                    <p class="text-sm">无人驾驶汽车通过摄像头感知环境，深度学习网络（就像一层一层的滤网）直接将图像输入转化为方向盘的转角和油门刹车的大小。机器在无数次虚拟驾驶中学会了在车道线内行驶和避让行人。</p>
+                    <div class="mt-4 text-center text-slate-400 bg-slate-200 py-4 rounded"></div>
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <h4 class="text-xl font-bold mb-2 text-indigo-700">5. 惊艳的艺术创作</h4>
+                <p>AI还能搞艺术？是的！深度学习可以提取一幅画的“风格”，再提取另一幅画的“内容”，将两者融合。你可以把毕加索的画风应用到一张普通的大楼照片上，或者用唐代壁画的风格自动生成游戏人物的衣服纹理。科技与艺术在此交汇。</p>
+                <div class="mt-4 text-center text-slate-400 bg-slate-200 py-8 rounded"></div>
+            </div>
+            
+            <div class="interactive-box mt-8">
+                <strong><i class="fas fa-comments"></i> 互动讨论</strong><br>
+                除了上述领域，在你们各自的专业（如医学、经济、教育、设计）中，你能想象机器学习可以帮你做什么原本认为只有人类才能做的事情吗？
+            </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section id="sec3" class="content-section">
+            <h2 class="text-blue-600"><i class="fas fa-chart-line"></i> 第三章：理想中的世界 - 线性回归</h2>
+            <p>我们先从最简单、最古老的机器学习算法说起——线性回归。</p>
+
+            <h3>3.1 “回归”这个词是怎么来的？</h3>
+            <p>说到“回归(Regression)”，其实来源于生物学。达尔文的表弟、英国科学家高尔顿（Galton）在研究人类身高时发现了一个有趣的现象：</p>
+            <p>高个子父母生的孩子通常也高，但往往**没有父母那么高**；矮个子父母生的孩子也矮，但往往**比父母要高一点**。人类的身高似乎有一种神秘的力量，总是试图向全人类的**“平均身高”**靠拢、**回归**。高尔顿把这种现象称为“遗传的身高向平均数方向的回归”。</p>
+            <p>后来，统计学家借用了这个词，现在“回归”在机器学习中，专门指**预测一个连续的数字**（比如预测房价、温度、销售额）。</p>
+
+            <h3>3.2 预测房价的魔法</h3>
+            <p>假设你想在兰州买房。你收集了过去几年的数据：比如100平米的房子卖100万，150平米的卖140万...</p>
+            <p>如果我们在坐标系上把这些点画出来，你会发现它们大概呈现出一种向上的趋势。**线性回归的目的，就是在这堆点中，画出一条最“合适”的直线。**</p>
+            <div class="text-center text-slate-400 bg-slate-200 py-6 rounded my-4"></div>
+            <p>有了这条直线，如果明天你看到一个200平米的房子，只要顺着直线找，你就能预测它大概值多少钱！如果是单变量（只看面积），它是一条线；如果是多变量（面积、房间数、楼层），它就是一个超平面。但不论如何，核心思想是一样的。</p>
+
+            <h3>3.3 机器是怎么画出这条线的？——梯度下降法</h3>
+            <p>机器一开始不知道这条线该怎么画，它会先**随便瞎画一条**。然后计算这条线预测的价格和真实价格的差距（我们称之为“损失函数 Loss”或“误差”）。</p>
+            <p>机器的目标是：**让误差变得最小**。</p>
+
+            <div class="analogy-box">
+                <strong><i class="fas fa-mountain"></i> 通俗比喻：盲人下山（梯度下降算法）</strong><br>
+                想象机器是一个被蒙住双眼的人，被扔在一个高低不平的山上（误差所在的位置）。他的目标是走到山谷的最低点（误差最小）。他该怎么做？<br><br>
+                1. 他用脚探一探周围，感觉一下哪边的坡度最陡（计算“梯度”）。<br>
+                2. 朝着最陡的下坡方向，迈出一步。<br>
+                3. 重复这个过程，不断探路、迈步，最终他就能走到谷底！
+            </div>
+
+            <p>在这个过程中，迈的步子大小很重要，我们叫它<span class="highlight">学习率 (Learning Rate)</span>。步子太大（跨太大）可能会直接跨过谷底，在山谷两边弹来弹去；步子太小（挪小碎步）走到谷底要花太长太长的时间。</p>
+            <p>针对数据量的不同，我们还有不同的下山策略：</p>
+            <ul class="list-disc pl-8 mb-4 text-slate-700">
+                <li>**批量梯度下降：** 每次迈步前，把山上所有的地形都摸一遍（看所有数据），最准但最慢。</li>
+                <li>**随机梯度下降：** 随机摸一块石头就决定方向，速度极快，但路线可能歪歪扭扭。</li>
+                <li>**小批量梯度下降：** 摸一小撮石头决定方向，是速度和准确度的完美平衡，目前最常用！</li>
+            </ul>
+
+            <div class="mt-4">
+                <span class="math-reveal" onclick="document.getElementById('math1').style.display = document.getElementById('math1').style.display === 'block' ? 'none' : 'block'">好奇背后的数学长什么样？(点击查看，非理工科请忽略)</span>
+                <div id="math1" class="math-content">
+                    目标函数(假设函数): h_θ(x) = θ_0 + θ_1*x<br>
+                    损失函数(均方误差): J(θ) = 1/(2m) * Σ(h_θ(x_i) - y_i)²<br>
+                    参数更新公式: θ_j := θ_j - α * (∂J(θ)/∂θ_j) <br>
+                    (这就是在求导数找斜率，α就是学习率步伐)
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Section 4 -->
+        <section id="sec4" class="content-section">
+            <h2 class="text-blue-600"><i class="fas fa-users"></i> 第四章：物以类聚 - KNN算法</h2>
+            <p>刚才的线性回归是用来预测“数字”的。如果我们要预测“类别”呢？（比如预测一封邮件是“垃圾邮件”还是“正常邮件”）</p>
+            <p>我们介绍一个思想极其简单，但非常强大的算法：**K-近邻算法 (K-Nearest Neighbor, 简称KNN)**。</p>
+
+            <div class="analogy-box">
+                <strong><i class="fas fa-home"></i> 通俗比喻：孟母三迁与“看邻居识人”</strong><br>
+                中国有句古话叫“近朱者赤，近墨者黑”。如果你搬到了一个新小区，想判断这个小区的平均收入水平是高是低，最简单的办法就是看看你周围离你最近的几户人家。如果他们大都是富豪，那你大概率也处于富人区。<br>
+                KNN算法的核心思想就是：**你的类别，由距离你最近的K个邻居投票决定。**
+            </div>
+
+            <h3>4.1 KNN的工作流程</h3>
+            <p>假设我们有一张图，上面有很多蓝色的圆点（猫）和红色的圆点（狗）。现在突然出现了一个未知的灰点（新数据），我们怎么判断它是猫还是狗？</p>
+            <div class="text-center text-slate-400 bg-slate-200 py-6 rounded my-4"></div>
+            <ol class="list-decimal pl-8 text-slate-700 space-y-2 mb-4">
+                <li>计算这个未知点，和已知所有点之间的“距离”（通常用直线距离）。</li>
+                <li>找出距离它最近的 **K** 个点（比如K=5，找最近的5个邻居）。</li>
+                <li>在这5个邻居里发起投票。如果3个是红点（狗），2个是蓝点（猫），少数服从多数！</li>
+                <li>得出结论：这个未知点是狗！</li>
+            </ol>
+
+            <h3>4.2 KNN的优缺点</h3>
+            <p>就像生活中的任何事物一样，没有完美的算法：</p>
+            <ul class="list-disc pl-8 mb-4 text-slate-700">
+                <li>**优点：** 思想异常简单（甚至不需要真正的训练阶段），对异常的坏数据不太敏感。</li>
+                <li>**缺点：** 非常“懒惰”且消耗算力！想象一下，如果有1亿个已知点，每次来一个新点，都要计算它和那1亿个点的距离才能找邻居，电脑会累崩溃的（计算复杂度和空间复杂度极高）。</li>
+            </ul>
+
+            <div class="interactive-box mt-4">
+                <strong><i class="fas fa-question-circle"></i> 动脑时间：K值怎么定？</strong><br>
+                如果你是数据分析师，K值设为1会发生什么？设为全宇宙的数据量会发生什么？<br>
+                *(讲师提示：K=1容易被个别极端邻居带偏/过拟合；K=总数则变成了全靠总体比例盲猜。选择K是一门艺术！通常选择奇数以避免平局。)*
+            </div>
+
+        </section>
+
+        <!-- Section 5 -->
+        <section id="sec5" class="content-section">
+            <h2 class="text-blue-600"><i class="fas fa-road"></i> 第五章：维度的秘密 - 支持向量机(SVM)</h2>
+            <p>支持向量机（SVM）听起来像某种重型挖掘机，但它其实是机器学习中最优雅、曾经统治AI界长达十多年的经典算法。</p>
+            
+            <h3>5.1 机器学习的本质探讨</h3>
+            <p>在讲SVM前，我们要理解中医的“望闻问切”与机器学习的关系。中医看病，通过看面色、听声音、问症状、把脉，来收集病人的信息。</p>
+            <div class="text-center text-slate-400 bg-slate-200 py-6 rounded my-4"></div>
+            <p>在机器学习中：</p>
+            <ul class="list-disc pl-8 mb-4 text-slate-700">
+                <li>**数据 (Data)：** 就是病人本身。</li>
+                <li>**特征 (Feature)：** 脉搏的强弱、面色的深浅，这些被提取出来能代表病情的信息。</li>
+                <li>**模型 (Model)：** 医生脑子里的医学知识和诊断逻辑。</li>
+            </ul>
+            <p>有一句名言：<span class="highlight">“数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限。”</span> 如果你把错误或无用的特征（比如病人的衣服颜色）喂给机器，再牛的算法也诊断不出病情。</p>
+
+            <h3>5.2 什么是SVM？在马路上画线</h3>
+            <p>回到分类问题。假设桌子上混放着红豆和绿豆，它们可以被一条直线完美分开（这就叫**线性可分**）。</p>
+            <p>你可以画无数条线把它们分开。但是哪条线最好？</p>
+            
+            <div class="analogy-box">
+                <strong><i class="fas fa-road"></i> 通俗比喻：画最宽的马路</strong><br>
+                SVM的逻辑是：不仅要画一条线分开红豆和绿豆，还要让这条线变成一条“马路”，并且**马路要尽可能地宽！**<br>
+                为什么？因为马路越宽，两边的豆子离马路中心线就越远，意味着区分得越清晰，未来容错率就越高。<br>
+                那些正好踩在马路牙子边沿上的豆子（数据点），就叫做**“支持向量 (Support Vector)”**。它们是撑起这条马路宽度的关键点！
+            </div>
+            <div class="text-center text-slate-400 bg-slate-200 py-6 rounded my-4"></div>
+
+            <h3>5.3 魔法时刻：线性不可分怎么办？</h3>
+            <p>生活不如意十之八九。大多数情况下，红豆和绿豆是复杂交错的，比如红豆在中间围成一个圈，绿豆在外面包围着它。</p>
+            <div class="text-center text-slate-400 bg-slate-200 py-6 rounded my-4"></div>
+            <p>在二维的桌面上，你无论如何也画不出一根“直线”把它们分开。怎么办？</p>
+
+            <div class="analogy-box">
+                <strong><i class="fas fa-magic"></i> 通俗比喻：把桌子掀了！（升维打击）</strong><br>
+                既然在二维桌面上画不出线，我们就用力拍一下桌子，让豆子们飞到半空中（升到三维空间）！<br>
+                我们设计一个规则：靠近中心的豆子飞得高，边缘的豆子飞得低。<br>
+                这样一来，红豆在高处，绿豆在低处。此时，我们只需要在半空中拿一张硬纸板平平地**切一刀（这就是三维空间里的“面”）**，就能把它们完美分开了！<br>
+                这个让数据“飞起来”的魔法函数，在学术上被称为**核函数 (Kernel Function)**。
+            </div>
+            <div class="text-center text-slate-400 bg-slate-200 py-6 rounded my-4"></div>
+
+        </section>
+
+        <!-- Section 6 -->
+        <section id="sec6" class="content-section border-b-0">
+            <h2 class="text-blue-600"><i class="fas fa-toolbox"></i> 第六章：机器的工具箱 - Scikit-Learn</h2>
+            <p>听完了这么多算法，你可能会觉得：这也太难了吧！我是不是要学很高深的微积分才能写代码？</p>
+            <p>完全不需要！</p>
+            
+            <p>Python语言中有一个非常伟大的开源库叫 **Scikit-Learn (简称 sklearn)**。你可以把它理解为机器学习界的“美图秀秀”或者“Office套件”。全世界顶级的数学家和程序员已经把复杂的算法打包好了，你只需要点鼠标（调用一行代码）就能使用。</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                <div class="bg-blue-50 p-4 border-t-4 border-blue-500 rounded">
+                    <h4 class="font-bold mb-2">🏷️ 分类与回归</h4>
+                    <p class="text-sm text-slate-600">比如刚才说的SVM、KNN、线性回归，全都有现成的接口。识别垃圾邮件、预测房价，几行代码搞定。</p>
+                </div>
+                <div class="bg-indigo-50 p-4 border-t-4 border-indigo-500 rounded">
+                    <h4 class="font-bold mb-2">🧩 聚类 (Clustering)</h4>
+                    <p class="text-sm text-slate-600">如果你连“正确答案”都没有，只是想把一堆杂乱的数据自动分组（比如客户画像细分），可以用其中的 K-Means算法。</p>
+                </div>
+                <div class="bg-purple-50 p-4 border-t-4 border-purple-500 rounded">
+                    <h4 class="font-bold mb-2">📉 降维 (Dimensionality Reduction)</h4>
+                    <p class="text-sm text-slate-600">数据特征太多看花眼？用PCA（主成分分析）等方法，把100维的数据压缩到2维，方便可视化展示。</p>
+                </div>
+            </div>
+
+            <h3 class="mt-8">灵魂拷问：如何知道机器学得好不好？</h3>
+            <p>不能机器自己说好就是好，我们需要测试它。最常用的方法叫 **K折交叉验证 (K-Fold Cross Validation)**。</p>
+            
+            <div class="analogy-box">
+                <strong><i class="fas fa-graduation-cap"></i> 通俗比喻：期末考试防作弊指南</strong><br>
+                如果你把所有的练习题都让学生做了，然后原题照搬当作期末考试，即使考100分也说明不了他学会了，他可能是死记硬背的（过拟合）。<br><br>
+                正确做法是：把题库分成5份。每次拿4份当平时的练习题（训练集），留1份当作没人见过的期末考卷（测试集）来打分。轮换5次，每次留不同的考卷。最后把5次的成绩平均一下，这才是学生真实的水平！
+            </div>
+
+            <p class="mt-8 text-center text-slate-500 italic">
+                “机器学习并不是要把人类变成机器，而是要让机器帮助人类更好地理解这个充满数据的世界。”<br>
+                <span class="font-bold text-blue-600 mt-2 block text-lg">Thank you! Questions?</span>
+            </p>
+        </section>
+
+    </main>
+
+    <script>
+        // 简单交互：高亮当前所在的侧边栏目录
+        const sections = document.querySelectorAll("section");
+        const navLi = document.querySelectorAll(".sidebar ul li a");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLi.forEach((a) => {
+                a.classList.remove("bg-slate-700");
+                if (a.getAttribute("href").includes(current)) {
+                    a.classList.add("bg-slate-700");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
