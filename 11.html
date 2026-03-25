@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成学习通俗指南 - 给非程序员的AI课</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; scroll-behavior: smooth; background-color: #f8fafc; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .content-section { min-height: 80vh; padding-top: 4rem; padding-bottom: 4rem; border-bottom: 1px dashed #e2e8f0; }
+        .concept-box { border-left: 4px solid #10b981; background-color: #ecfdf5; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .analogy-box { border-left: 4px solid #f59e0b; background-color: #fffbeb; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .interactive-box { border-left: 4px solid #8b5cf6; background-color: #f5f3ff; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .math-reveal { cursor: pointer; color: #64748b; font-size: 0.9em; text-decoration: underline; }
+        .math-content { display: none; background: #f1f5f9; padding: 1rem; border-radius: 0.5rem; margin-top: 0.5rem; font-family: monospace; overflow-x: auto; }
+        h1, h2, h3 { color: #1e293b; font-weight: bold; }
+        h2 { font-size: 2rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        p { line-height: 1.8; color: #334155; margin-bottom: 1rem; font-size: 1.1rem; }
+        .highlight { background: linear-gradient(120deg, #a7f3d0 0%, #6ee7b7 100%); padding: 0.1em 0.3em; border-radius: 0.2em; font-weight: bold; color: #064e3b; }
+    </style>
+</head>
+<body class="flex flex-col md:flex-row h-screen overflow-hidden">
+
+    <!-- 侧边栏导航 -->
+    <nav id="sidebar" class="sidebar w-full md:w-64 bg-slate-800 text-white h-auto md:h-screen overflow-y-auto flex-shrink-0 flex flex-col shadow-xl z-10 transition-transform">
+        <div class="p-6">
+            <h1 class="text-2xl font-extrabold tracking-wider mb-2">生成学习<br><span class="text-emerald-400 text-lg">通俗指南</span></h1>
+            <p class="text-slate-400 text-sm">90分钟大课专用讲义</p>
+        </div>
+        <ul class="flex-1 px-4 space-y-2 pb-6">
+            <li><a href="#sec1" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-magic w-6"></i> 1. 从“看懂”到“创造”</a></li>
+            <li><a href="#sec2" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-palette w-6"></i> 2. AI变成大画家</a></li>
+            <li><a href="#sec3" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-balance-scale w-6"></i> 3. 风格迁移的底层逻辑</a></li>
+            <li><a href="#sec4" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-mask w-6"></i> 4. GAN：左右互搏术</a></li>
+            <li><a href="#sec5" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-tools w-6"></i> 5. 魔法应用：图像修复</a></li>
+            <li><a href="#sec6" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-globe w-6"></i> 6. AIGC时代的思考</a></li>
+        </ul>
+        <div class="p-4 bg-slate-900 text-xs text-slate-500 text-center">
+            Designed for Non-CS Students
+        </div>
+    </nav>
+
+    <!-- 主体内容区 -->
+    <main class="flex-1 h-screen overflow-y-auto bg-white relative flex flex-col scroll-pt-20">
+        
+        <!-- 顶部工具栏 -->
+        <header class="sticky top-0 bg-white/95 backdrop-blur-sm z-20 border-b border-slate-100 px-6 py-4 flex items-center shadow-sm">
+            <button id="toggleSidebar" class="text-slate-500 hover:text-emerald-600 focus:outline-none transition p-2 rounded-md hover:bg-slate-100" title="隐藏/显示侧边栏">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            <span class="ml-4 font-bold text-slate-700 hidden sm:inline-block">课程大纲 - 第十一章：生成学习(AIGC底层逻辑)</span>
+        </header>
+
+        <!-- 实际内容区域 -->
+        <div class="p-6 md:p-12 lg:px-24">
+            
+            <!-- Section 1 -->
+            <section id="sec1" class="content-section pt-4">
+                <h2 class="text-emerald-600"><i class="fas fa-magic"></i> 第一章：从“看懂”到“创造”</h2>
+                <p class="text-xl text-slate-500 mb-8">以前的AI是个书呆子，现在的AI是个艺术家。</p>
+
+                <p>回顾一下我们之前学过的内容：</p>
+                <ul class="list-disc pl-8 mb-6 text-slate-700 space-y-2">
+                    <li>给AI一张图片，它能认出这是一只猫。（<strong>图像分类 CNN</strong>）</li>
+                    <li>给AI一个迷宫，它能自己摸索出一条出路。（<strong>强化学习 RL</strong>）</li>
+                </ul>
+                <p>这些任务都有一个共同点：<strong>寻找已有数据的规律，并输出一个标签或动作。</strong></p>
+
+                <p>但是，人类最骄傲的特质是“想象力”。AI能拥有想象力吗？它能凭空画出一幅世界上不存在的画，或者写出一首全新的诗吗？</p>
+                <div class="concept-box">
+                    <strong><i class="fas fa-seedling"></i> 什么是生成学习 (Generative Learning)？</strong><br>
+                    生成学习不再是简单地对数据进行分类或预测，而是学习原始数据的内在分布规律，然后<strong>凭空“生成”出全新的、看起来像真的数据。</strong> 这是如今火爆全网的 ChatGPT、Midjourney、Sora 等 AIGC（人工智能生成内容）技术的绝对基石。
+                </div>
+            </section>
+
+            <!-- Section 2 -->
+            <section id="sec2" class="content-section">
+                <h2 class="text-emerald-600"><i class="fas fa-palette"></i> 第二章：风格迁移 —— AI变成大画家</h2>
+                <p>我们先来看生成学习中最惊艳的一个早期应用：<strong>风格迁移 (Style Transfer)</strong>。</p>
+
+                <p>什么是图片的“风格”？是颜色？是笔触？是抽象的几何图形？其实都有。<br>
+                你可以让AI把一张普通的风景照，瞬间变成下面这些艺术大师的风格：</p>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                    <div class="text-center text-slate-500 bg-slate-50 border p-4 rounded shadow-sm">
+                        
+                        <p class="mt-2 font-bold text-sm">中国风</p>
+                    </div>
+                    <div class="text-center text-slate-500 bg-slate-50 border p-4 rounded shadow-sm">
+                        
+                        <p class="mt-2 font-bold text-sm">立体派</p>
+                    </div>
+                    <div class="text-center text-slate-500 bg-slate-50 border p-4 rounded shadow-sm">
+                        
+                        <p class="mt-2 font-bold text-sm">印象派</p>
+                    </div>
+                    <div class="text-center text-slate-500 bg-slate-50 border p-4 rounded shadow-sm">
+                        
+                        <p class="mt-2 font-bold text-sm">表现主义</p>
+                    </div>
+                </div>
+
+                <div class="analogy-box mt-8">
+                    <strong><i class="fas fa-paint-brush"></i> 通俗比喻：临摹大师的画法</strong><br>
+                    想象你拍了一张兰州大学校门的照片（这叫 <strong>内容图片 Content</strong>）。<br>
+                    你拿了一幅梵高的《星月夜》（这叫 <strong>风格图片 Style</strong>）。<br>
+                    你对AI说：“请你用梵高画这幅画时的配色、旋转的笔触和颜料厚度，帮我把兰大校门重新画一遍！”<br>
+                    最终AI画出来的成品，就叫 <strong>生成图片 (Target/Generated Image)</strong>。
+                </div>
+                <div class="text-center text-slate-400 bg-slate-100 py-6 rounded my-4 border border-slate-200">
+                    
+                </div>
+            </section>
+
+            <!-- Section 3 -->
+            <section id="sec3" class="content-section">
+                <h2 class="text-emerald-600"><i class="fas fa-balance-scale"></i> 第三章：风格迁移的底层逻辑</h2>
+                <p>AI是怎么做到这点的呢？机器可不懂什么叫“艺术感”，它只懂计算 <strong>“损失 (Loss)”</strong>，然后想尽办法把损失降到最低。</p>
+
+                <p>在风格迁移中，AI就像一个被“甲方爸爸”疯狂折磨的乙方画师，甲方提出了两个自相矛盾的要求：</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div class="bg-blue-50 p-6 rounded-lg border-t-4 border-blue-500 shadow-sm">
+                        <h4 class="text-lg font-bold mb-2 text-blue-800">要求一：必须像原来的照片！</h4>
+                        <p class="text-sm text-slate-600 mb-4"><strong>（内容损失 Content Loss）</strong></p>
+                        <p class="text-sm">画出来的图，轮廓和主体必须和原始照片一样，不能把大门画成了猪圈。生成图和原图的轮廓差异越大，内容损失就越高。</p>
+                    </div>
+                    <div class="bg-amber-50 p-6 rounded-lg border-t-4 border-amber-500 shadow-sm">
+                        <h4 class="text-lg font-bold mb-2 text-amber-800">要求二：必须有大师的艺术感！</h4>
+                        <p class="text-sm text-slate-600 mb-4"><strong>（风格损失 Style Loss）</strong></p>
+                        <p class="text-sm">画出来的图，颜色搭配和纹理笔触必须和梵高的画一样。生成图的“笔触特征”如果和大师不像，风格损失就越高。</p>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-slate-800 text-white p-6 rounded-lg text-center shadow-lg">
+                    <p class="text-xl font-bold">最终的考核标准：</p>
+                    <p class="text-2xl mt-2 text-emerald-400">总损失 = 内容损失 + 风格损失</p>
+                </div>
+
+                <p class="mt-6">机器一开始会瞎画一张全是雪花点（噪音）的废图。然后它开始不断修改这张图：修改一点，看看总损失有没有变小；再修改一点，损失又变小了... 经过成千上万次的微调，当损失降到最低时，一幅惊世骇俗的艺术品就诞生了！</p>
+
+                <div class="mt-4">
+                    <span class="math-reveal" onclick="document.getElementById('math_style').style.display = document.getElementById('math_style').style.display === 'block' ? 'none' : 'block'">好奇代码长什么样？点击查看风格迁移的核心代码（Python/Keras）</span>
+                    <div id="math_style" class="math-content">
+<pre><code># 1. 内容损失：计算生成图(combination)和原图(base)像素差异的平方和
+def content_loss(base, combination):
+    return K.sum(K.square(combination - base))
+
+# 2. 风格损失：使用格拉姆矩阵(Gram Matrix)来计算
+# 格拉姆矩阵可以提取出图像中特征的相关性（即笔触、纹理、颜色搭配，忽略具体位置）
+def gram_matrix(x): 
+    gram = K.dot(features, K.transpose(features))
+    return gram 
+
+def style_loss(style, combination): 
+    S = gram_matrix(style) 
+    C = gram_matrix(combination) 
+    return K.sum(K.square(S - C)) / (4.0 * (channels ** 2) * (size ** 2))
+</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4 -->
+            <section id="sec4" class="content-section">
+                <h2 class="text-emerald-600"><i class="fas fa-mask"></i> 第四章：GAN —— 左右互搏的绝世武功</h2>
+                <p>风格迁移只是在原图上做修改。如果我们想让机器凭空生成一张“世界上根本不存在的人脸”呢？</p>
+                <p>这就要请出近十年来AI界最伟大的发明之一：<span class="highlight">生成对抗网络 (GAN, Generative Adversarial Networks)</span>。</p>
+
+                <div class="analogy-box">
+                    <strong><i class="fas fa-user-secret"></i> 通俗比喻：造假者 vs 鉴宝专家</strong><br>
+                    想象有两个人在进行一场无休止的猫鼠游戏。<br><br>
+                    <strong>1. 生成器 (Generator) = 假钞制造者/名画伪造者</strong><br>
+                    它一开始是个菜鸟，只会胡乱涂鸦，试图画出一张能骗过别人的“假蒙娜丽莎”。<br><br>
+                    <strong>2. 鉴别器 (Discriminator) = 警察/艺术鉴赏专家</strong><br>
+                    它看过真正的《蒙娜丽莎》。它的任务是分辨送过来的画，到底是真迹，还是造假者画的假货。<br><br>
+                    <strong>博弈过程：</strong><br>
+                    造假者画了一张极丑的假画，专家一眼看穿：“假的！”<br>
+                    造假者吸取教训，改进了画技。专家也去学习了更多破案技巧，再次识破：“还是假的！”<br>
+                    两者不断“对抗（Adversarial）”、共同进步（左右互搏）。直到有一天，造假者的画技达到了出神入化的境界，画出的假画连最顶尖的专家都看不出真假了（概率为50%）。<br>
+                    此时，我们把专家一脚踢开，留下这个“造假者”，他就是一个能凭空生成绝美画作的AI大神！
+                </div>
+
+                <div class="text-center text-slate-400 bg-slate-100 py-6 rounded my-4 border border-slate-200">
+                    
+                </div>
+            </section>
+
+            <!-- Section 5 -->
+            <section id="sec5" class="content-section">
+                <h2 class="text-emerald-600"><i class="fas fa-tools"></i> 第五章：魔法应用 —— 图像修复</h2>
+                <p>GAN不仅仅能用来“无中生有”，它还有一个非常实用的功能：<strong>脑补与修复</strong>。</p>
+
+                <h3>5.1 图像修复 (Image Inpainting)</h3>
+                <p>假设你有一张珍贵的老照片，但是中间被虫子咬掉了一大块，或者上面被恶意涂鸦了。这在以前几乎是无法挽救的。但现在有了生成学习技术（如GAN或AutoEncoder自编码器），奇迹可以发生。</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 text-center">
+                    <div class="bg-slate-50 border p-4 rounded">
+                        <div class="text-slate-400 bg-white border py-8 rounded mb-2"></div>
+                        <p class="font-bold text-sm">1. 破损照片 (输入)</p>
+                    </div>
+                    <div class="flex items-center justify-center text-emerald-500 hidden md:flex">
+                        <i class="fas fa-arrow-right text-3xl"></i>
+                    </div>
+                    <div class="bg-emerald-50 border border-emerald-200 p-4 rounded">
+                        <div class="text-emerald-400 bg-white border py-8 rounded mb-2"></div>
+                        <p class="font-bold text-sm text-emerald-700">2. 修复照片 (输出)</p>
+                    </div>
+                </div>
+
+                <p class="mt-6">机器是怎么做到的？</p>
+                <ul class="list-disc pl-8 mb-6 text-slate-700 space-y-2">
+                    <li>它不仅是在做简单的“像素涂抹”（传统Photoshop的做法）。</li>
+                    <li>它是通过大量学习真实世界的照片，理解了“人脸应该有两个对称的眼睛”、“天空中云的纹理应该是怎样的”。</li>
+                    <li>当照片缺失一块时，GAN里的“生成器”会根据周围的上下文环境，<strong>“脑补”</strong>出最合理的画面填补进去，然后交给“鉴别器”去审核。由于生成器极度强大，补上去的画面肉眼根本看不出破绽！</li>
+                </ul>
+
+                <div class="mt-4">
+                    <span class="math-reveal" onclick="document.getElementById('math_ae').style.display = document.getElementById('math_ae').style.display === 'block' ? 'none' : 'block'">拓展：除了GAN，还有个老实人叫 AutoEncoder (自编码器)</span>
+                    <div id="math_ae" class="math-content">
+                        在图像修复中，除了对抗网络，还有一种叫 <strong>AutoEncoder</strong> 的模型。<br>
+                        <strong>通俗比喻：</strong>想象你是一个高度近视眼。你不戴眼镜看一张破损的图，觉得很模糊（这叫降维/编码 Encode）。然后你戴上眼镜，试图根据你模糊的印象，重新把这张图画清晰（这叫解码 Decode）。在这个“变模糊又重新变清晰”的过程中，网络自动过滤掉了原本的“杂音/破损”，强行还原出了一张最符合常理的干净图片。
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Section 6 -->
+            <section id="sec6" class="content-section border-b-0">
+                <h2 class="text-emerald-600"><i class="fas fa-globe"></i> 第六章：AIGC时代的伦理与思考</h2>
+                <p>生成学习的出现，标志着AI从“感知智能”正式迈向了“认知与创造智能”。</p>
+                <p>如今，基于GAN以及更先进的扩散模型（Diffusion Models），AI不仅能一秒钟生成好莱坞级别的海报，甚至能一键生成逼真的视频、模仿名人的声音讲话（DeepFake）。</p>
+
+                <div class="interactive-box mt-8">
+                    <strong><i class="fas fa-gavel"></i> 随堂讨论：AI创作的伦理困境</strong><br>
+                    既然生成式AI如此强大，它也带来了深远的社会问题。请大家分组讨论以下几个场景：<br>
+                    1. <strong>版权问题：</strong>如果AI学习了100位人类画家的作品，然后生成了一幅获得国际大奖的画作，这幅画的版权应该归谁？是程序员、提问者（Prompt engineer），还是那100位人类画家？<br>
+                    2. <strong>信任危机：</strong>当“有图不再有真相”、“有视频不再有真相”（AI可以完美伪造视频和录音），我们作为普通人，未来该如何确认新闻和信息的真实性？
+                </div>
+
+                <p class="mt-12 text-center text-slate-500 italic">
+                    “技术本身没有善恶，它只是映照人类内心的一面镜子。当AI掌握了创造力，人类更应坚守的是辨别真伪的智慧与道德的底线。”<br>
+                    <span class="font-bold text-emerald-600 mt-2 block text-lg">Thank you! Any Questions?</span>
+                </p>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        // 侧边栏隐藏/显示逻辑
+        const toggleSidebarBtn = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+
+        toggleSidebarBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+        });
+
+        // 简单交互：高亮当前所在的侧边栏目录
+        const sections = document.querySelectorAll("section");
+        const navLi = document.querySelectorAll(".sidebar ul li a");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLi.forEach((a) => {
+                a.classList.remove("bg-slate-700");
+                if (a.getAttribute("href").includes(current)) {
+                    a.classList.add("bg-slate-700");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

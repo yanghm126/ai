@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深度学习的集市 - 给非程序员的AI课</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; scroll-behavior: smooth; background-color: #f8fafc; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .content-section { min-height: 80vh; padding-top: 4rem; padding-bottom: 4rem; border-bottom: 1px dashed #e2e8f0; }
+        .concept-box { border-left: 4px solid #3b82f6; background-color: #eff6ff; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .analogy-box { border-left: 4px solid #f59e0b; background-color: #fffbeb; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .interactive-box { border-left: 4px solid #10b981; background-color: #ecfdf5; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .math-reveal { cursor: pointer; color: #64748b; font-size: 0.9em; text-decoration: underline; }
+        .math-content { display: none; background: #f1f5f9; padding: 1rem; border-radius: 0.5rem; margin-top: 0.5rem; font-family: monospace; }
+        h1, h2, h3 { color: #1e293b; font-weight: bold; }
+        h2 { font-size: 2rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        p { line-height: 1.8; color: #334155; margin-bottom: 1rem; font-size: 1.1rem; }
+        .highlight { background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); padding: 0.1em 0.3em; border-radius: 0.2em; font-weight: bold; color: #b91c1c; }
+    </style>
+</head>
+<body class="flex flex-col md:flex-row h-screen overflow-hidden">
+
+    <!-- 侧边栏导航 -->
+    <nav id="sidebar" class="sidebar w-full md:w-64 bg-slate-800 text-white h-auto md:h-screen overflow-y-auto flex-shrink-0 flex flex-col shadow-xl z-10 transition-transform">
+        <div class="p-6">
+            <h1 class="text-2xl font-extrabold tracking-wider mb-2">深度学习<br><span class="text-amber-400 text-lg">开源集市</span></h1>
+            <p class="text-slate-400 text-sm">90分钟大课专用讲义</p>
+        </div>
+        <ul class="flex-1 px-4 space-y-2 pb-6">
+            <li><a href="#sec1" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-store w-6"></i> 1. 欢迎来到AI大集市</a></li>
+            <li><a href="#sec2" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-book-reader w-6"></i> 2. 图像分类：三大题库</a></li>
+            <li><a href="#sec3" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-hammer w-6"></i> 3. 图像分类：三代神兵</a></li>
+            <li><a href="#sec4" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-crosshairs w-6"></i> 4. 进阶挑战：目标检测</a></li>
+            <li><a href="#sec5" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-bolt w-6"></i> 5. 目标检测的巅峰对决</a></li>
+        </ul>
+        <div class="p-4 bg-slate-900 text-xs text-slate-500 text-center">
+            Designed for Non-CS Students
+        </div>
+    </nav>
+
+    <!-- 主体内容区 -->
+    <main class="flex-1 h-screen overflow-y-auto bg-white relative flex flex-col scroll-pt-20">
+        
+        <!-- 顶部工具栏 -->
+        <header class="sticky top-0 bg-white/95 backdrop-blur-sm z-20 border-b border-slate-100 px-6 py-4 flex items-center shadow-sm">
+            <button id="toggleSidebar" class="text-slate-500 hover:text-blue-600 focus:outline-none transition p-2 rounded-md hover:bg-slate-100" title="隐藏/显示侧边栏">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            <span class="ml-4 font-bold text-slate-700 hidden sm:inline-block">课程大纲 - 第八章：深度学习的集市</span>
+        </header>
+
+        <!-- 实际内容区域 -->
+        <div class="p-6 md:p-12 lg:px-24">
+            
+            <!-- Section 1 -->
+            <section id="sec1" class="content-section pt-4">
+                <h2 class="text-amber-600"><i class="fas fa-store"></i> 第一章：欢迎来到AI大集市</h2>
+                <p class="text-xl text-slate-500 mb-8">深度学习之所以能在过去十年突飞猛进，最大的功臣不仅是算法，更是“开源与共享”的集市精神。</p>
+
+                <p>今天，如果你想训练一个识别“哈士奇”和“阿拉斯加犬”的AI，你不需要从零开始写几十万行代码，也不需要自己拿着相机去拍一万张狗的照片。</p>
+                <p>你可以直接走进“深度学习的集市”。在这个集市里，有两个最重要的区域：</p>
+                
+                <ul class="list-none space-y-4 mt-6">
+                    <li class="flex items-start">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4 text-blue-600"><i class="fas fa-database text-xl"></i></div>
+                        <div>
+                            <strong class="text-lg text-slate-800">1. 数据集专区（AI的粮仓/题库）</strong>
+                            <p class="text-slate-600">这里有全世界研究人员耗费无数心血收集、整理并打好标签的图片、文本、声音数据。这是AI成长的“教材”。</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="bg-red-100 p-3 rounded-full mr-4 text-red-600"><i class="fas fa-network-wired text-xl"></i></div>
+                        <div>
+                            <strong class="text-lg text-slate-800">2. 经典模型专区（AI的图纸/大脑）</strong>
+                            <p class="text-slate-600">这里陈列着历史上在各大比赛中夺冠的神经网络架构。它们就像是超级跑车的设计图纸，你可以免费下载下来，装上自己的数据直接开跑！</p>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Section 2 -->
+            <section id="sec2" class="content-section">
+                <h2 class="text-amber-600"><i class="fas fa-book-reader"></i> 第二章：图像分类的三大“题库”</h2>
+                <p>我们要教AI认东西（图像分类），首先得有题库。从入门到精通，集市里有三套最有名的“密卷”。</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                    <!-- MNIST -->
+                    <div class="bg-slate-50 p-6 rounded-lg border-t-4 border-slate-400 shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-slate-400 text-white text-xs px-2 py-1 rounded-bl-lg">幼儿园级</div>
+                        <h4 class="text-xl font-bold mb-2 text-slate-700">1. MNIST 数据集</h4>
+                        <p class="text-sm mb-4"><strong>黑白手写数字 (28x28像素)</strong></p>
+                        <p class="text-sm text-slate-600">包含7万张（6万训练，1万测试）0-9的手写数字灰度图。这是AI界的“Hello World”，任何一个新模型诞生，都要先做这套题试试身手。</p>
+                        <div class="mt-4 text-center text-slate-400 bg-white border py-4 rounded"></div>
+                    </div>
+
+                    <!-- CIFAR-10 -->
+                    <div class="bg-blue-50 p-6 rounded-lg border-t-4 border-blue-400 shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-blue-400 text-white text-xs px-2 py-1 rounded-bl-lg">小学生级</div>
+                        <h4 class="text-xl font-bold mb-2 text-blue-700">2. CIFAR-10 数据集</h4>
+                        <p class="text-sm mb-4"><strong>微型彩色图片 (32x32像素)</strong></p>
+                        <p class="text-sm text-slate-600">包含6万张彩色图，分为10个类别（飞机、狗、马、船等）。别看图片小得像马赛克，要让AI在这么模糊的彩色信息中分清猫和狗，难度已经大大提升。</p>
+                        <div class="mt-4 text-center text-slate-400 bg-white border py-4 rounded"></div>
+                    </div>
+
+                    <!-- ImageNet -->
+                    <div class="bg-amber-50 p-6 rounded-lg border-t-4 border-amber-400 shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-amber-400 text-white text-xs px-2 py-1 rounded-bl-lg">地狱高考级</div>
+                        <h4 class="text-xl font-bold mb-2 text-amber-700">3. ImageNet 数据集</h4>
+                        <p class="text-sm mb-4"><strong>海量高清大图库</strong></p>
+                        <p class="text-sm text-slate-600">由斯坦福大学李飞飞教授团队耗时数年，通过众包方式建立的大型可视化数据库。包含<strong>超过1400万张图片，2万多个类别！</strong> 它是引爆深度学习革命的终极燃料。</p>
+                        <div class="mt-4 text-center text-slate-400 bg-white border py-4 rounded"></div>
+                    </div>
+                </div>
+
+                <div class="concept-box mt-8">
+                    <strong><i class="fas fa-trophy"></i> 课外拓展：ILSVRC 大赛</strong><br>
+                    基于ImageNet数据集，学术界曾举办过盛大的“ImageNet大规模视觉识别挑战赛(ILSVRC)”。这场比赛就像是AI界的“华山论剑”，每年夺冠的模型都会成为接下来几年全人类争相使用的经典图纸。接下来，我们就来看看其中的三把“神兵利器”。
+                </div>
+            </section>
+
+            <!-- Section 3 -->
+            <section id="sec3" class="content-section">
+                <h2 class="text-amber-600"><i class="fas fa-hammer"></i> 第三章：图像分类的三代“神兵”</h2>
+                <p>在处理刚才提到的那些复杂图片时，科学家们绞尽脑汁，设计出了越来越深的神经网络（CNN）。</p>
+
+                <h3>第一代开山鼻祖：AlexNet (2012年)</h3>
+                <p>2012年，AlexNet以超越第二名10个百分点的碾压性优势赢得了ImageNet大赛，正式宣告了深度学习时代的到来。它首次证明了<strong>“更深的网络 + 更多的显卡算力”</strong>可以创造奇迹。</p>
+                
+                <div class="analogy-box">
+                    <strong><i class="fas fa-lightbulb"></i> AlexNet的独门秘籍：随机失活 (Dropout)</strong><br>
+                    AlexNet非常深，很容易出现“过拟合”（死记硬背）。为了解决这个问题，它发明了Dropout技术。<br>
+                    <strong>通俗比喻：</strong>想象一个项目组在做任务，如果总是有几个“学霸”包揽一切，其他“学渣”就会偷懒。一旦学霸请假，项目就瘫痪了。<br>
+                    Dropout的做法是：<strong>在AI学习的过程中，随机把一部分神经元“踢下线”（暂时休假）。</strong> 这样一来，网络不能只依赖少数几个“聪明”的节点，所有节点都被迫去学习有用的特征，整个团队变得无比强韧！
+                </div>
+                <div class="text-center text-slate-400 bg-slate-100 py-6 rounded my-4 border"></div>
+
+                <hr class="my-8 border-slate-200">
+
+                <h3>第二代精雕细琢：VGG 网络 (2014年)</h3>
+                <p>AlexNet虽然厉害，但它的设计有点像“东拼西凑”，一会儿用大尺寸的卷积核（11x11的手电筒），一会儿用小尺寸的。而VGG网络提出了一种非常优雅的哲学：<strong>“全部用最小的过滤器，把网络堆得更深”</strong>。</p>
+                <p>VGG规定，所有的卷积核全部设置为极其微小的 <strong>3x3</strong>。</p>
+                
+                <div class="analogy-box">
+                    <strong><i class="fas fa-search-plus"></i> 通俗比喻：为什么多个小镜片比一个大镜片好？</strong><br>
+                    你要找图片里的猫。你可以用一个很大的“11x11”的放大镜看一次，但这样你看得很粗糙。<br>
+                    VGG告诉你：不如拿三个“3x3”的小放大镜，<strong>叠在一起看</strong>！这样不仅能看到一样大的范围，而且中间经过了三次过滤和思考（非线性变换），看出的特征比一次看全要精细、深刻得多！这就是VGG成功的秘诀。
+                </div>
+                <div class="text-center text-slate-400 bg-slate-100 py-6 rounded my-4 border"></div>
+
+                <hr class="my-8 border-slate-200">
+
+                <h3>第三代降维打击：ResNet 残差网络 (2015年)</h3>
+                <p>既然网络越深越好，那我们直接造一个1000层的网络不就行了？科学家一试，发现大翻车：当网络深度超过几十层后，AI不仅没变聪明，反而变成了傻子（准确率急剧下降）。这被称为<strong>“退化问题 (Degradation)”</strong>。</p>
+
+                <div class="analogy-box">
+                    <strong><i class="fas fa-user-secret"></i> 通俗比喻：传声筒游戏与 ResNet 的VIP通道</strong><br>
+                    在极深的网络里，数据就像在玩100人的“传声筒游戏”。从第一个人传到第100个人时，原始信息早就被扭曲得面目全非了（这在学术上叫“梯度消失/爆炸”）。<br><br>
+                    <strong>ResNet (残差网络) 的伟大创举：跳层连接 (Skip Connection)。</strong><br>
+                    它在传统的流水线旁边，修了一条条“跨越障碍的高速公路”。第1个人的话，除了传给第2个人，还可以通过内部电话<strong>直接打给第5个人</strong>！<br>
+                    有了这条“跳层连接”，哪怕中间的层学糊涂了，底层的原始信息也能安全、无损地直接抵达高层。正是靠这个天才的想法，ResNet成功把网络推向了成百上千层，横扫各大比赛冠军！
+                </div>
+                <div class="text-center text-slate-400 bg-slate-100 py-6 rounded my-4 border"></div>
+
+            </section>
+
+            <!-- Section 4 -->
+            <section id="sec4" class="content-section">
+                <h2 class="text-amber-600"><i class="fas fa-crosshairs"></i> 第四章：进阶挑战 —— 目标检测</h2>
+                <p>刚才我们讲的“图像分类”，解决的是 <strong>“图里有什么？”（What）</strong> 的问题。它只给你一个整体的标签（比如：图里有猫）。</p>
+                <p>但在自动驾驶、安防监控中，光知道“有猫”是不够的，如果车不知道猫<strong>在哪</strong>，还是会撞上去！</p>
+                
+                <div class="concept-box">
+                    <strong><i class="fas fa-crop-alt"></i> 什么是目标检测 (Object Detection)？</strong><br>
+                    目标检测不仅要回答图里有<strong>“什么（分类）”</strong>，还要回答它们<strong>“在哪里（定位）”</strong>。<br>
+                    对于找出来的每一个物体，AI都需要用一个精准的<strong>矩形框（Bounding Box）</strong>把它框出来。
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                    <div class="bg-slate-50 p-4 border rounded text-center">
+                        <h4 class="font-bold text-slate-700 mb-2">图像分类 (Classification)</h4>
+                        <div class="text-slate-400 bg-white border py-8 rounded"></div>
+                        <p class="text-sm text-slate-500 mt-2">输出：狗</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 border rounded text-center">
+                        <h4 class="font-bold text-slate-700 mb-2">目标检测 (Object Detection)</h4>
+                        <div class="text-slate-400 bg-white border py-8 rounded"></div>
+                        <p class="text-sm text-slate-500 mt-2">输出：框出狗、猫、鸭子的具体位置</p>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <span class="math-reveal" onclick="document.getElementById('math_bbox').style.display = document.getElementById('math_bbox').style.display === 'block' ? 'none' : 'block'">点击查看：计算机如何描述一个“框”？</span>
+                    <div id="math_bbox" class="math-content">
+                        人类看到的是一个画在图上的方框，而在计算机内部，一个矩形框(Bounding Box)通常用4个数字来表示：<br>
+                        <strong>[x, y, w, h]</strong><br>
+                        - x: 框中心点的水平坐标<br>
+                        - y: 框中心点的垂直坐标<br>
+                        - w: 框的宽度 (width)<br>
+                        - h: 框的高度 (height)<br><br>
+                        目标检测算法的本质，就是不仅要算对物体的类别概率，还要运用“回归算法”去死磕这4个数字，让机器画的框无限接近真实物体的边缘。
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5 -->
+            <section id="sec5" class="content-section border-b-0">
+                <h2 class="text-amber-600"><i class="fas fa-bolt"></i> 第五章：目标检测的考卷与武器</h2>
+                
+                <h3>5.1 目标检测的两大“题库”</h3>
+                <p>要教AI学会框出物体，我们需要更复杂的、手工画好无数框的数据集：</p>
+                <ul class="list-disc pl-8 mb-6 text-slate-700 space-y-2">
+                    <li><strong>PASCAL VOC：</strong> 包含约2.3万张图片，分成了20个常见的类别（人、车、沙发等）。比例分布为：25%训练，25%验证，50%测试。它是早期检测算法的试金石。</li>
+                    <li><strong>MS COCO：</strong> 微软出品的超级数据集！包含80个类别，超过30万张图片，并且有着极其复杂、重叠的日常场景。现在如果哪个算法敢说自己是最好的检测算法，必须在COCO数据集上跑出高分。</li>
+                </ul>
+
+                <h3>5.2 目标检测的两大流派（经典模型）</h3>
+                <p>在这个领域，主要有两个打法完全不同、相爱相杀的“大侠”：</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div class="bg-indigo-50 p-6 rounded-lg border border-indigo-100">
+                        <h4 class="text-xl font-bold mb-2 text-indigo-700">精细派：Faster R-CNN</h4>
+                        <p class="text-sm text-slate-600 mb-2"><strong>工作方式：</strong> 慢工出细活（两阶段网络）。它先在图里大致撒网，找出几千个“可能藏着东西的地方”（候选框），然后把这些地方一个个放大仔细看，看看到底是什么，再把框修剪整齐。</p>
+                        <p class="text-sm font-bold text-slate-700"><i class="fas fa-check-circle text-green-500"></i> 优点：找得极准！</p>
+                        <p class="text-sm font-bold text-slate-700"><i class="fas fa-times-circle text-red-500"></i> 缺点：有点慢，很难做到实时视频分析。</p>
+                    </div>
+                    
+                    <div class="bg-rose-50 p-6 rounded-lg border border-rose-100">
+                        <h4 class="text-xl font-bold mb-2 text-rose-700">闪电派：YOLO</h4>
+                        <p class="text-sm text-slate-600 mb-2"><strong>工作方式：</strong> 顾名思义 "You Only Look Once"（你只看一次）。它不找候选框，直接把整张图片看作一个整体，瞬间把分类和画框同时算出来。就像武林高手，扫一眼就直接拔剑指出所有人的位置。</p>
+                        <p class="text-sm font-bold text-slate-700"><i class="fas fa-check-circle text-green-500"></i> 优点：极快！是无人驾驶和实时安防的标配。</p>
+                        <p class="text-sm font-bold text-slate-700"><i class="fas fa-exclamation-circle text-orange-500"></i> 缺点：对于挤在一起的极小物体（比如远处的羊群）有时会漏看。</p>
+                    </div>
+                </div>
+
+                <div class="interactive-box mt-10">
+                    <strong><i class="fas fa-comments"></i> 随堂讨论</strong><br>
+                    假设你要为一家医院设计一套“医学X光片肿瘤检测系统”，又或者你要为一家工厂设计一套“流水线瑕疵药片剔除系统（每秒经过100颗药）”。在这两种场景下，你会分别倾向于选择“精细派（Faster R-CNN）”还是“闪电派（YOLO）”？为什么？
+                </div>
+
+                <p class="mt-12 text-center text-slate-500 italic">
+                    “站在巨人的肩膀上，利用集市里的开源模型与数据，我们每个人都可以成为AI时代的魔法师。”<br>
+                    <span class="font-bold text-amber-600 mt-2 block text-lg">Thank you! Any Questions?</span>
+                </p>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        // 侧边栏隐藏/显示逻辑
+        const toggleSidebarBtn = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+
+        toggleSidebarBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+        });
+
+        // 简单交互：高亮当前所在的侧边栏目录
+        const sections = document.querySelectorAll("section");
+        const navLi = document.querySelectorAll(".sidebar ul li a");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLi.forEach((a) => {
+                a.classList.remove("bg-slate-700");
+                if (a.getAttribute("href").includes(current)) {
+                    a.classList.add("bg-slate-700");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

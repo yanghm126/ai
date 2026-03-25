@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深度学习通俗指南 - 给非程序员的AI课</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; scroll-behavior: smooth; background-color: #f8fafc; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .content-section { min-height: 80vh; padding-top: 4rem; padding-bottom: 4rem; border-bottom: 1px dashed #e2e8f0; }
+        .concept-box { border-left: 4px solid #3b82f6; background-color: #eff6ff; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .analogy-box { border-left: 4px solid #f59e0b; background-color: #fffbeb; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .interactive-box { border-left: 4px solid #10b981; background-color: #ecfdf5; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .math-reveal { cursor: pointer; color: #64748b; font-size: 0.9em; text-decoration: underline; }
+        .math-content { display: none; background: #f1f5f9; padding: 1rem; border-radius: 0.5rem; margin-top: 0.5rem; font-family: monospace; }
+        h1, h2, h3 { color: #1e293b; font-weight: bold; }
+        h2 { font-size: 2rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        p { line-height: 1.8; color: #334155; margin-bottom: 1rem; font-size: 1.1rem; }
+        .highlight { background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%); padding: 0.1em 0.3em; border-radius: 0.2em; font-weight: bold; color: #1e3a8a; }
+    </style>
+</head>
+<body class="flex flex-col md:flex-row h-screen overflow-hidden">
+
+    <!-- 侧边栏导航 -->
+    <nav id="sidebar" class="sidebar w-full md:w-64 bg-slate-800 text-white h-auto md:h-screen overflow-y-auto flex-shrink-0 flex flex-col shadow-xl z-10 transition-transform">
+        <div class="p-6">
+            <h1 class="text-2xl font-extrabold tracking-wider mb-2">深度学习<br><span class="text-blue-400 text-lg">通俗指南</span></h1>
+            <p class="text-slate-400 text-sm">90分钟大课专用讲义</p>
+        </div>
+        <ul class="flex-1 px-4 space-y-2 pb-6">
+            <li><a href="#sec1" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-brain w-6"></i> 1. 深度学习的本质</a></li>
+            <li><a href="#sec2" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-image w-6"></i> 2. 机器眼中的图像</a></li>
+            <li><a href="#sec3" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-dungeon w-6"></i> 3. 图像识别的八十一难</a></li>
+            <li><a href="#sec4" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-search w-6"></i> 4. 破局神兵：CNN</a></li>
+            <li><a href="#sec5" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-history w-6"></i> 5. 拥有记忆的AI：LSTM</a></li>
+            <li><a href="#sec6" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-database w-6"></i> 6. AI的“黄冈密卷”</a></li>
+        </ul>
+        <div class="p-4 bg-slate-900 text-xs text-slate-500 text-center">
+            Designed for Non-CS Students
+        </div>
+    </nav>
+
+    <!-- 主体内容区 -->
+    <main class="flex-1 h-screen overflow-y-auto bg-white relative flex flex-col scroll-pt-20">
+        
+        <!-- 顶部工具栏 (含折叠按钮) -->
+        <header class="sticky top-0 bg-white/95 backdrop-blur-sm z-20 border-b border-slate-100 px-6 py-4 flex items-center shadow-sm">
+            <button id="toggleSidebar" class="text-slate-500 hover:text-blue-600 focus:outline-none transition p-2 rounded-md hover:bg-slate-100" title="隐藏/显示侧边栏">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            <span class="ml-4 font-bold text-slate-700 hidden sm:inline-block">课程大纲 - 第七章：深度学习</span>
+        </header>
+
+        <!-- 实际内容区域 -->
+        <div class="p-6 md:p-12 lg:px-24">
+            
+            <!-- Section 1 -->
+            <section id="sec1" class="content-section pt-4">
+                <h2 class="text-blue-600"><i class="fas fa-brain"></i> 第一章：什么是深度学习？</h2>
+                <p class="text-xl text-slate-500 mb-8">它是机器学习这顶皇冠上最璀璨的明珠，彻底改变了我们与世界交互的方式。</p>
+
+                <p>在前一节课中，我们学习了“机器学习”（让机器自己找规律）。而<span class="highlight">深度学习 (Deep Learning)</span> 则是机器学习中目前最火热、最强大的一个分支。</p>
+                
+                <div class="analogy-box">
+                    <strong><i class="fas fa-sitemap"></i> 通俗比喻：千军万马的流水线工厂</strong><br>
+                    想象一下人类的大脑，是由上百亿个神经元互相连接而成的。当你看一幅画时，有些神经元负责感受颜色，有些负责感受边缘，有些负责感受形状，最后汇总到一起告诉你：“这是一只猫”。<br>
+                    深度学习就是用代码在电脑里模拟出了无数个这样的“人工神经元”，把它们排成一层又一层（这叫“深”度），像一个超级流水线。数据从第一层输入，经过层层加工、过滤、提炼，最后在出口给出令人惊叹的答案。
+                </div>
+
+            </section>
+
+            <!-- Section 2 -->
+            <section id="sec2" class="content-section">
+                <h2 class="text-blue-600"><i class="fas fa-image"></i> 第二章：计算机眼中的图像与“语义鸿沟”</h2>
+                <p>我们要让AI看懂世界，首先得知道，机器眼里的世界长什么样。</p>
+
+                <h3>2.1 从“铜奔马”说起</h3>
+                <p>大家看这张著名的东汉文物——“马踏飞燕”（铜奔马）。</p>
+                <div class="text-center text-slate-400 bg-slate-100 py-8 rounded my-4 border border-slate-200">
+                    
+                </div>
+                <p>人类看到的是：一匹灵动、骏逸的马，一只被踩在脚下的飞鸟，以及厚重的历史沧桑感。可是，计算机看到了什么？</p>
+
+                <h3>2.2 冰冷的数字矩阵：RGB三原色</h3>
+                <p>在计算机的眼里，**没有任何形状和美感，只有数字**。</p>
+                <p>任何一张彩色照片，其实是由成千上万个微小的方块（像素）拼成的。为了表现颜色，计算机将一幅图拆成了三层：<span class="text-red-500 font-bold">红色通道(R)</span>、<span class="text-green-500 font-bold">绿色通道(G)</span>、<span class="text-blue-500 font-bold">蓝色通道(B)</span>。</p>
+                <p>每一个像素，都是3个介于 0~255 之间的数字组合。0代表最暗（纯黑），255代表最亮。因此，一张普通的铜奔马照片，在计算机看来，就是一个巨大的、密密麻麻的、由几十万个 0 到 255 的数字组成的 **Excel表格**！</p>
+                
+                <div class="concept-box">
+                    <strong><i class="fas fa-vector-square"></i> 核心概念：语义鸿沟 (Semantic Gap)</strong><br>
+                    人类看到的是“概念”（这是一匹马），计算机看到的是“底层数据”（这是一个含有243, 112, 54的数字矩阵）。<br>
+                    这种从“底层数字矩阵”到“高层抽象概念”之间巨大的跨度，就被称为**“语义鸿沟”**。深度学习的所有努力，都是为了跨越这道鸿沟！
+                </div>
+            </section>
+
+            <!-- Section 3 -->
+            <section id="sec3" class="content-section">
+                <h2 class="text-blue-600"><i class="fas fa-dungeon"></i> 第三章：图像识别的“九九八十一难”</h2>
+                <p>既然只是数字矩阵，写几句代码让电脑去找固定的数字规律不就行了吗？事实远没有那么简单。</p>
+
+                <p>在跨越“语义鸿沟”的过程中，计算机会遇到以下**6大天然阻碍**：</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                    <div class="bg-white p-4 rounded-lg shadow-md border-t-4 border-red-400">
+                        <h4 class="font-bold text-lg mb-2">1. 角度不同 (Viewpoint)</h4>
+                        <p class="text-sm text-slate-600">猫的正脸、侧脸、俯视图，对人类来说都是猫。但电脑看到的数字矩阵会完全变样。</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md border-t-4 border-yellow-400">
+                        <h4 class="font-bold text-lg mb-2">2. 光线不同 (Illumination)</h4>
+                        <p class="text-sm text-slate-600">中午的马和黄昏的马，一个是高亮（接近255），一个是暗沉（接近0），电脑很容易懵圈。</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md border-t-4 border-blue-400">
+                        <h4 class="font-bold text-lg mb-2">3. 大小不同 (Scale)</h4>
+                        <p class="text-sm text-slate-600">近处的一头大象和远处的一只猫，大象占了10万个像素，猫占了100个，特征范围完全不同。</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md border-t-4 border-green-400">
+                        <h4 class="font-bold text-lg mb-2">4. 遮挡不同 (Occlusion)</h4>
+                        <p class="text-sm text-slate-600">一只躲在沙发后面只露出半只耳朵和一只眼睛的猫，数字信息丢失了一大半，还能认出吗？</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md border-t-4 border-purple-400">
+                        <h4 class="font-bold text-lg mb-2">5. 颜色不同 (Color)</h4>
+                        <p class="text-sm text-slate-600">黑猫、白猫、橘猫，颜色矩阵截然不同，如何让机器知道它们属于同一个物种？</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md border-t-4 border-gray-400">
+                        <h4 class="font-bold text-lg mb-2">6. 背景不同 (Background)</h4>
+                        <p class="text-sm text-slate-600">当一只白色的雪豹站在雪地里（保护色），动物的像素和背景的像素几乎融为一体，很难剥离。</p>
+                    </div>
+                </div>
+
+                <div class="interactive-box mt-8">
+                    <strong><i class="fas fa-users-cog"></i> 课堂思考</strong><br>
+                    想想传统的编程方法：如果我们要写一段“死规则”代码来识别猫，你得写多少个"if...else..."来涵盖上面所有的极端情况？答案是：根本写不完。这就是为什么我们需要深度学习出马。
+                </div>
+            </section>
+
+            <!-- Section 4 -->
+            <section id="sec4" class="content-section">
+                <h2 class="text-blue-600"><i class="fas fa-search"></i> 第四章：破局神兵 —— 卷积神经网络 (CNN)</h2>
+                <p>为了解决图像识别的难题，科学家发明了一种极其伟大的网络结构：<span class="highlight">卷积神经网络 (CNN, Convolutional Neural Network)</span>。</p>
+
+                <h3>4.1 什么是“卷积”？</h3>
+                
+                <div class="analogy-box">
+                    <strong><i class="fas fa-search-plus"></i> 通俗比喻：拿着手电筒找线索</strong><br>
+                    想象你在一个漆黑的房间里看一幅巨大的名画。你手里只有一个小手电筒。你只能**每次照亮一小块区域**，看清这一小块有没有特定的图案（比如一条横线、一个圆角），看完后，手电筒往旁边**移动一格**，继续看。这就是“卷积”！<br><br>
+                    计算机也是用一个个小方块（我们叫它“卷积核”或“过滤器”）在整张图片上滑动，把图片的局部特征提取出来。
+                </div>
+
+                <h3>4.2 CNN 是如何跨越语义鸿沟的？</h3>
+                <p>CNN的伟大之处在于它的**“层级抽象”**。它和人类大脑皮层处理视觉的原理惊人地相似：</p>
+                <ol class="list-decimal pl-8 text-slate-700 space-y-2 mb-4">
+                    <li>**底层网络：** 就像眯着眼睛看，只能认出最简单的线条、边缘、明暗交界。</li>
+                    <li>**中层网络：** 将底层的线条拼凑起来，开始认出一些形状（比如圆圈、三角形、毛纹理）。</li>
+                    <li>**高层网络：** 将形状拼凑起来，认出了具体的部位（比如猫耳朵、狗鼻子、车轮子）。</li>
+                    <li>**最终输出：** 综合所有的部位特征，自信地大喊：“这是一只猫！”</li>
+                </ol>
+
+                <div class="text-center text-slate-400 bg-slate-100 py-6 rounded my-4 border border-slate-200">
+                    
+                </div>
+                <p class="text-sm text-center text-slate-500 mb-6">注：2012年，一个名为 **AlexNet** 的CNN模型横空出世，在世界图像识别大赛中以碾压优势夺冠，正式引爆了当今的深度学习狂潮。</p>
+
+                <div class="mt-4">
+                    <span class="math-reveal" onclick="document.getElementById('math2').style.display = document.getElementById('math2').style.display === 'block' ? 'none' : 'block'">点此查看：卷积的数学计算原理（理工科专供）</span>
+                    <div id="math2" class="math-content">
+                        卷积操作实际上是两个矩阵的“对应元素相乘再求和”。<br>
+                        图像矩阵区域 (3x3):<br>
+                        [1, 1, 1]<br>
+                        [0, 1, 1]<br>
+                        [0, 0, 1]<br><br>
+                        卷积核过滤器 (3x3):<br>
+                        [1, 0, 0]<br>
+                        [0, 1, 0]<br>
+                        [0, 0, 1]<br><br>
+                        计算过程：(1*1) + (1*1) + (1*1) + 其余为0 = 3。<br>
+                        结果为3，说明该图像区域与过滤器的特征高度吻合！
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Section 5 -->
+            <section id="sec5" class="content-section">
+                <h2 class="text-blue-600"><i class="fas fa-history"></i> 第五章：拥有记忆的AI —— 循环神经网络 (LSTM)</h2>
+                <p>CNN对于**静态的图片**非常在行。但是，如果我们要处理一段**语音**、一篇**文章**（如电影评论情感分析）、或者预测**明天的气温和股票**（时间序列预测），CNN就不管用了。</p>
+                <p>因为这些数据是有**时间先后顺序**的！</p>
+
+                <h3>5.1 传统神经网络的痛点：鱼的记忆</h3>
+                <p>普通的神经网络像是个“失忆症患者”。如果你给它看一句话：“我出生在法国，......（中间隔了100句话）......所以我能说流利的_____？” 机器根本填不出“法语”，因为它早就把前面提到的“法国”给忘了。</p>
+
+                <h3>5.2 RNN 与 升级版的学霸笔记：LSTM</h3>
+                <p>为了解决这个问题，科学家发明了带“记忆”的网络，称为 RNN (循环神经网络)。但普通的RNN记忆力还是很短。于是，终极神兵 **LSTM (长短期记忆网络)** 登场了！</p>
+
+                <div class="analogy-box">
+                    <strong><i class="fas fa-book-open"></i> 通俗比喻：学霸的荧光笔与橡皮擦</strong><br>
+                    LSTM不仅有记忆，它最牛的地方在于它有一个内部的“日记本”（细胞状态），并且配备了三个智能门卫：<br>
+                    1. **遗忘门（橡皮擦）：** 遇到没用的废话（如“嗯”、“啊”），立刻擦掉，不占脑容量。<br>
+                    2. **输入门（荧光笔）：** 遇到关键信息（如上文的“法国”），重重划线，记入日记本。<br>
+                    3. **输出门（嘴巴）：** 结合当前看到的词和日记本里的重点，说出正确的预测（“法语”）。
+                </div>
+
+                <div class="text-center text-slate-400 bg-slate-100 py-6 rounded my-4 border border-slate-200">
+                    
+                </div>
+                <p>正因为LSTM有这种精准控制记忆的能力，在处理长电影评论（如IMDB数据集）的情感分析时，LSTM的准确率（0.8496）远远碾压了普通的RNN网络（0.7372）。你的手机里的语音助手能听懂你说的一长串话，背后往往就有LSTM的功劳。</p>
+
+            </section>
+
+            <!-- Section 6 -->
+            <section id="sec6" class="content-section border-b-0">
+                <h2 class="text-blue-600"><i class="fas fa-database"></i> 第六章：AI的“黄冈密卷” —— 经典数据集</h2>
+                <p>就像要想考清华北大，必须做大量的“黄冈密卷”一样。一个AI够不够聪明，很大程度上取决于它做过多少优质的“练习题”。</p>
+                
+                <p>在计算机视觉领域，有几个鼎鼎大名的公开数据集（题库），全世界的AI都在上面打怪升级：</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                    <div class="bg-gray-50 p-4 border-t-4 border-gray-500 rounded">
+                        <h4 class="font-bold mb-2 text-lg">📝 MNIST 数据集</h4>
+                        <p class="text-sm text-slate-600">**AI界的“Hello World”**。包含6万张手写数字（0~9）的小图片。主要用于教AI认字，现在的准确率已经轻松达到 99.77% 以上。</p>
+                        <div class="mt-2 text-xs text-slate-400 bg-white p-2 rounded text-center"></div>
+                    </div>
+                    <div class="bg-teal-50 p-4 border-t-4 border-teal-500 rounded">
+                        <h4 class="font-bold mb-2 text-lg">🚗 CIFAR-10 数据集</h4>
+                        <p class="text-sm text-slate-600">包含5万张彩色图片，分为10个类别（飞机、汽车、鸟、猫、鹿、狗、青蛙、马、船、卡车）。这是对彩色物体识别的经典入门题库。</p>
+                        <div class="mt-2 text-xs text-slate-400 bg-white p-2 rounded text-center"></div>
+                    </div>
+                    <div class="bg-indigo-50 p-4 border-t-4 border-indigo-500 rounded">
+                        <h4 class="font-bold mb-2 text-lg">🔥 CIFAR-100 数据集</h4>
+                        <p class="text-sm text-slate-600">CIFAR的变态升级版！图片大小没变，但类别猛增到了100个（比如把花分成了兰花、郁金香、玫瑰等），是对AI分辨微小细节能力的严酷考验。</p>
+                        <div class="mt-2 text-xs text-slate-400 bg-white p-2 rounded text-center"></div>
+                    </div>
+                </div>
+
+                <div class="interactive-box mt-8">
+                    <strong><i class="fas fa-flag-checkered"></i> 课堂总结</strong><br>
+                    深度学习用**层级网络**跨越了底层数字与高级概念之间的语义鸿沟。<br>
+                    处理图片，找 **CNN（卷积神经网络）**，它像拿着手电筒找特征的高手。<br>
+                    处理文本/声音/股市预测，找 **LSTM（长短期记忆网络）**，它是带着荧光笔的学霸。<br>
+                    有了海量数据和算力，这个世界正在被深度的“智能”全面重塑！
+                </div>
+
+                <p class="mt-12 text-center text-slate-500 italic">
+                    “机器模仿人类神经元的旅程才刚刚开始，未来的无限可能，正在你们手中。”<br>
+                    <span class="font-bold text-blue-600 mt-2 block text-lg">Thank you! Any Questions?</span>
+                </p>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        // 侧边栏隐藏/显示逻辑
+        const toggleSidebarBtn = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+
+        toggleSidebarBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+        });
+
+        // 简单交互：高亮当前所在的侧边栏目录
+        const sections = document.querySelectorAll("section");
+        const navLi = document.querySelectorAll(".sidebar ul li a");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                // 判断当前滚动位置处于哪个section
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            // 移除所有高亮，并给当前所在的目录添加高亮
+            navLi.forEach((a) => {
+                a.classList.remove("bg-slate-700");
+                if (a.getAttribute("href").includes(current)) {
+                    a.classList.add("bg-slate-700");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
