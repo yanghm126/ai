@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神经网络通俗指南 - 给非程序员的AI课</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; scroll-behavior: smooth; background-color: #fcfdfd; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .content-section { min-height: 80vh; padding-top: 4rem; padding-bottom: 4rem; border-bottom: 1px dashed #e2e8f0; }
+        .concept-box { border-left: 4px solid #f43f5e; background-color: #fff1f2; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .analogy-box { border-left: 4px solid #f59e0b; background-color: #fffbeb; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .interactive-box { border-left: 4px solid #10b981; background-color: #ecfdf5; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; }
+        .math-reveal { cursor: pointer; color: #64748b; font-size: 0.9em; text-decoration: underline; }
+        .math-content { display: none; background: #f8fafc; padding: 1rem; border-radius: 0.5rem; margin-top: 0.5rem; font-family: monospace; overflow-x: auto; border: 1px solid #e2e8f0; }
+        h1, h2, h3 { color: #1e293b; font-weight: bold; }
+        h2 { font-size: 2rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        p { line-height: 1.8; color: #334155; margin-bottom: 1rem; font-size: 1.1rem; }
+        .highlight { background: linear-gradient(120deg, #ffe4e6 0%, #fecdd3 100%); padding: 0.1em 0.3em; border-radius: 0.2em; font-weight: bold; color: #9f1239; }
+    </style>
+</head>
+<body class="flex flex-col md:flex-row h-screen overflow-hidden">
+
+    <!-- 侧边栏导航 -->
+    <nav id="sidebar" class="sidebar w-full md:w-64 bg-slate-800 text-white h-auto md:h-screen overflow-y-auto flex-shrink-0 flex flex-col shadow-xl z-10 transition-transform">
+        <div class="p-6">
+            <h1 class="text-2xl font-extrabold tracking-wider mb-2">神经网络<br><span class="text-rose-400 text-lg">通俗指南</span></h1>
+            <p class="text-slate-400 text-sm">90分钟大课专用讲义</p>
+        </div>
+        <ul class="flex-1 px-4 space-y-2 pb-6">
+            <li><a href="#sec1" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-brain w-6"></i> 1. 终极造物：人类大脑</a></li>
+            <li><a href="#sec2" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-network-wired w-6"></i> 2. 神经元：内心的投票器</a></li>
+            <li><a href="#sec3" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-microchip w-6"></i> 3. 感知机：AI的老祖宗</a></li>
+            <li><a href="#sec4" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-snowflake w-6"></i> 4. 致命打击：异或危机</a></li>
+            <li><a href="#sec5" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-layer-group w-6"></i> 5. 破局：多层与非线性</a></li>
+            <li><a href="#sec6" class="block p-3 rounded hover:bg-slate-700 transition"><i class="fas fa-pen-fancy w-6"></i> 6. 实战：手写数字识别</a></li>
+        </ul>
+        <div class="p-4 bg-slate-900 text-xs text-slate-500 text-center">
+            Designed for Non-CS Students
+        </div>
+    </nav>
+
+    <!-- 主体内容区 -->
+    <main class="flex-1 h-screen overflow-y-auto bg-white relative flex flex-col scroll-pt-20">
+        
+        <!-- 顶部工具栏 -->
+        <header class="sticky top-0 bg-white/95 backdrop-blur-sm z-20 border-b border-slate-100 px-6 py-4 flex items-center shadow-sm">
+            <button id="toggleSidebar" class="text-slate-500 hover:text-rose-600 focus:outline-none transition p-2 rounded-md hover:bg-slate-100" title="隐藏/显示侧边栏">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            <span class="ml-4 font-bold text-slate-700 hidden sm:inline-block">课程大纲 - 第六章：神经网络与深度学习基础</span>
+        </header>
+
+        <!-- 实际内容区域 -->
+        <div class="p-6 md:p-12 lg:px-24">
+            
+            <!-- Section 1 -->
+            <section id="sec1" class="content-section pt-4">
+                <h2 class="text-rose-600"><i class="fas fa-brain"></i> 第一章：终极造物 —— 神奇的人类大脑</h2>
+                <p class="text-xl text-slate-500 mb-8">为什么计算机算力这么强，却在很长一段时间里，连一只猫都认不出来？</p>
+
+                <p>如果你让电脑计算圆周率到小数点后一百万位，它只需要零点几秒。但如果你让早期的电脑在一群人中找出“哪个是正在笑的小孩”，它会瞬间死机。</p>
+                <p>计算机科学家们很郁闷，于是他们把目光投向了宇宙中最复杂、最完美的计算机器：<strong>人类的大脑</strong>。</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div class="bg-slate-50 p-6 rounded-lg border border-slate-200">
+                        <h4 class="text-lg font-bold mb-4 text-slate-700"><i class="fas fa-desktop text-blue-500"></i> 传统计算机芯片 (CPU)</h4>
+                        <ul class="list-disc pl-5 space-y-2 text-sm text-slate-600">
+                            <li><strong>结构：</strong> 少数几个超级强大的核心（像几个绝顶聪明的教授）。</li>
+                            <li><strong>工作方式：</strong> 串行计算，必须一步一步按指令来。</li>
+                            <li><strong>功耗：</strong> 极高（动辄几百瓦，需要风扇疯狂散热）。</li>
+                            <li><strong>强项：</strong> 逻辑推理、精确的数学计算。</li>
+                        </ul>
+                    </div>
+                    <div class="bg-rose-50 p-6 rounded-lg border border-rose-200">
+                        <h4 class="text-lg font-bold mb-4 text-rose-800"><i class="fas fa-head-side-brain text-rose-500"></i> 人类大脑</h4>
+                        <ul class="list-disc pl-5 space-y-2 text-sm text-slate-600">
+                            <li><strong>结构：</strong> 拥有 <span class="font-bold text-rose-600">860亿个</span> 神经元！每个神经元还能与其他神经元建立 <span class="font-bold text-rose-600">10000个</span> 连接。</li>
+                            <li><strong>工作方式：</strong> 并行计算，所有神经元同时发力。</li>
+                            <li><strong>功耗：</strong> 极低（只有 <span class="font-bold text-rose-600">10~23瓦</span>，相当于一个昏暗的小灯泡）。</li>
+                            <li><strong>强项：</strong> 模式识别、直觉、模糊判断、学习与记忆。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p class="mt-6">科学家们恍然大悟：<strong>如果我们要让机器拥有人类一样的“直觉”和“学习能力”，我们为什么不用代码，在电脑里模拟出一个“大脑”呢？</strong></p>
+                <p>这就是 <span class="highlight">人工神经网络 (Artificial Neural Networks, ANN)</span> 诞生的初衷。</p>
+            </section>
+
+            <!-- Section 2 -->
+            <section id="sec2" class="content-section">
+                <h2 class="text-rose-600"><i class="fas fa-network-wired"></i> 第二章：神经元 —— 内心的“投票器”</h2>
+                <p>大脑是由无数个“神经元（神经细胞）”组成的。我们先来看看生物学上的神经元长什么样：</p>
+
+                <div class="text-center text-slate-400 bg-slate-100 py-6 rounded my-4 border border-slate-200">
+                    
+                </div>
+                
+                <p>它的工作原理非常像一个<strong>“投票统计器”</strong>：</p>
+                <ul class="list-disc pl-8 mb-4 text-slate-700 space-y-2">
+                    <li><strong>树突 (Dendrites)：</strong> 负责接收其他细胞传来的“刺激/信号”。</li>
+                    <li><strong>细胞体 (Cell Body)：</strong> 把所有接收到的刺激加在一起进行汇总。</li>
+                    <li><strong>轴突 (Axon)：</strong> 如果汇总的刺激足够大（超过了某个阈值），细胞就会“兴奋”，顺着轴突向下一个细胞发射信号。如果刺激太小，它就保持沉默。</li>
+                </ul>
+
+                <div class="analogy-box">
+                    <strong><i class="fas fa-bowl-food"></i> 通俗比喻：评价一碗兰州牛肉面</strong><br>
+                    假设你的大脑（一个神经元）现在要决定：<strong>“这碗牛肉面好吃吗？我要不要发朋友圈推荐？”</strong><br><br>
+                    
+                    <strong>1. 输入信号 (Inputs, $X$)：</strong> 你尝到了三个信息。$X_1$=汤头鲜美度，$X_2$=面条劲道度，$X_3$=牛肉分量。<br>
+                    <strong>2. 权重 (Weights, $W$)：</strong> 你个人的偏好！如果你是个“肉食狂魔”，那你给牛肉分量的权重($W_3$)就会非常大；如果你只在乎面条的口感，那 $W_2$ 就会很大。<br>
+                    <strong>3. 汇总求和：</strong> 你的大脑开始暗暗打分：(汤头×权重) + (面条×权重) + (牛肉×权重)。<br>
+                    <strong>4. 偏置 (Bias, $B$)：</strong> 你今天的心情。如果你今天刚发工资心情好（+10分），原本一般般的面你也觉得好吃；如果你今天刚被老板骂（-20分），这碗面必须好吃到极点你才愿意点头。<br>
+                    <strong>5. 激活函数 (Activation Function)：</strong> 最后做决定！如果总得分超过了60分（及格线），你的神经元“咔嚓”一下激活了，掏出手机发朋友圈：“太好吃了！”。如果低于60分，神经元沉默，你不发朋友圈。
+                </div>
+            </section>
+
+            <!-- Section 3 -->
+            <section id="sec3" class="content-section">
+                <h2 class="text-rose-600"><i class="fas fa-microchip"></i> 第三章：感知机 —— AI的老祖宗</h2>
+                <p>早在 1958 年，一位名叫 <strong>弗兰克·罗森布拉特 (Frank Rosenblatt)</strong> 的天才心理学家，就把上面那个评价牛肉面的逻辑，写成了数学公式和代码，发明了世界上第一个人工神经元模型：<span class="highlight">感知机 (Perceptron)</span>。</p>
+
+                <div class="text-center text-slate-400 bg-slate-100 py-6 rounded my-4 border border-slate-200">
+                    
+                </div>
+
+                <p>感知机是一个<strong>“二分类器”</strong>。它就像一条画在桌面上的直线。桌子上有红豆和绿豆，感知机的任务就是不断调整直线的角度（调整权重 $W$），直到这条线完美地把红豆和绿豆分开。</p>
+                <p>只要能用一条直线切开的问题（我们称之为<strong>线性可分</strong>），感知机都能完美解决。比如最基础的逻辑运算：</p>
+                
+                <ul class="list-none space-y-2 mt-4 ml-4">
+                    <li>✔️ <strong>“与 (AND)” 运算：</strong> 只有两科都及格，才能拿奖学金。（可以画一条直线切开）</li>
+                    <li>✔️ <strong>“或 (OR)” 运算：</strong> 只要有一科及格，就能不用留级。（也可以画一条直线切开）</li>
+                </ul>
+                <p>当时的人们彻底疯狂了，以为只要把很多个“感知机”连在一起，几年内就能造出和人类一样聪明的人工智能机器人！</p>
+            </section>
+
+            <!-- Section 4 -->
+            <section id="sec4" class="content-section">
+                <h2 class="text-rose-600"><i class="fas fa-snowflake"></i> 第四章：历史悬案 —— 致命的异或危机</h2>
+                <p>然而，就在大家狂热之时，1969年，AI领域的巨头、人工智能之父 <strong>马文·明斯基 (Marvin Minsky)</strong> 出版了一本名为《感知机》的书。这本书直接给当时的AI界判了死刑，导致了长达十多年的<strong>“人工智能寒冬”</strong>。</p>
+
+                <p>明斯基指出了一个致命的问题：感知机连最简单的 <span class="highlight">异或 (XOR)</span> 问题都解决不了！</p>
+
+                <div class="concept-box">
+                    <strong><i class="fas fa-bolt"></i> 什么是异或 (XOR)？</strong><br>
+                    异或的逻辑是：<strong>“相同为否，不同为真”</strong>。<br><br>
+                    <strong>生活中的例子：看电影的纠结。</strong><br>
+                    假设男生喜欢看科幻片，女生喜欢看喜剧片。<br>
+                    - 如果是一部纯科幻片，男生想看，女生不想看 -> 结果：<strong>男生一个人去看了（真）</strong>。<br>
+                    - 如果是一部纯喜剧片，女生想看，男生不想看 -> 结果：<strong>女生一个人去看了（真）</strong>。<br>
+                    - 如果是一部科幻喜剧片，两人都想看 -> 结果：<strong>为了争论谁买爆米花吵起来了，都不去了（否）</strong>。<br>
+                    - 如果是一部文艺悲剧片，两人都不想看 -> 结果：<strong>都不去（否）</strong>。
+                </div>
+
+                <p><strong>为什么感知机死在了这个问题上？</strong></p>
+                <p>因为如果你把这四种情况画在坐标纸上，你会发现：表示“去”的两个点，和表示“不去”的两个点是交叉相对的。<strong>你无论如何也不可能只画“一条直线”，把它们完美分开！</strong></p>
+                <div class="text-center text-slate-400 bg-slate-100 py-6 rounded my-4 border border-slate-200">
+                    
+                </div>
+                <p>因为感知机只能画直线（线性），所以它连看电影的问题都解决不了，更别提去识别复杂的猫猫狗狗了。</p>
+            </section>
+
+            <!-- Section 5 -->
+            <section id="sec5" class="content-section">
+                <h2 class="text-rose-600"><i class="fas fa-layer-group"></i> 第五章：破局 —— 多层感知机与“非线性”</h2>
+                <p>如何打破明斯基的魔咒？其实答案现在看起来非常简单：<strong>既然一条直线切不开，那我画两条直线，把它们框起来不就行了吗？</strong></p>
+
+                <p>为了画出两条甚至无数条线，科学家们提出了 <span class="highlight">多层感知机 (Multilayer Perceptron, MLP)</span>。也就是在输入和输出之间，加入一层或多层 <strong>隐藏层 (Hidden Layer)</strong>。</p>
+
+                <div class="analogy-box">
+                    <strong><i class="fas fa-building"></i> 通俗比喻：公司里的层级架构</strong><br>
+                    单一的神经元就像一个孤军奋战的基层员工，目光短浅，只能看懂一条直线。<br>
+                    但如果我们组建一个大公司：<br>
+                    1. <strong>输入层：</strong> 收集原始数据（比如图片的像素）。<br>
+                    2. <strong>隐藏层（中层管理）：</strong> 第一层的员工把像素连成线条；第二层的员工把线条拼成圆圈和三角形；第三层的员工把形状拼成猫耳朵和狗尾巴。<br>
+                    3. <strong>输出层（CEO）：</strong> 听取所有中层经理的汇报，拍板做出最终极其复杂的决定（“这是一只波斯猫！”）。<br><br>
+                    通过层层传递和组合，多层神经网络就能画出各种弯弯曲曲、极其复杂的边界线，从而解决任何难题！
+                </div>
+                <div class="text-center text-slate-400 bg-slate-100 py-6 rounded my-4 border border-slate-200">
+                    
+                </div>
+
+                <div class="mt-4">
+                    <span class="math-reveal" onclick="document.getElementById('math_xor').style.display = document.getElementById('math_xor').style.display === 'block' ? 'none' : 'block'">点击查看：在Python中用神经网络模拟XOR的代码</span>
+                    <div id="math_xor" class="math-content">
+<pre><code>import tensorflow
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+import numpy as np
+
+# XOR的四个输入情况和对应的正确答案
+x = np.array([[0,0], [0,1], [1,0], [1,1]])
+y = np.array([0, 1, 1, 0])
+
+model = Sequential()
+# 加入一个包含2个神经元的隐藏层，使用非线性的sigmoid激活函数
+model.add(Dense(2, activation='sigmoid', input_shape=(2,)))
+# 输出层，给出最终决定
+model.add(Dense(1))
+
+# 编译并训练模型10000次（让它自己慢慢试错调整权重）
+model.compile(loss='mse', optimizer='sgd')
+model.fit(x, y, epochs=10000, verbose=0)
+
+# 测试它是否学会了看电影的纠结逻辑
+print(model.predict(x))
+</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6 -->
+            <section id="sec6" class="content-section border-b-0">
+                <h2 class="text-rose-600"><i class="fas fa-pen-fancy"></i> 第六章：实战展现 —— 手写数字识别</h2>
+                <p>现在，我们把这种多层神经网络（MLP）用到真正有用的地方去：识别手写数字（MNIST数据集）。</p>
+                <p>这也是很多计算机学生学习AI的“第一盘菜”（Hello World）。</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6 items-center">
+                    <div>
+                        <div class="text-center text-slate-400 bg-slate-100 py-8 rounded border border-slate-200">
+                            
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-2 text-slate-700">它是怎么工作的？</h4>
+                        <ol class="list-decimal pl-5 space-y-3 text-sm text-slate-600">
+                            <li><strong>输入层拉平：</strong> 一张28x28的手写数字图片，其实是784个像素点。我们把这784个点排成一条长长的队伍，作为 <strong>784个输入神经元</strong>。</li>
+                            <li><strong>密集连接的隐藏层：</strong> 中间接上几层隐藏层（比如一层有128个神经元）。每个神经元都会和上一层的所有784个像素点连一根线（这就是为什么叫全连接层 Dense Layer）。</li>
+                            <li><strong>输出层打分：</strong> 最后一层固定设置 <strong>10个神经元</strong>（分别代表数字 0 到 9）。最后看看这10个神经元里谁最“兴奋”（得分最高），AI就猜这个数字是几！</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="interactive-box mt-10">
+                    <strong><i class="fas fa-lightbulb"></i> 总结与启发</strong><br>
+                    神经网络最迷人的地方在于，它并没有像传统编程那样写死“如果看到一个圆圈加一竖就是数字9”。<br>
+                    它只是提供了一个由成千上万个“权重参数”组成的巨大网络结构。你给它喂入几万张真实的数字图片，它内部的神经元就像我们在现实中学习一样，通过一次次地<strong>“犯错 -> 被纠正 -> 调整内部偏好（权重）”</strong>，最终自动涌现出了极高的智慧。<br>
+                    这也是为什么人们常说深度学习是一个<strong>“黑盒”</strong>——里面到底发生了什么化学反应，有时候连程序员自己都解释不清！
+                </div>
+
+                <p class="mt-12 text-center text-slate-500 italic">
+                    “我们其实并不完全是在写代码，我们是在用代码培育一个数字生命，等待智慧的涌现。”<br>
+                    <span class="font-bold text-rose-600 mt-2 block text-lg">Thank you! Any Questions?</span>
+                </p>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        // 侧边栏隐藏/显示逻辑
+        const toggleSidebarBtn = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+
+        toggleSidebarBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+        });
+
+        // 简单交互：高亮当前所在的侧边栏目录
+        const sections = document.querySelectorAll("section");
+        const navLi = document.querySelectorAll(".sidebar ul li a");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLi.forEach((a) => {
+                a.classList.remove("bg-slate-700");
+                if (a.getAttribute("href").includes(current)) {
+                    a.classList.add("bg-slate-700");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
