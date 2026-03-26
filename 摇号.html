@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机摇号工具</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 为摇出结果的数字球添加弹跳动画 */
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .number-ball-final {
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        /* 隐藏数字输入框自带的上下箭头 */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen flex items-center justify-center p-4 font-sans">
+
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 sm:p-8">
+        <!-- 标题 -->
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-bold text-gray-800 flex items-center justify-center gap-2">
+                <span class="text-3xl">🎰</span> 随机摇号工具
+            </h1>
+            <p class="text-gray-500 text-sm mt-2">设置范围，点击按钮抽取幸运数字</p>
+        </div>
+
+        <!-- 设置表单 -->
+        <div class="space-y-5">
+            <!-- 范围设置 -->
+            <div class="flex gap-4">
+                <div class="flex-1">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">最小值</label>
+                    <input type="number" id="minVal" value="1" class="block w-full rounded-lg border-gray-300 bg-gray-50 border p-3 text-center text-lg font-semibold focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all">
+                </div>
+                <div class="flex-1">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">最大值</label>
+                    <input type="number" id="maxVal" value="100" class="block w-full rounded-lg border-gray-300 bg-gray-50 border p-3 text-center text-lg font-semibold focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all">
+                </div>
+            </div>
+
+            <!-- 数量设置 -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">抽取数量</label>
+                <input type="number" id="countVal" value="1" min="1" class="block w-full rounded-lg border-gray-300 bg-gray-50 border p-3 text-center text-lg font-semibold focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all">
+            </div>
+
+            <!-- 选项设置 -->
+            <div class="flex items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
+                <input type="checkbox" id="allowDuplicates" class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer">
+                <label for="allowDuplicates" class="ml-3 block text-sm font-medium text-gray-700 cursor-pointer">
+                    允许摇出重复数字
+                </label>
+            </div>
+        </div>
+
+        <!-- 错误提示区 -->
+        <div id="errorMsg" class="text-red-500 text-sm mt-3 text-center font-medium hidden bg-red-50 py-2 rounded-lg"></div>
+
+        <!-- 操作按钮 -->
+        <div class="mt-6 flex flex-col gap-3">
+            <button id="drawBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform active:scale-95 flex justify-center items-center text-lg tracking-wide">
+                开始摇号
+            </button>
+            <button id="shuffleBtn" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform active:scale-95 flex justify-center items-center text-base tracking-wide">
+                打乱全范围 (如1-20随机排序)
+            </button>
+        </div>
+
+        <!-- 结果展示区 -->
+        <div class="mt-8 border-t border-gray-100 pt-6">
+            <h2 class="text-sm font-semibold text-gray-400 mb-4 text-center uppercase tracking-wider">摇号结果</h2>
+            <div id="resultArea" class="flex flex-wrap justify-center gap-3 min-h-[64px] items-center">
+                <span class="text-gray-300 italic">等待开始...</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const minInput = document.getElementById('minVal');
+        const maxInput = document.getElementById('maxVal');
+        const countInput = document.getElementById('countVal');
+        const duplicateCheckbox = document.getElementById('allowDuplicates');
+        const drawBtn = document.getElementById('drawBtn');
+        const shuffleBtn = document.getElementById('shuffleBtn');
+        const resultArea = document.getElementById('resultArea');
+        const errorMsg = document.getElementById('errorMsg');
+
+        let isDrawing = false; // 状态锁，防止连按
+
+        function startProcess(isShuffleMode) {
+            if (isDrawing) return;
+
+            // 获取并转换输入值为整数
+            const min = parseInt(minInput.value);
+            const max = parseInt(maxInput.value);
+            let count = parseInt(countInput.value);
+            let allowDupes = duplicateCheckbox.checked;
+
+            // --- 表单验证 ---
+            if (isNaN(min) || isNaN(max)) {
+                showError("请确保范围框填入有效的数字！");
+                return;
+            }
+            if (min > max) {
+                showError("最小值不能大于最大值！");
+                return;
+            }
+
+            const rangeSize = max - min + 1;
+
+            if (isShuffleMode) {
+                count = rangeSize;
+                allowDupes = false; // 排序模式必定是不重复的
+                if (rangeSize > 500) {
+                    showError("打乱全范围建议不超过 500 个数，以免页面卡顿！");
+                    return;
+                }
+            } else {
+                if (isNaN(count) || count < 1) {
+                    showError("抽取数量至少为 1！");
+                    return;
+                }
+                if (!allowDupes && count > rangeSize) {
+                    showError("不重复抽取时，数量不能超过数字总范围大小！");
+                    return;
+                }
+            }
+
+            // 验证通过，准备摇号
+            hideError();
+            isDrawing = true;
+            
+            // 更新按钮状态
+            const activeBtn = isShuffleMode ? shuffleBtn : drawBtn;
+            const originalClasses = activeBtn.className;
+            
+            drawBtn.disabled = true;
+            shuffleBtn.disabled = true;
+            
+            activeBtn.className = 'w-full bg-gray-400 text-white font-bold py-3 px-4 rounded-xl shadow-lg cursor-wait flex justify-center items-center text-base tracking-wide transition-all';
+            activeBtn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                处理中...
+            `;
+
+            // --- 摇号动画逻辑 ---
+            const duration = 1200; // 动画持续时间(毫秒)
+            const interval = 60; // 每次数字跳动间隔(毫秒)
+            let elapsed = 0;
+
+            // 提前生成最终结果
+            const finalNumbers = generateNumbers(min, max, count, allowDupes);
+
+            // 性能优化：如果数量太大，降低动画刷新率
+            const actualInterval = count > 100 ? 150 : interval;
+
+            const timer = setInterval(() => {
+                elapsed += actualInterval;
+                
+                if (count <= 200) {
+                    // 动画期间随机生成跳动的数字（纯视觉效果）
+                    const tempNumbers = [];
+                    for(let i=0; i<count; i++) {
+                        tempNumbers.push(Math.floor(Math.random() * rangeSize) + min);
+                    }
+                    renderNumbers(tempNumbers, true);
+                } else if (elapsed === actualInterval) {
+                    resultArea.innerHTML = '<span class="text-gray-400 font-bold animate-pulse">努力打乱排序中...</span>';
+                }
+
+                // 动画结束
+                if (elapsed >= duration) {
+                    clearInterval(timer);
+                    renderNumbers(finalNumbers, false); // 渲染最终结果
+                    
+                    // 恢复按钮状态
+                    isDrawing = false;
+                    drawBtn.disabled = false;
+                    shuffleBtn.disabled = false;
+                    activeBtn.className = originalClasses;
+                    activeBtn.innerText = isShuffleMode ? "重新打乱" : "重新摇号";
+                }
+            }, actualInterval);
+        }
+
+        drawBtn.addEventListener('click', () => startProcess(false));
+        shuffleBtn.addEventListener('click', () => startProcess(true));
+
+        // 核心：生成随机不重复/重复数字
+        function generateNumbers(min, max, count, allowDupes) {
+            if (allowDupes) {
+                // 允许重复，直接随机即可
+                const nums = [];
+                for (let i = 0; i < count; i++) {
+                    nums.push(Math.floor(Math.random() * (max - min + 1)) + min);
+                }
+                return nums;
+            } else {
+                // 不允许重复
+                const rangeSize = max - min + 1;
+                
+                // 算法优化：如果范围不大，且抽取的数量占比较高，采用洗牌算法，避免Set长时间死循环
+                if (rangeSize <= 10000 && count > rangeSize / 3) {
+                    const pool = Array.from({length: rangeSize}, (_, i) => min + i);
+                    for (let i = pool.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [pool[i], pool[j]] = [pool[j], pool[i]];
+                    }
+                    return pool.slice(0, count);
+                } else {
+                    // 如果范围很大，抽取数量少，直接使用 Set 去重随机更高效
+                    const nums = new Set();
+                    while (nums.size < count) {
+                        nums.add(Math.floor(Math.random() * (max - min + 1)) + min);
+                    }
+                    return Array.from(nums);
+                }
+            }
+        }
+
+        // 渲染数字球到页面上
+        function renderNumbers(nums, isAnimating) {
+            resultArea.innerHTML = ''; // 清空当前内容
+            const count = nums.length;
+            
+            // 动态调整球的大小，防止数量过多时占满屏幕
+            let baseClass = "flex items-center justify-center rounded-full font-bold shadow-inner ";
+            let finalExtraClass = "shadow-lg border-2 border-white number-ball-final ";
+            
+            if (count > 80) {
+                baseClass += "w-7 h-7 sm:w-8 sm:h-8 text-xs sm:text-sm ";
+                finalExtraClass = "shadow border border-white number-ball-final ";
+            } else if (count > 30) {
+                baseClass += "w-10 h-10 sm:w-12 sm:h-12 text-base sm:text-lg ";
+            } else {
+                baseClass += "w-14 h-14 sm:w-16 sm:h-16 text-xl sm:text-2xl ";
+            }
+            
+            nums.forEach((n, index) => {
+                const ball = document.createElement('div');
+                
+                if (isAnimating) {
+                    // 动画跳动状态：灰色
+                    ball.className = baseClass + `bg-gray-200 text-gray-500`;
+                } else {
+                    // 最终结果状态：带渐变色，弹跳入场
+                    const gradient = count > 30 ? 'from-emerald-500 to-teal-600' : 'from-blue-500 to-indigo-600';
+                    ball.className = baseClass + `bg-gradient-to-br ${gradient} text-white ` + finalExtraClass;
+                    // 限制最大延迟时间，避免数量过多时等待太久
+                    const delay = Math.min(index * 0.05, 1.5); 
+                    ball.style.animationDelay = `${delay}s`; 
+                }
+                
+                ball.innerText = n;
+                resultArea.appendChild(ball);
+            });
+        }
+
+        // 显示和隐藏错误信息
+        function showError(msg) {
+            errorMsg.innerText = msg;
+            errorMsg.classList.remove('hidden');
+        }
+
+        function hideError() {
+            errorMsg.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
