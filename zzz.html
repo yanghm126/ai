@@ -1,0 +1,248 @@
+import React, { useState, useEffect } from 'react';
+import { CreditCard, CalendarDays, AlertCircle, CheckCircle2, Info, Wallet } from 'lucide-react';
+
+export default function App() {
+  const [cardsInfo, setCardsInfo] = useState([]);
+
+  // 原始信用卡数据
+  const initialCards = [
+    {
+      id: 'minsheng',
+      bank: '民生银行',
+      billDay: 21,
+      payDay: 10,
+      limit: 50000,
+      tempLimit: 0,
+      theme: 'from-teal-500 to-emerald-700',
+      logoText: 'CMBC'
+    },
+    {
+      id: 'bocom',
+      bank: '交通银行',
+      billDay: 21,
+      payDay: 15,
+      limit: 30000,
+      tempLimit: 0,
+      theme: 'from-blue-700 to-blue-900',
+      logoText: 'BOCOM'
+    },
+    {
+      id: 'spdb',
+      bank: '浦发银行',
+      billDay: 24,
+      payDay: 13,
+      limit: 43000,
+      tempLimit: 0,
+      theme: 'from-indigo-500 to-purple-700',
+      logoText: 'SPDB'
+    },
+    {
+      id: 'cmb',
+      bank: '招商银行',
+      billDay: 25,
+      payDay: 13,
+      limit: 50000,
+      tempLimit: 110000,
+      theme: 'from-red-500 to-rose-700',
+      logoText: 'CMB'
+    }
+  ];
+
+  // 计算日期的核心逻辑
+  const calculateCardStatus = (billDay, payDay) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // 抹平时间差异，只算天数
+
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth(); 
+    const currentDate = today.getDate();
+
+    let statusType = "";
+    let statusText = "";
+    let targetDate = new Date();
+    let daysLeft = 0;
+    let isUrgent = false;
+
+    if (currentDate <= payDay) {
+      // 1. 本月1号到还款日之间：通常是上个账单周期的还款期
+      statusType = "repayment";
+      statusText = "待还款";
+      targetDate = new Date(currentYear, currentMonth, payDay);
+      isUrgent = ((targetDate - today) / (1000 * 60 * 60 * 24)) <= 5; // 距离还款小于等于5天标红
+    } else if (currentDate > payDay && currentDate <= billDay) {
+      // 2. 还款日之后到账单日之间：处于未出账的安全期
+      statusType = "billing";
+      statusText = "未出账";
+      targetDate = new Date(currentYear, currentMonth, billDay);
+    } else {
+      // 3. 账单日之后到月底：本期已出账，准备下个月还款
+      statusType = "repayment";
+      statusText = "已出账，待还款";
+      // 下个月的还款日
+      targetDate = new Date(currentYear, currentMonth + 1, payDay);
+      isUrgent = false;
+    }
+
+    daysLeft = Math.ceil((targetDate - today) / (1000 * 60 * 60 * 24));
+
+    return {
+      statusType,
+      statusText,
+      daysLeft,
+      targetDate: `${targetDate.getMonth() + 1}月${targetDate.getDate()}日`,
+      isUrgent
+    };
+  };
+
+  useEffect(() => {
+    // 初始化计算每张卡的状态
+    const processedCards = initialCards.map(card => {
+      const status = calculateCardStatus(card.billDay, card.payDay);
+      return { ...card, ...status };
+    });
+    setCardsInfo(processedCards);
+  }, []);
+
+  // 计算总额度
+  const totalBaseLimit = initialCards.reduce((sum, card) => sum + card.limit, 0);
+  const totalTempLimit = initialCards.reduce((sum, card) => sum + card.tempLimit, 0);
+
+  const formatMoney = (num) => {
+    return num.toLocaleString('zh-CN', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 text-gray-800 p-4 md:p-8 font-sans">
+      <div className="max-w-5xl mx-auto space-y-8">
+        
+        {/* Header 区 */}
+        <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 tracking-tight flex items-center gap-2">
+              <Wallet className="text-blue-600" size={32} />
+              我的信用卡管家
+            </h1>
+            <p className="text-gray-500 mt-1 flex items-center gap-1">
+              <CalendarDays size={16} /> 
+              今天是 {new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </p>
+          </div>
+
+          <div className="bg-white px-6 py-4 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-6">
+            <div>
+              <p className="text-sm text-gray-500 mb-1">总固定额度</p>
+              <p className="text-2xl font-bold text-gray-800">¥ {formatMoney(totalBaseLimit)}</p>
+            </div>
+            {totalTempLimit > 0 && (
+              <div className="pl-6 border-l border-gray-100">
+                <p className="text-sm text-gray-500 mb-1">总临时额度</p>
+                <p className="text-2xl font-bold text-orange-500">¥ {formatMoney(totalTempLimit)}</p>
+              </div>
+            )}
+          </div>
+        </header>
+
+        {/* 信用卡网格 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6">
+          {cardsInfo.map((card) => (
+            <div key={card.id} className="group relative rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-white border border-gray-100 flex flex-col">
+              
+              {/* 卡片上半部分 - 模拟物理信用卡 */}
+              <div className={`p-6 pb-8 bg-gradient-to-br ${card.theme} text-white relative`}>
+                <div className="absolute top-0 right-0 p-6 opacity-20 transform translate-x-4 -translate-y-4">
+                  <CreditCard size={120} />
+                </div>
+                
+                <div className="flex justify-between items-start relative z-10">
+                  <div className="flex items-center gap-2">
+                    <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center font-bold text-white shadow-inner">
+                      {card.bank[0]}
+                    </div>
+                    <span className="text-xl font-medium tracking-wider">{card.bank}</span>
+                  </div>
+                  <span className="text-sm font-semibold tracking-widest bg-black/20 px-3 py-1 rounded-full">
+                    {card.logoText}
+                  </span>
+                </div>
+
+                <div className="mt-8 relative z-10">
+                  <p className="text-sm text-white/70 mb-1">信用额度 (¥)</p>
+                  <div className="flex items-end gap-3">
+                    <p className="text-4xl font-bold tracking-tight">{formatMoney(card.limit)}</p>
+                    {card.tempLimit > 0 && (
+                      <span className="bg-orange-500/90 text-white text-xs px-2 py-1 rounded-md font-medium flex items-center gap-1 mb-1 shadow-sm">
+                        临 +{formatMoney(card.tempLimit)}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mt-8 flex justify-between text-sm text-white/80 relative z-10">
+                  <div>
+                    <span className="uppercase text-xs opacity-70 block mb-1">账单日</span>
+                    <span className="font-medium text-base">每月 {card.billDay} 日</span>
+                  </div>
+                  <div className="text-right">
+                    <span className="uppercase text-xs opacity-70 block mb-1">还款日</span>
+                    <span className="font-medium text-base">每月 {card.payDay} 日</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 卡片下半部分 - 智能状态提示 */}
+              <div className="p-4 bg-white flex-1 flex flex-col justify-center">
+                <div className={`flex items-center justify-between p-3 rounded-xl border ${
+                  card.statusType === 'repayment' && card.isUrgent 
+                    ? 'bg-red-50 border-red-100' 
+                    : card.statusType === 'repayment' 
+                      ? 'bg-orange-50 border-orange-100'
+                      : 'bg-green-50 border-green-100'
+                }`}>
+                  <div className="flex items-center gap-3">
+                    {card.statusType === 'repayment' && card.isUrgent ? (
+                      <AlertCircle className="text-red-500" size={24} />
+                    ) : card.statusType === 'repayment' ? (
+                      <Info className="text-orange-500" size={24} />
+                    ) : (
+                      <CheckCircle2 className="text-green-500" size={24} />
+                    )}
+                    
+                    <div>
+                      <p className={`font-medium ${
+                        card.statusType === 'repayment' && card.isUrgent 
+                          ? 'text-red-700' 
+                          : card.statusType === 'repayment' 
+                            ? 'text-orange-700'
+                            : 'text-green-700'
+                      }`}>
+                        {card.statusType === 'repayment' ? '距离还款日还有' : '距离下期账单还有'}
+                      </p>
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        目标日期: {card.targetDate}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className={`text-3xl font-bold ${
+                    card.statusType === 'repayment' && card.isUrgent 
+                      ? 'text-red-600' 
+                      : card.statusType === 'repayment' 
+                        ? 'text-orange-600'
+                        : 'text-green-600'
+                  }`}>
+                    {card.daysLeft} <span className="text-sm font-normal">天</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        {/* 底部备注 */}
+        <div className="text-center text-sm text-gray-400 mt-8 pb-8">
+          <p>温馨提示：数据计算基于当前设备本地日期。实际还款情况请以各银行官方 APP 为准。</p>
+        </div>
+      </div>
+    </div>
+  );
+}
