@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雅思每日打卡 · 时间表追踪</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F2E9;
+    --card:#FFFDF7;
+    --ink:#231D14;
+    --ink-70:rgba(35,29,20,.7);
+    --ink-55:rgba(35,29,20,.55);
+    --ink-40:rgba(35,29,20,.4);
+    --ink-25:rgba(35,29,20,.25);
+    --ink-12:rgba(35,29,20,.12);
+    --line:#E5DDCC;
+    --accent:#BF4A10;
+    --accent-deep:#96380A;
+    --accent-soft:rgba(191,74,16,.08);
+    --heat0:#EBE4D4;
+    --shadow:0 1px 2px rgba(35,29,20,.05), 0 8px 28px -12px rgba(35,29,20,.14);
+    --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+    --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.6;
+    min-height:100vh;
+  }
+  /* 极淡纸纹 */
+  body::before{
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:40px 24px 60px}
+
+  /* ───────── 顶栏 ───────── */
+  header.top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+  .brand h1{font-family:var(--serif);font-weight:900;font-size:30px;letter-spacing:.02em;line-height:1.2}
+  .brand .sub{margin-top:6px;font-size:12px;letter-spacing:.32em;color:var(--ink-55);text-transform:uppercase}
+  .brand .sub b{color:var(--accent);font-weight:500}
+
+  .datenav{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:var(--shadow)}
+  .datenav button{
+    font-family:var(--sans);font-size:15px;line-height:1;color:var(--ink-70);
+    background:none;border:none;border-radius:8px;width:34px;height:34px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;
+  }
+  .datenav button:hover:not(:disabled){background:var(--accent-soft);color:var(--accent)}
+  .datenav button:disabled{opacity:.25;cursor:default}
+  .datenav .cur{min-width:158px;text-align:center;padding:0 6px}
+  .datenav .cur .d{font-family:var(--serif);font-weight:700;font-size:16px;line-height:1.3;font-variant-numeric:tabular-nums}
+  .datenav .cur .w{font-size:11px;color:var(--ink-55);letter-spacing:.1em}
+  .datenav .cur .w .back{color:var(--accent)}
+  #btnToday{display:none;font-family:var(--sans);font-size:12px;color:var(--accent);background:var(--accent-soft);
+    border:none;border-radius:8px;padding:8px 12px;cursor:pointer;margin-right:2px;white-space:nowrap}
+  #btnToday:hover{background:rgba(191,74,16,.16)}
+  #btnToday.show{display:block}
+
+  /* ───────── 统计带 ───────── */
+  .stats{
+    display:flex;align-items:center;gap:34px;flex-wrap:wrap;
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:24px 32px;box-shadow:var(--shadow);margin-bottom:26px;
+  }
+  .ringbox{display:flex;align-items:center;gap:20px}
+  .ring{position:relative;width:118px;height:118px;flex:none}
+  .ring svg{transform:rotate(-90deg);display:block}
+  .ring .track{stroke:var(--ink-12)}
+  .ring .bar{stroke:var(--accent);stroke-linecap:round;transition:stroke-dashoffset .6s cubic-bezier(.22,.9,.34,1)}
+  .ring .full{stroke:var(--accent-deep)}
+  .ring .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring .pct{font-family:var(--serif);font-weight:900;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+  .ring .pct small{font-size:14px;font-weight:700;margin-left:1px}
+  .ring .sub{font-size:11px;color:var(--ink-55);margin-top:5px;letter-spacing:.06em}
+  .ringcaption .cap-t{font-family:var(--serif);font-weight:700;font-size:18px}
+  .ringcaption .cap-d{font-size:13px;color:var(--ink-55);margin-top:3px}
+  .ringcaption .cap-d b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+  .ringcaption .perfect{display:none;color:var(--accent);font-size:12px;margin-top:6px;letter-spacing:.24em}
+  .ringcaption.perfect .perfect{display:block}
+
+  .statgrid{display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:10px 36px;margin-left:auto}
+  .stat .k{font-size:12px;color:var(--ink-55);letter-spacing:.06em}
+  .stat .v{font-family:var(--serif);font-weight:900;font-size:24px;line-height:1.25;font-variant-numeric:tabular-nums}
+  .stat .v small{font-size:13px;font-weight:500;color:var(--ink-55);margin-left:2px}
+  .stat .v em{font-style:normal;font-size:14px;color:var(--ink-55);font-weight:500}
+  .stat.study .v{color:var(--accent)}
+
+  /* ───────── 三段时间轴 ───────── */
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
+  .col{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 22px 14px;box-shadow:var(--shadow)}
+  .colhead{display:flex;align-items:baseline;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:6px}
+  .colhead .zi{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1}
+  .colhead .en{font-size:10px;letter-spacing:.3em;color:var(--ink-40);text-transform:uppercase}
+  .colhead .prog{margin-left:auto;text-align:right}
+  .colhead .prog .n{font-size:12px;color:var(--ink-55);font-variant-numeric:tabular-nums}
+  .colhead .prog .n b{color:var(--ink);font-weight:700}
+  .colhead .prog .bar{width:52px;height:3px;border-radius:2px;background:var(--ink-12);margin-top:5px;margin-left:auto;overflow:hidden}
+  .colhead .prog .bar i{display:block;height:100%;width:0;background:var(--accent);border-radius:2px;transition:width .4s ease}
+
+  ul.timeline{list-style:none}
+  li.item{position:relative;display:flex;align-items:flex-start;gap:10px;padding:9px 0 9px 4px}
+  /* 轴线 */
+  li.item::before{content:'';position:absolute;left:13px;top:0;bottom:0;width:1.5px;background:var(--line)}
+  li.item:first-child::before{top:22px}
+  li.item:last-child::before{bottom:calc(100% - 22px)}
+  li.item.single:last-child::before,li.item.grouplabel:last-child::before{bottom:calc(100% - 22px)}
+
+  .node{position:relative;z-index:1;flex:none;width:10px;height:10px;border-radius:50%;
+    margin-top:9px;background:var(--card);border:2px solid var(--ink-25);transition:all .25s ease}
+  li.item.done .node{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+
+  .when{flex:none;width:86px;font-size:12px;color:var(--ink-55);padding-top:10px;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+  .when b{display:block;color:var(--ink-70);font-weight:600;font-size:12.5px}
+
+  .check{
+    flex:none;width:22px;height:22px;margin-top:9px;border-radius:50%;
+    border:1.5px solid var(--ink-25);background:transparent;cursor:pointer;color:#fff;
+    display:flex;align-items:center;justify-content:center;padding:0;
+    transition:border-color .15s,background .2s,transform .1s;
+  }
+  .check:hover{border-color:var(--accent)}
+  .check:active{transform:scale(.86)}
+  .check svg{width:13px;height:13px;display:block}
+  .check svg path{stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .3s ease .05s}
+  li.item.done .check{background:var(--accent);border-color:var(--accent)}
+  li.item.done .check svg path{stroke-dashoffset:0}
+
+  .body{flex:1;min-width:0;padding-top:7px}
+  .label{position:relative;display:inline;font-size:14.5px;font-weight:500;line-height:1.5}
+  .label::after{content:'';position:absolute;left:0;top:52%;height:1.5px;width:0;background:var(--ink-40);transition:width .35s ease}
+  li.item.done .label{color:var(--ink-40)}
+  li.item.done .label::after{width:100%}
+  .tag{display:inline-block;vertical-align:1px;font-size:10px;line-height:1;padding:3px 6px;border-radius:99px;margin-left:7px;letter-spacing:.08em}
+  .tag.study{color:var(--accent);border:1px solid rgba(191,74,16,.35);background:var(--accent-soft)}
+  .tag.life{color:var(--ink-40);border:1px solid var(--ink-12)}
+  li.item.done .tag.study{opacity:.5}
+
+  /* 穿插完成组 */
+  li.grouplabel .gl-note{font-size:12px;color:var(--accent);letter-spacing:.14em;margin-top:2px}
+  ul.sub{list-style:none;margin:2px 0 6px 0;padding-left:2px}
+  ul.sub li.item{padding:6px 0 6px 8px}
+  ul.sub li.item::before{left:21px}
+  ul.sub .node{display:none}
+  ul.sub .check{margin-top:7px}
+
+  /* ───────── 热力图 ───────── */
+  .heatmap-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 28px;box-shadow:var(--shadow);margin-top:18px}
+  .hm-head{display:flex;align-items:baseline;gap:14px;margin-bottom:14px}
+  .hm-head .t{font-family:var(--serif);font-weight:700;font-size:16px}
+  .hm-head .s{font-size:12px;color:var(--ink-55)}
+  .hm-legend{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink-55)}
+  .hm-legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+  .heat{display:grid;grid-template-columns:repeat(7,15px);gap:4px;justify-content:start}
+  .heat .cell{width:15px;height:15px;border-radius:3.5px;background:var(--heat0);cursor:default;transition:transform .1s}
+  .heat .cell:hover{transform:scale(1.18)}
+  .heat .cell.today{outline:2px solid var(--accent);outline-offset:1.5px}
+  .heat .cell.gap{background:none;pointer-events:none}
+  .hm-range{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-40);margin-top:9px;font-variant-numeric:tabular-nums}
+
+  /* ───────── footer ───────── */
+  footer{margin-top:22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  footer .acts{display:flex;gap:4px;flex-wrap:wrap}
+  footer .acts button,footer .acts label{
+    font-family:var(--sans);font-size:12px;color:var(--ink-55);background:none;border:none;cursor:pointer;
+    padding:6px 10px;border-radius:8px;transition:background .15s,color .15s;display:inline-block;
+  }
+  footer .acts button:hover,footer .acts label:hover{background:var(--card);color:var(--accent)}
+  footer .note{font-size:11.5px;color:var(--ink-40);margin-left:auto}
+  #fileImport{display:none}
+
+  /* toast */
+  #toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(16px);opacity:0;
+    background:var(--ink);color:#FBF7EE;font-size:13px;padding:10px 20px;border-radius:99px;
+    pointer-events:none;transition:all .3s ease;z-index:99;letter-spacing:.04em}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media (max-width:920px){
+    .cols{grid-template-columns:1fr}
+    .statgrid{margin-left:0;grid-template-columns:repeat(4,1fr);width:100%}
+    .stats{gap:22px}
+    .wrap{padding:28px 16px 48px}
+    .when{width:78px}
+  }
+  @media (max-width:560px){
+    .brand h1{font-size:25px}
+    .statgrid{grid-template-columns:repeat(2,1fr)}
+    .stat .v{font-size:20px}
+    footer .note{margin-left:0;width:100%}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <h1>雅思每日打卡</h1>
+      <div class="sub">IELTS <b>·</b> DAILY ROUTINE TRACKER</div>
+    </div>
+    <nav class="datenav">
+      <button id="btnToday">回到今天</button>
+      <button id="btnPrev" aria-label="前一天">‹</button>
+      <div class="cur">
+        <div class="d" id="navDate">—</div>
+        <div class="w" id="navWeek">—</div>
+      </div>
+      <button id="btnNext" aria-label="后一天">›</button>
+    </nav>
+  </header>
+
+  <section class="stats" id="statsBox">
+    <div class="ringbox">
+      <div class="ring">
+        <svg width="118" height="118" viewBox="0 0 118 118">
+          <circle class="track" cx="59" cy="59" r="52" fill="none" stroke-width="7"/>
+          <circle class="bar" id="ringBar" cx="59" cy="59" r="52" fill="none" stroke-width="7"
+                  stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+        </svg>
+        <div class="center">
+          <div class="pct"><span id="pctNum">0</span><small>%</small></div>
+          <div class="sub" id="pctSub">—</div>
+        </div>
+      </div>
+      <div class="ringcaption" id="ringCap">
+        <div class="cap-t" id="capT">今日完成</div>
+        <div class="cap-d" id="capD">已勾选 <b id="capDone">0</b> / <b id="capTotal">0</b> 项</div>
+        <div class="perfect">圆 满 · PERFECT DAY</div>
+      </div>
+    </div>
+    <div class="statgrid">
+      <div class="stat"><div class="k">连续打卡</div><div class="v"><span id="stStreak">0</span><small>天</small></div></div>
+      <div class="stat"><div class="k">打卡天数</div><div class="v"><span id="stDays">0</span><small>天</small></div></div>
+      <div class="stat study"><div class="k" id="stStudyK">核心学习（今日）</div><div class="v"><span id="stStudy">0/7</span></div></div>
+      <div class="stat"><div class="k">累计完成</div><div class="v"><span id="stTotal">0</span><small>项</small></div></div>
+    </div>
+  </section>
+
+  <main class="cols" id="cols"></main>
+
+  <section class="heatmap-card">
+    <div class="hm-head">
+      <span class="t">坚持的痕迹</span>
+      <span class="s">最近 35 天 · 颜色越深完成率越高</span>
+      <div class="hm-legend">少 <i style="background:var(--heat0)"></i><i style="background:rgba(191,74,16,.22)"></i><i style="background:rgba(191,74,16,.45)"></i><i style="background:rgba(191,74,16,.7)"></i><i style="background:var(--accent)"></i> 多</div>
+    </div>
+    <div class="heat" id="heat"></div>
+    <div class="hm-range"><span id="hmStart">—</span><span>今天</span></div>
+  </section>
+
+  <footer>
+    <div class="acts">
+      <button id="btnExport">导出数据</button>
+      <label for="fileImport">导入数据</label>
+      <input type="file" id="fileImport" accept=".json">
+      <button id="btnClear">清除本日勾选</button>
+    </div>
+    <div class="note">数据自动保存在本浏览器（localStorage）· 换设备请用导出 / 导入</div>
+  </footer>
+
+</div>
+<div id="toast"></div>
+
+<script>
+/* ══════════════════════════════════════════════
+   时间表数据（按原图整理，可直接在此增删修改）
+   type: "study" = 核心学习任务 ｜ "life" = 作息节点
+   ══════════════════════════════════════════════ */
+const SCHEDULE = [
+  { key:'am', zi:'早', en:'Morning', items:[
+    { t:'07:30', text:'起床', type:'life' },
+    { t:'08:00', text:'开始学习', type:'life' },
+    { group:'08:00 – 11:30', note:'三项穿插完成', items:[
+      { text:'背单词 · 复习单词 · 过单词', type:'study' },
+      { text:'语料库听写', type:'study' },
+      { text:'练口语 · 大声朗读短语', type:'study' },
+    ]},
+    { t:'11:30', text:'午饭', type:'life' },
+  ]},
+  { key:'pm', zi:'午', en:'Afternoon', items:[
+    { t:'12:00', text:'复习单词 · 娱乐', type:'life' },
+    { t:'13:00', text:'午休', type:'life' },
+    { t:'14:00', text:'开始学习', type:'life' },
+    { t:'14:00 – 16:00', text:'听力真题 ＋ 阅读真题', type:'study' },
+    { t:'16:00 – 17:00', text:'过口语 · 至少一个 Part 1', type:'study' },
+    { t:'17:00 – 18:00', text:'复盘 · 纠错', type:'study' },
+    { t:'18:00', text:'娱乐', type:'life' },
+  ]},
+  { key:'ev', zi:'晚', en:'Evening', items:[
+    { t:'19:00', text:'复习单词 · 娱乐', type:'life' },
+    { t:'20:00', text:'开始学习', type:'life' },
+    { t:'20:00 – 22:00', text:'写作文 · 改作文', type:'study' },
+    { t:'22:00', text:'娱乐放松', type:'life' },
+    { t:'23:30', text:'睡觉', type:'life' },
+  ]},
+];
+
+/* ── 展平全部任务，生成稳定 id ── */
+const FLAT = [];   // { id, sec, text, type }
+SCHEDULE.forEach(sec=>{
+  sec.items.forEach((it,i)=>{
+    if(it.group){
+      it.items.forEach((sub,j)=> FLAT.push({ id:`${sec.key}-${i}-${j}`, sec:sec.key, text:sub.text, type:sub.type }));
+    }else{
+      FLAT.push({ id:`${sec.key}-${i}`, sec:sec.key, text:it.text, type:it.type });
+    }
+  });
+});
+const TOTAL     = FLAT.length;
+const STUDY_IDS = FLAT.filter(t=>t.type==='study').map(t=>t.id);
+
+/* ── 存储 ── */
+const LS_KEY = 'ielts_daily_tracker_v1';
+let store = { days:{} };
+try{ const raw = localStorage.getItem(LS_KEY); if(raw) store = JSON.parse(raw); }catch(e){}
+function save(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(store)); }catch(e){} }
+function doneSet(iso){ return store.days[iso] && store.days[iso].done ? new Set(store.days[iso].done) : new Set(); }
+function writeSet(iso, set){
+  if(set.size===0) delete store.days[iso];
+  else store.days[iso] = { done:[...set] };
+  save();
+}
+
+/* ── 日期工具 ── */
+const WEEK = ['日','一','二','三','四','五','六'];
+const iso  = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const parseISO = s => { const [y,m,dd]=s.split('-').map(Number); return new Date(y,m-1,dd); };
+const TODAY_ISO = iso(new Date());
+let selISO = TODAY_ISO;
+
+function secDone(iso, key){ return [...doneSet(iso)].filter(id=>id.startsWith(key+'-')).length; }
+function secTotal(key){ return FLAT.filter(t=>t.sec===key).length; }
+function rateOf(iso){ const n = doneSet(iso).size; return { n, pct: TOTAL? Math.round(n/TOTAL*100):0 }; }
+
+/* 连续打卡：今天有记录从今天数，否则从昨天数（今天仍可续上） */
+function calcStreak(){
+  let s = 0; let d = new Date();
+  if(!store.days[iso(d)]) d.setDate(d.getDate()-1);
+  while(store.days[iso(d)] && store.days[iso(d)].done.length>0){ s++; d.setDate(d.getDate()-1); }
+  return s;
+}
+function dayCount(){ return Object.values(store.days).filter(v=>v.done && v.done.length>0).length; }
+function totalDone(){ return Object.values(store.days).reduce((a,v)=>a+(v.done?v.done.length:0),0); }
+
+/* ── 渲染：三段时间轴 ── */
+const COLS = document.getElementById('cols');
+function renderCols(){
+  const done = doneSet(selISO);
+  COLS.innerHTML = SCHEDULE.map(sec=>{
+    const tot = secTotal(sec.key), dn = secDone(selISO, sec.key);
+    const rows = sec.items.map((it,i)=>{
+      if(it.group){
+        const subs = it.items.map((sub,j)=>{
+          const id = `${sec.key}-${i}-${j}`, on = done.has(id);
+          return `<li class="item ${on?'done':''}" data-id="${id}">
+            <span class="node"></span>
+            <button class="check" role="checkbox" aria-checked="${on}" aria-label="${sub.text}">
+              <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="body"><span class="label">${sub.text}</span>${sub.type==='study'?'<span class="tag study">学习</span>':''}</div>
+          </li>`;
+        }).join('');
+        return `<li class="item grouplabel">
+          <span class="node"></span>
+          <div class="when"><b>${it.group.split(' – ')[0]}</b>${it.group.split(' – ')[1]?' – '+it.group.split(' – ')[1]:''}</div>
+          <div class="body"><div class="gl-note">↳ ${it.note}</div></div>
+        </li>
+        <ul class="sub">${subs}</ul>`;
+      }
+      const id = `${sec.key}-${i}`, on = done.has(id);
+      return `<li class="item ${on?'done':''}" data-id="${id}">
+        <span class="node"></span>
+        <div class="when"><b>${it.t}</b></div>
+        <button class="check" role="checkbox" aria-checked="${on}" aria-label="${it.text}">
+          <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="body"><span class="label">${it.text}</span>${it.type==='study'?'<span class="tag study">学习</span>':'<span class="tag life">作息</span>'}</div>
+      </li>`;
+    }).join('');
+    return `<section class="col" data-sec="${sec.key}">
+      <div class="colhead">
+        <span class="zi">${sec.zi}</span><span class="en">${sec.en}</span>
+        <div class="prog"><div class="n"><b class="dn">${dn}</b>/${tot}</div><div class="bar"><i style="width:${tot?dn/tot*100:0}%"></i></div></div>
+      </div>
+      <ul class="timeline">${rows}</ul>
+    </section>`;
+  }).join('');
+}
+
+/* ── 渲染：头部 / 统计 ── */
+const RING_LEN = 326.7;
+function renderStats(){
+  const { n, pct } = rateOf(selISO);
+  const ringBar = document.getElementById('ringBar');
+  ringBar.classList.toggle('full', pct===100);
+  ringBar.style.strokeDashoffset = RING_LEN * (1 - pct/100);
+  document.getElementById('pctNum').textContent = pct;
+  document.getElementById('pctSub').textContent = pct===100 ? '圆满' : `差 ${TOTAL-n} 项`;
+  document.getElementById('capDone').textContent = n;
+  document.getElementById('capTotal').textContent = TOTAL;
+  document.getElementById('ringCap').classList.toggle('perfect', pct===100);
+  document.getElementById('capT').textContent = selISO===TODAY_ISO ? '今日完成' : '当日完成';
+  document.getElementById('stStudyK').textContent = selISO===TODAY_ISO ? '核心学习（今日）' : '核心学习（当日）';
+  document.getElementById('stStudy').textContent = [...doneSet(selISO)].filter(id=>STUDY_IDS.includes(id)).length + '/' + STUDY_IDS.length;
+  document.getElementById('stStreak').textContent = calcStreak();
+  document.getElementById('stDays').textContent  = dayCount();
+  document.getElementById('stTotal').textContent = totalDone();
+}
+
+/* ── 渲染：日期导航 ── */
+function renderNav(){
+  const d = parseISO(selISO);
+  document.getElementById('navDate').textContent = `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
+  const wk = `周${WEEK[d.getDay()]}` + (selISO===TODAY_ISO ? '' : ' · 回看');
+  document.getElementById('navWeek').innerHTML = selISO===TODAY_ISO ? wk : `<span class="back">${wk}</span>`;
+  document.getElementById('btnNext').disabled = selISO >= TODAY_ISO;
+  document.getElementById('btnToday').classList.toggle('show', selISO!==TODAY_ISO);
+}
+
+/* ── 渲染：热力图（35 天） ── */
+const HEAT = document.getElementById('heat');
+function heatLevel(pct){ return pct===0?0 : pct<=33?1 : pct<=66?2 : pct<=99?3 : 4; }
+const HEAT_BG = ['var(--heat0)','rgba(191,74,16,.22)','rgba(191,74,16,.45)','rgba(191,74,16,.7)','var(--accent)'];
+function renderHeat(){
+  const end = parseISO(TODAY_ISO);
+  const start = new Date(end); start.setDate(start.getDate()-34);
+  // 对齐：把起点补齐到周一，前置空格
+  const lead = (start.getDay()+6)%7;
+  let html = '<span class="cell gap"></span>'.repeat(lead);
+  const cells = [];
+  for(let d=new Date(start); iso(d)<=TODAY_ISO; d.setDate(d.getDate()+1)){
+    const { n, pct } = rateOf(iso(d));
+    const cls = 'cell' + (iso(d)===TODAY_ISO?' today':'');
+    const tip = `${d.getMonth()+1}月${d.getDate()}日 · 完成 ${n}/${TOTAL}（${pct}%）`;
+    html += `<span class="${cls}" style="background:${n?HEAT_BG[heatLevel(pct)]:'var(--heat0)'}" title="${tip}"></span>`;
+  }
+  HEAT.innerHTML = html;
+  const s = parseISO(TODAY_ISO); s.setDate(s.getDate()-34);
+  document.getElementById('hmStart').textContent = `${s.getMonth()+1}月${s.getDate()}日`;
+}
+
+/* ── 局部刷新 ── */
+function refreshAfterToggle(){
+  const { n, pct } = rateOf(selISO);
+  // 各列计数
+  document.querySelectorAll('.col').forEach(col=>{
+    const key = col.dataset.sec, dn = secDone(selISO,key), tot = secTotal(key);
+    col.querySelector('.dn').textContent = dn;
+    col.querySelector('.bar i').style.width = (tot?dn/tot*100:0)+'%';
+  });
+  renderStats();
+  if(selISO===TODAY_ISO) renderHeat();
+}
+
+/* ── 勾选交互（事件委托） ── */
+COLS.addEventListener('click', e=>{
+  const li = e.target.closest('li.item[data-id]');
+  if(!li) return;
+  const id = li.dataset.id;
+  const set = doneSet(selISO);
+  const on = set.has(id);
+  on ? set.delete(id) : set.add(id);
+  writeSet(selISO, set);
+  li.classList.toggle('done', !on);
+  const btn = li.querySelector('.check');
+  if(btn) btn.setAttribute('aria-checked', String(!on));
+  refreshAfterToggle();
+});
+
+/* ── 日期导航 ── */
+function shiftDay(n){
+  const d = parseISO(selISO); d.setDate(d.getDate()+n);
+  const next = iso(d);
+  if(next > TODAY_ISO) return;
+  selISO = next;
+  renderAll();
+}
+document.getElementById('btnPrev').addEventListener('click', ()=>shiftDay(-1));
+document.getElementById('btnNext').addEventListener('click', ()=>shiftDay(1));
+document.getElementById('btnToday').addEventListener('click', ()=>{ selISO = TODAY_ISO; renderAll(); });
+
+/* ── toast ── */
+let toastTimer;
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+/* ── 导出 / 导入 / 清除 ── */
+document.getElementById('btnExport').addEventListener('click', ()=>{
+  const blob = new Blob([JSON.stringify(store,null,2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `ielts-tracker-${TODAY_ISO}.json`;
+  a.click(); URL.revokeObjectURL(a.href);
+  toast('已导出打卡数据');
+});
+document.getElementById('fileImport').addEventListener('change', e=>{
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = ()=>{
+    try{
+      const data = JSON.parse(r.result);
+      if(!data || typeof data!=='object' || !data.days) throw 0;
+      Object.keys(data.days).forEach(k=>{
+        const arr = Array.isArray(data.days[k] && data.days[k].done) ? data.days[k].done : [];
+        const valid = arr.filter(id=>FLAT.some(t=>t.id===id));
+        if(/^\d{4}-\d{2}-\d{2}$/.test(k) && valid.length) store.days[k] = { done:[...new Set(valid)] };
+      });
+      save(); renderAll(); toast('导入成功');
+    }catch(err){ toast('导入失败：文件格式不正确'); }
+    e.target.value = '';
+  };
+  r.readAsText(f);
+});
+document.getElementById('btnClear').addEventListener('click', ()=>{
+  if(doneSet(selISO).size===0){ toast('本日没有勾选记录'); return; }
+  if(confirm('确定清除所选日期的全部勾选吗？')){
+    writeSet(selISO, new Set());
+    renderAll(); toast('已清除');
+  }
+});
+
+/* ── 总渲染 ── */
+function renderAll(){ renderNav(); renderCols(); renderStats(); renderHeat(); }
+renderAll();
+</script>
+</body>
+</html>
