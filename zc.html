@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="description" content="2027年中央预算内投资8大领域23个专项全解：政策依据、补助比例、申报门槛的可视化单页。">
+<title>2027年中央预算内投资 · 8大领域23个专项全解（可视化）</title>
+<style>
+
+/* ================= 基础 ================= */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#F4F6FA;color:#243447;
+  font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;
+  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%}
+a{color:#1F6FB2}
+::selection{background:rgba(31,111,178,.18)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.n{font-family:"Cascadia Mono","Consolas","SFMono-Regular","Menlo","Courier New",monospace;
+  font-weight:700;color:#B4530B;font-variant-numeric:tabular-nums;letter-spacing:.2px;font-size:.95em}
+p{margin:0 0 12px}
+section[id],div[id]{scroll-margin-top:78px}
+
+/* ================= Hero ================= */
+.hero{position:relative;overflow:hidden;isolation:isolate;color:#fff;
+  background:linear-gradient(120deg,#071A31 0%,#0B2545 42%,#123B66 100%);
+  padding:58px 0 48px}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;
+  background:
+    radial-gradient(900px 380px at 82% -8%,rgba(31,111,178,.55),transparent 62%),
+    radial-gradient(700px 340px at 4% 108%,rgba(232,135,26,.18),transparent 60%)}
+.hero::after{content:"2027";position:absolute;right:-8px;bottom:-58px;z-index:-2;
+  font-family:"Cascadia Mono","Consolas",monospace;font-weight:800;font-size:212px;line-height:1;
+  letter-spacing:-8px;color:rgba(255,255,255,.05);pointer-events:none}
+.hero-grid{position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:56px 56px;
+  -webkit-mask-image:radial-gradient(980px 460px at 62% 0%,#000,transparent 78%);
+  mask-image:radial-gradient(980px 460px at 62% 0%,#000,transparent 78%)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;letter-spacing:2px;
+  color:#9EC1E4;border:1px solid rgba(158,193,228,.35);background:rgba(255,255,255,.04);
+  padding:6px 14px;border-radius:999px;margin-bottom:24px}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:2px;background:#E8871A;
+  box-shadow:0 0 0 3px rgba(232,135,26,.2)}
+.hero h1{font-size:clamp(30px,4.4vw,46px);line-height:1.22;font-weight:800;letter-spacing:1.5px;
+  margin:0 0 14px;text-shadow:0 2px 20px rgba(0,0,0,.22)}
+.hero h1 .yr{color:#F2A74D}
+.hero-sub{font-size:clamp(18px,2.4vw,25px);font-weight:700;letter-spacing:2.5px;
+  color:#fff;margin:0 0 8px}
+.hero-sub .hl{color:#FFC078;font-family:"Cascadia Mono","Consolas",monospace;letter-spacing:0}
+.hero-sub2{font-size:15px;color:rgba(255,255,255,.7);letter-spacing:1px;margin:0 0 18px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:13px;color:rgba(255,255,255,.72)}
+.hero-meta span{display:inline-flex;align-items:center;gap:8px}
+.hero-meta span::before{content:"";width:5px;height:5px;border-radius:50%;
+  background:#E8871A;opacity:.85}
+.caps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:32px}
+.cap{position:relative;padding:16px 18px 14px;border-radius:14px;
+  background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.14);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);overflow:hidden}
+.cap::after{content:"";position:absolute;left:18px;top:0;width:26px;height:2px;background:#E8871A}
+.cap-v{display:block;font-family:"Cascadia Mono","Consolas",monospace;font-size:32px;
+  font-weight:800;line-height:1.15;letter-spacing:-.5px;color:#fff}
+.cap-l{display:block;font-size:13px;color:rgba(255,255,255,.72);margin-top:4px;letter-spacing:.5px}
+.hero-jump{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.jump{font-size:13.5px;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.22);
+  background:rgba(255,255,255,.05);padding:8px 16px;border-radius:999px;transition:.2s}
+.jump:hover{background:rgba(232,135,26,.18);border-color:rgba(232,135,26,.65);color:#FFD9A8}
+
+/* ================= 粘性导航 ================= */
+.nav{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.95);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-bottom:1px solid #DDE5EE;box-shadow:0 10px 26px -20px rgba(11,37,69,.55)}
+.nav-in{max-width:1180px;margin:0 auto;padding:0 28px;height:58px;display:flex;
+  align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none}
+.nav-in::-webkit-scrollbar{display:none}
+.nav-brand{display:flex;align-items:center;gap:10px;white-space:nowrap;font-size:14.5px;
+  font-weight:800;color:#0B2545;letter-spacing:.5px;padding-right:16px;margin-right:8px;
+  border-right:1px solid #DDE5EE}
+.nav-brand::before{content:"";width:8px;height:8px;border-radius:2px;background:#E8871A;
+  box-shadow:0 0 0 3px rgba(232,135,26,.18)}
+.nav-link{font-size:14px;color:#4A5C70;text-decoration:none;padding:7px 13px;border-radius:999px;
+  white-space:nowrap;transition:.18s}
+.nav-link:hover{background:#EAF2FA;color:#0B2545}
+
+/* ================= 章节 ================= */
+.sec{padding:54px 0 6px}
+.sec-intro{padding-top:44px}
+.sec-head{margin-bottom:26px;max-width:920px}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-family:"Cascadia Mono","Consolas",monospace;
+  font-size:11.5px;font-weight:700;letter-spacing:2.4px;color:#1F6FB2;text-transform:uppercase}
+.kicker::before{content:"";width:26px;height:2px;background:#E8871A}
+.sec-title{font-size:clamp(22px,2.6vw,29px);font-weight:800;color:#0B2545;line-height:1.3;
+  margin:10px 0 8px;letter-spacing:.6px}
+.sec-sub{font-size:15px;color:#6B7B8C;margin:0}
+
+/* ================= 导读 ================= */
+.intro-card{position:relative;background:linear-gradient(180deg,#FFFFFF,#FBFCFE);
+  border:1px solid #DDE5EE;border-left:5px solid #E8871A;border-radius:12px;
+  padding:28px 32px 24px;box-shadow:0 1px 2px rgba(11,37,69,.06),0 12px 26px -20px rgba(11,37,69,.28)}
+.intro-label{display:inline-block;font-family:"Cascadia Mono","Consolas",monospace;font-size:11px;
+  letter-spacing:2px;color:#B4530B;border:1px solid #F0D6B0;background:#FDF3E5;
+  padding:3px 11px;border-radius:999px;margin-bottom:14px}
+.intro-card .lead{font-size:19px;font-weight:800;color:#0B2545;margin:0 0 12px;letter-spacing:.5px}
+.intro-card p{font-size:15.5px;color:#4A5C70;margin:0 0 12px}
+.intro-card p:last-child{margin-bottom:0}
+
+/* ================= 四大主线 ================= */
+.lines{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.line-card{position:relative;background:#fff;border:1px solid #DDE5EE;border-radius:12px;
+  padding:24px 24px 20px;box-shadow:0 1px 2px rgba(11,37,69,.06),0 12px 26px -20px rgba(11,37,69,.28);
+  overflow:hidden;transition:transform .2s,box-shadow .2s}
+.line-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,#1F6FB2,#E8871A)}
+.line-card:hover{transform:translateY(-2px);
+  box-shadow:0 2px 4px rgba(11,37,69,.06),0 20px 42px -26px rgba(11,37,69,.38)}
+.line-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.line-no{font-family:"Cascadia Mono","Consolas",monospace;font-size:12px;font-weight:800;
+  letter-spacing:1px;color:#fff;background:#0B2545;padding:4px 12px;border-radius:999px}
+.line-range{margin-left:auto;font-family:"Cascadia Mono","Consolas",monospace;font-size:13px;
+  font-weight:800;color:#B4530B;background:#FDF3E5;border:1px solid #F3DAB7;
+  padding:3px 10px;border-radius:8px;white-space:nowrap}
+.line-card h3{font-size:18px;color:#0B2545;margin:0 0 10px;line-height:1.45;letter-spacing:.3px}
+.line-desc{font-size:14.8px;color:#4A5C70;margin:0 0 16px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:12.5px;color:#175A91;background:#EAF2FA;border:1px solid #CFE1F2;
+  border-radius:999px;padding:3px 11px;line-height:1.6;white-space:nowrap}
+
+/* ================= 表格 ================= */
+.table-card{background:#fff;border:1px solid #DDE5EE;border-radius:12px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(11,37,69,.06),0 12px 26px -20px rgba(11,37,69,.28);
+  margin-bottom:22px}
+.tbl-cap{display:flex;align-items:center;gap:10px;padding:14px 20px;
+  background:linear-gradient(180deg,#F8FAFD,#F3F6FA);border-bottom:1px solid #DDE5EE;
+  font-size:15px;font-weight:800;color:#0B2545;letter-spacing:.3px}
+.tbl-cap::before{content:"";width:4px;height:16px;border-radius:2px;background:#E8871A}
+.tbl-scroll{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px;line-height:1.65;min-width:560px}
+.tbl thead th{background:#0B2545;color:#fff;font-weight:600;font-size:13.5px;letter-spacing:.5px;
+  padding:12px 16px;text-align:left;white-space:nowrap}
+.tbl tbody td{padding:12px 16px;border-bottom:1px solid #EDF1F6;vertical-align:top}
+.tbl tbody tr:last-child td{border-bottom:none}
+.tbl tbody tr:nth-child(even){background:#FAFBFD}
+.tbl tbody tr:hover{background:#F0F6FC}
+.tbl tr.total{background:linear-gradient(90deg,#0B2545,#123B66)!important}
+.tbl tr.total td{color:#fff;border-bottom:none;font-weight:700}
+.tbl tr.total .count-badge{background:rgba(255,255,255,.16)!important;color:#fff!important;
+  border-color:rgba(255,255,255,.3)!important}
+.tbl tr.total .pct-badge{background:rgba(255,255,255,.12)!important;color:#FFD9A8!important;
+  border-color:rgba(255,255,255,.25)!important}
+.tbl tr.total .n{color:#FFD9A8}
+.tbl .dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:9px;
+  vertical-align:1px;flex:0 0 auto}
+.tbl .td-merge{font-weight:800;color:#0B2545;background:#F7FAFD;white-space:nowrap}
+.tbl-overview{min-width:820px}
+.tbl-overview th:first-child,.tbl-overview td:first-child{white-space:nowrap}
+.tbl-note{font-size:12.5px;color:#6B7B8C;padding:10px 20px;background:#FBFCFE;
+  border-top:1px dashed #DDE5EE;line-height:1.7}
+.count-badge{display:inline-block;font-family:"Cascadia Mono","Consolas",monospace;
+  font-size:12.5px;font-weight:800;padding:1px 9px;border-radius:999px;line-height:1.7;
+  white-space:nowrap}
+.pct-badge{display:inline-block;font-family:"Cascadia Mono","Consolas",monospace;
+  font-size:12.8px;font-weight:800;color:#B4530B;background:#FDF3E5;border:1px solid #F3DAB7;
+  padding:1px 9px;border-radius:8px;line-height:1.7;white-space:nowrap}
+
+/* ================= 领域板块 & 专项卡片 ================= */
+.domain{background:#fff;border:1px solid #DDE5EE;border-radius:12px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(11,37,69,.06),0 12px 26px -20px rgba(11,37,69,.28);
+  margin-bottom:26px}
+.domain-head{position:relative;padding:22px 26px 18px 30px;
+  background:linear-gradient(180deg,#F8FAFD,#FFFFFF);border-bottom:1px solid #DDE5EE}
+.domain-head::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--dc,#1F6FB2)}
+.domain-title{display:flex;align-items:center;flex-wrap:wrap;gap:9px 12px;margin:0 0 10px}
+.domain-idx{font-family:"Cascadia Mono","Consolas",monospace;font-size:11px;font-weight:800;
+  letter-spacing:1.2px;color:var(--dc,#1F6FB2);border:1px solid currentColor;border-radius:6px;
+  padding:1px 8px;line-height:1.7}
+.domain-title h3{font-size:20px;color:#0B2545;margin:0;letter-spacing:.5px}
+.domain-badge{font-family:"Cascadia Mono","Consolas",monospace;font-size:12.5px;font-weight:800;
+  padding:1px 10px;border-radius:999px;line-height:1.75}
+.domain-range{font-family:"Cascadia Mono","Consolas",monospace;font-size:12.5px;font-weight:800;
+  color:#B4530B;background:#FDF3E5;border:1px solid #F3DAB7;padding:1px 10px;border-radius:8px}
+.domain-major{font-size:13px;color:#6B7B8C;margin:0 0 6px}
+.domain-major b{color:#175A91;font-weight:700}
+.domain-sec{font-size:12.5px;color:#6B7B8C;margin:0 0 10px;padding-left:10px;
+  border-left:2px solid #DDE5EE;line-height:1.7}
+.domain-lead{font-size:14.6px;color:#4A5C70;margin:0;max-width:1000px}
+.spec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;padding:20px 22px 24px}
+.spec-legend{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:#6B7B8C;
+  margin:-6px 0 22px}
+.spec-card{display:flex;flex-direction:column;background:#fff;border:1px solid #E2E9F2;
+  border-radius:12px;padding:18px 18px 16px;
+  box-shadow:inset 0 2px 0 0 var(--dc,#1F6FB2),0 1px 2px rgba(11,37,69,.04);
+  transition:transform .2s,box-shadow .2s}
+.spec-card:hover{transform:translateY(-1px);
+  box-shadow:inset 0 2px 0 0 var(--dc,#1F6FB2),0 16px 32px -22px rgba(11,37,69,.45)}
+.spec-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+.spec-no{flex:0 0 auto;font-family:"Cascadia Mono","Consolas",monospace;font-size:12.5px;
+  font-weight:800;color:#fff;background:var(--dc,#0B2545);min-width:30px;height:26px;
+  line-height:26px;text-align:center;border-radius:7px;
+  box-shadow:0 4px 10px -6px rgba(11,37,69,.6)}
+.spec-heading{min-width:0;flex:1}
+.spec-heading h4{font-size:16.5px;font-weight:800;color:#0B2545;margin:0;line-height:1.42;
+  letter-spacing:.2px}
+.spec-sub{font-size:12.5px;color:#6B7B8C;margin:3px 0 0;line-height:1.55}
+.spec-side{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:0 0 auto}
+.spec-code{font-family:"Cascadia Mono","Consolas",monospace;font-size:11px;font-weight:700;
+  color:var(--dc,#1F6FB2);background:#F3F7FB;border:1px solid #DFE9F3;border-radius:999px;
+  padding:1px 8px;white-space:nowrap;line-height:1.7}
+.flag{font-size:10.5px;font-weight:700;color:#C0392B;background:#FBEDEB;border:1px solid #F0CFCB;
+  border-radius:999px;padding:1px 8px;white-space:nowrap;line-height:1.7}
+.ratio-box{background:linear-gradient(180deg,#FFF9F0,#FFFDFA);border:1px solid #F2D9B4;
+  border-radius:10px;padding:9px 11px 10px;margin:0 0 12px}
+.ratio-label{display:flex;align-items:center;gap:6px;font-family:"Cascadia Mono","Consolas",monospace;
+  font-size:10.5px;font-weight:800;letter-spacing:1.4px;color:#9A5410}
+.ratio-label::before{content:"";width:4px;height:4px;border-radius:50%;background:#E8871A}
+.ratio-list{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.ratio-list li{background:#fff;border:1px solid #F3DAB7;border-radius:8px;padding:5px 10px;
+  font-size:13.4px;line-height:1.62;color:#66431A}
+.spec-cap{display:flex;gap:8px;font-size:13.3px;background:#F1F7FD;border:1px dashed #C6DCEF;
+  border-radius:8px;padding:7px 10px;margin:0 0 10px;color:#2F4A63;line-height:1.65}
+.spec-cap .kv-k{color:#175A91}
+.kv{display:flex;gap:8px;font-size:13.4px;line-height:1.66;margin:0 0 8px}
+.kv-k{flex:0 0 auto;color:#175A91;font-weight:800;white-space:nowrap}
+.kv-k::after{content:"："}
+.kv-v{color:#3C4E61;min-width:0}
+.kv-list{margin:2px 0 0;padding:0;list-style:none}
+.kv-list li{position:relative;padding-left:11px;margin:1px 0}
+.kv-list li::before{content:"";position:absolute;left:0;top:.72em;width:4px;height:4px;
+  border-radius:50%;background:#9FB4C9}
+.spec-tip{padding-top:10px}
+.tip{position:relative;background:#F7F9FC;border-left:3px solid #E8871A;border-radius:0 8px 8px 0;
+  padding:7px 10px;font-size:13.2px;color:#455A70;line-height:1.68}
+.tip b{color:#0B2545}
+.flag-note{margin-top:8px;font-size:12.3px;color:#C0392B;background:#FDF6F5;
+  border:1px dashed #EFD2CD;border-radius:8px;padding:6px 9px;line-height:1.65}
+
+/* ================= 补助比例可视化 ================= */
+.chart-card{background:#fff;border:1px solid #DDE5EE;border-radius:12px;
+  box-shadow:0 1px 2px rgba(11,37,69,.06),0 12px 26px -20px rgba(11,37,69,.28);
+  padding:24px 26px 20px}
+.chart-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:16px}
+.chart-title{font-size:17px;font-weight:800;color:#0B2545;margin:0;letter-spacing:.3px}
+.chart-hint{font-size:12.5px;color:#6B7B8C}
+.range-chart{margin:0}
+.range-row{display:grid;grid-template-columns:168px minmax(0,1fr);gap:16px;
+  align-items:center;padding:8px 0}
+.range-name{font-size:13.6px;font-weight:700;color:#2E4459;text-align:right;line-height:1.45}
+.range-track{position:relative;height:50px}
+.range-track::before{content:"";position:absolute;left:0;right:0;top:24px;height:12px;
+  border-radius:999px;background:linear-gradient(90deg,#EEF2F7,#E6EDF4)}
+.range-bar{position:absolute;top:24px;height:12px;left:var(--lo);width:var(--w);
+  border-radius:999px;background:linear-gradient(90deg,var(--dc,#1F6FB2),#1F6FB2);
+  box-shadow:0 3px 10px -4px rgba(31,111,178,.55)}
+.range-point{position:absolute;top:23px;left:var(--lo);width:14px;height:14px;
+  transform:translateX(-50%) rotate(45deg);background:#E8871A;border:2px solid #fff;
+  border-radius:3px;box-shadow:0 0 0 3px rgba(232,135,26,.22)}
+.range-tick{position:absolute;top:18px;width:2px;height:24px;border-radius:2px}
+.range-tick.lo{left:var(--lo);background:#0B2545;transform:translateX(-1px)}
+.range-tick.hi{left:var(--hi);background:#E8871A;transform:translateX(-1px)}
+.range-val{position:absolute;top:0;font-family:"Cascadia Mono","Consolas",monospace;
+  font-size:12px;font-weight:800;line-height:1;transform:translateX(-50%);white-space:nowrap}
+.range-val.lo{left:var(--lo);color:#0B2545}
+.range-val.hi{left:var(--hi);color:#B4530B}
+.range-track.is-single .range-val.lo{color:#B4530B}
+.range-axis{display:grid;grid-template-columns:168px minmax(0,1fr);gap:16px;margin-top:2px}
+#notes,.notes-head{scroll-margin-top:88px}
+.axis-scale{position:relative;height:20px;border-top:1px dashed #DCE5EF}
+.axis-scale span{position:absolute;top:5px;transform:translateX(-50%);
+  font-family:"Cascadia Mono","Consolas",monospace;font-size:10.5px;color:#6B7B8C}
+.axis-scale span:first-child{transform:none}
+.axis-scale span:last-child{transform:translateX(-100%)}
+.chart-legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px;padding-top:12px;
+  border-top:1px dashed #DDE5EE;font-size:12.5px;color:#6B7B8C}
+.legend-item{display:inline-flex;align-items:center;gap:7px}
+.legend-swatch{width:22px;height:10px;border-radius:999px;background:linear-gradient(90deg,#1F6FB2,#0B2545)}
+.legend-swatch.grey{background:#E8EEF4;border:1px solid #DCE5EF}
+.legend-dot{width:9px;height:9px;border-radius:2px;background:#E8871A;transform:rotate(45deg)}
+.legend-tick{width:2px;height:14px;background:#E8871A}
+
+/* ================= 补助档次排行 ================= */
+.rank-card{margin-top:22px;background:#fff;border:1px solid #DDE5EE;border-radius:12px;
+  box-shadow:0 1px 2px rgba(11,37,69,.06),0 12px 26px -20px rgba(11,37,69,.28);
+  padding:22px 26px}
+.rank-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:6px}
+.rank-title{font-size:17px;font-weight:800;color:#0B2545;margin:0;letter-spacing:.3px}
+.rank-row{display:grid;grid-template-columns:104px minmax(0,1fr);gap:16px;align-items:start;
+  padding:13px 0;border-top:1px dashed #E5EBF3}
+.rank-row:first-child{border-top:none}
+.rank-tier{text-align:center;border-radius:10px;padding:8px 6px 7px;
+  background:linear-gradient(150deg,#0B2545,#123B66);color:#fff;
+  box-shadow:0 6px 14px -10px rgba(11,37,69,.6)}
+.rank-tier .tv{display:block;font-family:"Cascadia Mono","Consolas",monospace;font-size:19px;
+  font-weight:800;line-height:1.2;letter-spacing:-.5px}
+.rank-tier .tk{display:block;font-size:10.5px;color:rgba(255,255,255,.7);margin-top:2px;
+  letter-spacing:1px}
+.rank-tier.none{background:linear-gradient(150deg,#E8871A,#B4650F)}
+.rank-chips{display:flex;flex-wrap:wrap;gap:8px;padding-top:2px}
+.rank-chip{font-size:12.9px;line-height:1.55;color:#3B4F63;background:#F9FBFD;
+  border:1px solid #E1E9F2;border-radius:8px;padding:5px 10px}
+.rank-chip b{color:#0B2545;font-weight:800}
+.rank-chip .rt{color:#5A6E82;margin-left:6px}
+
+/* ================= 避坑 ================= */
+.pits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.pit-card{position:relative;background:#fff;border:1px solid #DDE5EE;border-radius:12px;
+  padding:22px 24px 20px;box-shadow:0 1px 2px rgba(11,37,69,.06),0 12px 26px -20px rgba(11,37,69,.28);
+  overflow:hidden}
+.pit-card.wide{grid-column:1/-1}
+.pit-no{display:inline-block;font-family:"Cascadia Mono","Consolas",monospace;font-size:12px;
+  font-weight:800;letter-spacing:1px;color:#fff;background:#C0392B;border-radius:999px;
+  padding:3px 12px;line-height:1.7}
+.pit-card h3{font-size:17px;color:#0B2545;margin:12px 0 8px;line-height:1.45;padding-right:44px;
+  letter-spacing:.2px}
+.pit-desc{font-size:14.5px;color:#4A5C70;margin:0}
+.pit-card::after{content:attr(data-num);position:absolute;right:16px;top:8px;
+  font-family:"Cascadia Mono","Consolas",monospace;font-size:56px;font-weight:800;
+  color:rgba(192,57,43,.08);line-height:1;pointer-events:none}
+
+/* ================= 写在最后 / 口径说明 ================= */
+.closing-card{position:relative;background:linear-gradient(150deg,#0B2545,#123B66);color:#fff;
+  border-radius:12px;padding:36px 40px 32px;overflow:hidden;
+  box-shadow:0 2px 4px rgba(11,37,69,.1),0 24px 48px -30px rgba(11,37,69,.6)}
+.closing-card::before{content:"\201C";position:absolute;right:24px;top:-26px;
+  font-family:Georgia,"Times New Roman",serif;font-size:130px;line-height:1;
+  color:rgba(232,135,26,.26)}
+.closing-kicker{font-family:"Cascadia Mono","Consolas",monospace;font-size:11px;
+  letter-spacing:2.4px;color:#FFC078;margin:0 0 14px;position:relative}
+.closing-body{position:relative;font-size:15.5px;line-height:1.95;color:rgba(255,255,255,.86)}
+.closing-body p{margin:0 0 14px}
+.closing-body p:last-child{margin:0}
+.closing-body .n{color:#FFC078}
+.notes-head{margin:34px 0 14px}
+.notes-head .kicker{color:#1F6FB2}
+.notes-head h3{font-size:19px;color:#0B2545;margin:8px 0 4px;letter-spacing:.4px}
+.notes-head p{font-size:13.5px;color:#6B7B8C;margin:0}
+.notes-box{background:#fff;border:1px solid #DDE5EE;border-radius:12px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(11,37,69,.06),0 12px 26px -20px rgba(11,37,69,.28)}
+.notes-box summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:12px;
+  padding:16px 22px;font-size:15.5px;font-weight:800;color:#0B2545;
+  background:linear-gradient(180deg,#F8FAFD,#F3F6FA);border-bottom:1px solid #DDE5EE}
+.notes-box summary::-webkit-details-marker{display:none}
+.notes-box summary::before{content:"";width:9px;height:9px;border-radius:2px;background:#E8871A;
+  flex:0 0 auto;transition:transform .2s}
+.notes-box[open] summary::before{transform:rotate(90deg)}
+.sum-hint{font-size:12px;font-weight:600;color:#6B7B8C}
+.notes-box summary::after{content:"点击展开";margin-left:auto;font-size:12px;font-weight:700;
+  color:#1F6FB2;background:#EAF2FA;border:1px solid #CFE1F2;border-radius:999px;
+  padding:2px 11px;white-space:nowrap}
+.notes-box[open] summary::after{content:"点击收起"}
+.notes-list{margin:0;padding:8px 22px 18px;list-style:none}
+.note-item{display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;
+  padding:13px 0;border-top:1px dashed #E5EBF3}
+.note-item:first-child{border-top:none}
+.note-no{font-family:"Cascadia Mono","Consolas",monospace;font-size:11.5px;font-weight:800;
+  color:#B4530B;background:#FDF3E5;border:1px solid #F3DAB7;border-radius:6px;height:22px;
+  line-height:22px;text-align:center}
+.note-item h4{font-size:14px;color:#0B2545;margin:0 0 3px;line-height:1.55}
+.note-item p{font-size:13.6px;color:#46596D;margin:0;line-height:1.78}
+
+/* ================= 页脚 ================= */
+.footer{margin-top:56px;background:linear-gradient(150deg,#071A31,#0B2545 60%,#123B66);
+  color:rgba(255,255,255,.78);padding:36px 0 0}
+.footer-in{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;
+  align-items:flex-start;padding-bottom:26px}
+.footer-title{font-size:16px;font-weight:800;color:#fff;margin:0 0 10px;letter-spacing:.5px}
+.footer-src{font-size:13.5px;margin:0;line-height:1.85;max-width:760px}
+.footer-src b{color:#FFC078;font-weight:700}
+.footer-meta{display:flex;flex-direction:column;gap:6px;font-size:12.5px;
+  color:rgba(255,255,255,.6);text-align:right}
+.footer-meta span::before{content:"· ";color:#E8871A}
+.footer-bar{border-top:1px solid rgba(255,255,255,.12);padding:14px 0;font-size:12.5px;
+  color:rgba(255,255,255,.5);text-align:center}
+
+/* ================= 返回顶部 ================= */
+.to-top{position:fixed;right:22px;bottom:24px;z-index:70;width:46px;height:46px;
+  display:flex;align-items:center;justify-content:center;text-decoration:none;
+  font-family:"Cascadia Mono","Consolas",monospace;font-size:18px;font-weight:800;color:#fff;
+  background:linear-gradient(150deg,#0B2545,#1F6FB2);border:1px solid rgba(255,255,255,.28);
+  border-radius:50%;box-shadow:0 10px 24px -10px rgba(11,37,69,.65);opacity:.92;
+  transition:opacity .2s,transform .2s}
+.to-top:hover{opacity:1;transform:translateY(-2px)}
+@media (max-width:560px){
+  .to-top{right:14px;bottom:16px;width:40px;height:40px;font-size:16px}
+}
+
+/* ================= 响应式 ================= */
+@media (max-width:1099px){
+  .range-row,.range-axis{grid-template-columns:134px minmax(0,1fr)}
+}
+@media (max-width:959px){
+  .caps{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:859px){
+  .lines,.pits{grid-template-columns:1fr}
+  .pit-card.wide{grid-column:auto}
+  .spec-grid{grid-template-columns:1fr}
+  .hero{padding:44px 0 38px}
+  .hero::after{font-size:150px;bottom:-40px}
+  .range-row,.range-axis{grid-template-columns:1fr;gap:2px}
+  .range-name{text-align:left}
+  .chart-card,.rank-card{padding:20px 18px}
+  .rank-row{grid-template-columns:88px minmax(0,1fr);gap:12px}
+  .domain-head{padding:20px 18px 16px 22px}
+  .spec-grid{padding:16px}
+  .intro-card{padding:22px 20px}
+  .closing-card{padding:28px 22px}
+  .footer-meta{text-align:left}
+  .notes-list{padding:6px 16px 14px}
+}
+@media (max-width:560px){
+  .wrap{padding:0 16px}
+  .caps{grid-template-columns:1fr 1fr;gap:10px}
+  .cap{padding:13px 14px}
+  .cap-v{font-size:26px}
+  .hero-meta{font-size:12px}
+  .sec{padding:40px 0 4px}
+}
+
+/* ================= 打印（A4） ================= */
+@media print{
+  @page{size:A4;margin:13mm 11mm}
+  html{scroll-behavior:auto}
+  body{background:#fff;font-size:10.5pt;line-height:1.6}
+  .wrap{max-width:none;padding:0}
+  .nav{display:none!important}
+  .hero{padding:12mm 8mm 10mm;background:linear-gradient(120deg,#071A31,#0B2545 55%,#123B66)!important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .hero::after,.hero-grid{display:none}
+  .hero-jump{display:none}
+  .caps{grid-template-columns:repeat(4,minmax(0,1fr));gap:3mm}
+  .footer-in,.footer-bar{padding-left:6mm;padding-right:6mm}
+  .sec{padding:7mm 0 1mm}
+  .sec-head{margin-bottom:4mm}
+  .hero,.closing-card,.footer,.tbl thead th,.tbl tr.total,.rank-tier,.spec-no,.line-no,
+  .pit-no,.cap,.ratio-box,.range-bar,.range-point,.range-tick,.pct-badge,.count-badge{
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .intro-card,.line-card,.table-card,.spec-card,.chart-card,.rank-card,.pit-card,.notes-box,
+  .closing-card{box-shadow:none!important}
+  .line-card:hover,.spec-card:hover{transform:none!important}
+  .spec-card,.line-card,.pit-card,.table-card,.chart-card,.rank-card{break-inside:avoid;
+    page-break-inside:avoid}
+  .domain{break-inside:auto;page-break-inside:auto;box-shadow:none!important;margin-bottom:5mm}
+  .domain-head{break-after:avoid;page-break-after:avoid}
+  .spec-grid{gap:4mm;padding:4mm}
+  .grid-card{padding:3mm}
+  .tbl-scroll{overflow:visible}
+  .tbl{min-width:0;font-size:9pt}
+  .tbl-overview{min-width:0}
+  .tbl-overview th:first-child,.tbl-overview td:first-child{white-space:normal}
+  .tbl tbody td{padding:6px 8px}
+  .tbl thead{display:table-header-group}
+  thead{display:table-header-group}
+  tr{break-inside:avoid;page-break-inside:avoid}
+  .range-row{break-inside:avoid;page-break-inside:avoid}
+  .rank-row{break-inside:avoid;page-break-inside:avoid}
+  .note-item{break-inside:avoid;page-break-inside:avoid}
+  a{color:inherit;text-decoration:none}
+  .footer{background:#0B2545!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;
+    margin-top:8mm}
+  .to-top{display:none!important}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+
+</style>
+</head>
+<body>
+<header class="hero" id="top">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="eyebrow">政策数据看板 · 中央预算内投资</span>
+    <h1><span class="yr">2027</span>年中央预算内投资</h1>
+    <p class="hero-sub"><span class="hl">8</span>大领域 · <span class="hl">23</span>个专项全解</p>
+    <p class="hero-sub2">附政策依据 · 支持比例 · 申报门槛</p>
+    <div class="hero-meta"><span>微信公众号「建设信息网」原创</span><span>2026年10月10日 07:00</span><span>北京</span><span>据原文截图转录整理</span></div>
+    <div class="caps">
+          <div class="cap">
+            <span class="cap-v">8</span>
+            <span class="cap-l">大领域</span>
+          </div>
+          <div class="cap">
+            <span class="cap-v">23</span>
+            <span class="cap-l">个专项</span>
+          </div>
+          <div class="cap">
+            <span class="cap-v">109</span>
+            <span class="cap-l">项重大工程</span>
+          </div>
+          <div class="cap">
+            <span class="cap-v">80%</span>
+            <span class="cap-l">最高补助比例</span>
+          </div>
+    </div>
+    <div class="hero-jump">
+      <a class="jump" href="#specials">↓ 逐项拆解 23 个专项</a>
+      <a class="jump" href="#ratio">补助比例可视化</a>
+      <a class="jump" href="#pits">申报避坑五条</a>
+    </div>
+  </div>
+</header>
+<nav class="nav" aria-label="页面章节导航">
+  <div class="nav-in">
+    <span class="nav-brand">2027 中央预算内投资</span>
+      <a class="nav-link" href="#lines">政策主线</a>
+      <a class="nav-link" href="#overview">领域总览</a>
+      <a class="nav-link" href="#specials">专项全解</a>
+      <a class="nav-link" href="#ratio">补助比例</a>
+      <a class="nav-link" href="#pits">申报避坑</a>
+      <a class="nav-link" href="#notes">口径说明</a>
+  </div>
+</nav>
+<main>
+<section class="sec sec-intro" id="intro">
+  <div class="wrap">
+    <div class="intro-card">
+      <span class="intro-label">导 读</span>
+      <p class="lead">抓项目就是抓发展，谋项目就是谋未来。</p>
+      <p>“十五五”明确布局<span class="n">109项</span>国家级重大工程，每年中央预算内投资持续加码。<span class="n">2027年</span>作为“十五五”规划中期攻坚关键年份，国家资金投向、补助比例、申报门槛已全面定型，<span class="n">8</span>大领域<span class="n">23个</span>专项全部释放红利。</p>
+      <p>本文紧扣“十五五”规划顶层部署，结合国家发改委现行专项管理办法，系统梳理<span class="n">2027年</span>中央预算内投资全领域申报要点、补助比例、谋划方向，为发改、住建、农业、水利、文旅、卫健等部门项目储备、向上争资提供实操参考。</p>
+    </div>
+  </div>
+</section>
+<section class="sec" id="lines">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="kicker">PART 01 · POLICY LINES</span>
+      <h2 class="sec-title">四大核心政策主线</h2>
+      <p class="sec-sub"><span class="n">2027年</span>中央预算内投资按四大主线铺开：基础设施补短板、城乡融合与乡村振兴、双碳生态治理、公共服务普惠提质，对应<span class="n">8</span>大领域<span class="n">23个</span>专项。</p>
+    </header>
+    <div class="lines">
+      <article class="line-card">
+        <div class="line-top">
+          <span class="line-no">主线1</span>
+          <span class="line-range">30%–70%</span>
+        </div>
+        <h3>补齐现代化基础设施体系短板</h3>
+        <p class="line-desc">“十五五”规划提出构建综合立体交通网、国家水网、城市地下生命线、智慧气象、现代物流五大基础设施工程，对应铁路、水运、水利、气象、城乡冷链物流五大专项，优先支持中西部、东北、革命老区、中央苏区、产粮大县公益性基建项目，实行阶梯化高比例补助。</p>
+        <div class="tags"><span class="tag">铁路</span><span class="tag">水运</span><span class="tag">水利</span><span class="tag">气象</span><span class="tag">城乡冷链物流</span></div>
+      </article>
+      <article class="line-card">
+        <div class="line-top">
+          <span class="line-no">主线2</span>
+          <span class="line-range">定额 / 30%–80%</span>
+        </div>
+        <h3>城乡融合与和美乡村全面建设</h3>
+        <p class="line-desc">聚焦新型城镇化、保障性安居、和美乡村、以工代赈、粮食仓储五大方向，兼顾城市更新提质与乡村宜居宜业，重点倾斜人口净流入城市、乡村振兴重点帮扶县、易地搬迁安置区配套项目。</p>
+        <div class="tags"><span class="tag">保障性安居</span><span class="tag">和美乡村</span><span class="tag">以工代赈</span><span class="tag">粮食仓储</span><span class="tag">城市更新</span></div>
+      </article>
+      <article class="line-card">
+        <div class="line-top">
+          <span class="line-no">主线3</span>
+          <span class="line-range">15%–80%</span>
+        </div>
+        <h3>双碳与生态环境系统治理</h3>
+        <p class="line-desc">围绕碳达峰碳中和、流域综合治理、生态修复、污染治理四大板块，落地“十五五”绿色低碳转型任务，节能降碳、流域治理、湿地修复类项目补助比例最高可达<span class="n">70%–80%</span>，是<span class="n">2027年</span>政策红利最大赛道。</p>
+        <div class="tags"><span class="tag">节能降碳</span><span class="tag">流域治理</span><span class="tag">生态修复</span><span class="tag">污染治理</span></div>
+      </article>
+      <article class="line-card">
+        <div class="line-top">
+          <span class="line-no">主线4</span>
+          <span class="line-range">约60%基准</span>
+        </div>
+        <h3>公共服务普惠提质与人的全面发展</h3>
+        <p class="line-desc">匹配“十五五”“教育强国、健康中国、一老一小、文化传承、社会福利”部署，覆盖教育、医疗、养老托育、文化、全民健身五大民生专项，公益性公共服务项目普遍执行<span class="n">60%</span>补助标准，单个项目支持上限最高可达<span class="n">30亿元</span>。</p>
+        <div class="tags"><span class="tag">教育</span><span class="tag">医疗</span><span class="tag">养老托育</span><span class="tag">文化</span><span class="tag">全民健身</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+<section class="sec" id="overview">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="kicker">PART 02 · OVERVIEW</span>
+      <h2 class="sec-title">8大领域与23个专项总览</h2>
+      <p class="sec-sub">原表<span class="n">7个</span>领域行合计<span class="n">23个</span>专项；若将「农业农村与区域协同」拆为农业农村（<span class="n">3个</span>）与区域协同（<span class="n">1个</span>），恰为<span class="n">8</span>大领域（口径详见文末说明）。</p>
+    </header>
+    <div class="table-card">
+      <div class="tbl-cap">表1　2027年中央预算内投资8大领域23个专项总览表</div>
+      <div class="tbl-scroll">
+        <table class="tbl tbl-overview" aria-label="表1　2027年中央预算内投资8大领域23个专项总览表">
+          <thead>
+            <tr><th scope="col">八大核心领域</th><th scope="col">专项数</th><th scope="col">涵盖专项名称</th><th scope="col">十五五规划对应重大工程</th><th scope="col">平均补助区间</th></tr>
+          </thead>
+          <tbody>
+        <tr><td><span class="dot" style="background:#1F6FB2"></span>综合交通水利基建</td><td><span class="count-badge" style="background:#1F6FB214;color:#1F6FB2;border:1px solid #1F6FB238">4个</span></td><td>铁路、水运、水利、气象基础设施</td><td>国家综合立体交通网、国家水网、气象防灾监测工程</td><td><span class="pct-badge">30%-70%</span></td></tr>
+        <tr><td><span class="dot" style="background:#2C6E9B"></span>城乡物流与安全保障</td><td><span class="count-badge" style="background:#2C6E9B14;color:#2C6E9B;border:1px solid #2C6E9B38">3个</span></td><td>城乡冷链物流、防灾减灾、城市地下管网</td><td>现代物流体系、城市生命线安全工程、应急能力提升工程</td><td><span class="pct-badge">30%-60%</span></td></tr>
+        <tr><td><span class="dot" style="background:#B4650F"></span>安居配套民生城建</td><td><span class="count-badge" style="background:#B4650F14;color:#B4650F;border:1px solid #B4650F38">1个</span></td><td>保障性安居工程配套基础设施</td><td>新型城镇化、城镇老旧小区更新工程</td><td><span class="pct-badge">30%-50%</span></td></tr>
+        <tr><td><span class="dot" style="background:#3C7A57"></span>农业农村与区域协同</td><td><span class="count-badge" style="background:#3C7A5714;color:#3C7A57;border:1px solid #3C7A5738">4个</span></td><td>农业、乡村振兴、以工代赈、长三角一体化</td><td>粮食产能提升、和美乡村、区域协调发展工程</td><td>定额/<span class="n">40%-80%</span></td></tr>
+        <tr><td><span class="dot" style="background:#2F7F73"></span>绿色低碳生态治理</td><td><span class="count-badge" style="background:#2F7F7314;color:#2F7F73;border:1px solid #2F7F7338">4个</span></td><td>节能降碳、污染治理、生态修复、重点流域治理</td><td>双碳行动、流域生态保护、国土综合修复工程</td><td><span class="pct-badge">15%-80%</span></td></tr>
+        <tr><td><span class="dot" style="background:#5E5A9C"></span>科教产教基础设施</td><td><span class="count-badge" style="background:#5E5A9C14;color:#5E5A9C;border:1px solid #5E5A9C38">2个</span></td><td>教育强国基建、公共实训基地</td><td>教育强国推进、职业产教融合工程</td><td><span class="n">60%</span>（设单项上限）</td></tr>
+        <tr><td><span class="dot" style="background:#A93226"></span>民生公共服务保障</td><td><span class="count-badge" style="background:#A9322614;color:#A93226;border:1px solid #A9322638">5个</span></td><td>医疗卫生、文化传承、社会福利、一老一小、粮食仓储</td><td>健康中国、一老一小普惠、粮食安全保障工程</td><td><span class="pct-badge">30%-80%</span></td></tr>
+        <tr class="total"><td><b>合计</b></td><td><span class="count-badge">23个</span></td><td>—</td><td>十五五<span class="n">109项</span>重大工程全覆盖</td><td>差异化阶梯补助</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tbl-note">注：表1按原文表格逐格转录；「平均补助区间」为原表口径，各专项细分比例见第三部分专项卡片与第四部分可视化。</div>
+    </div>
+  </div>
+</section>
+<section class="sec" id="specials">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="kicker">PART 03 · ALL 23 SPECIALS</span>
+      <h2 class="sec-title">23个专项逐项拆解</h2>
+      <p class="sec-sub">按原文表<span class="n">1</span>的<span class="n">7个</span>领域板块分组；每张卡片含补助比例、单个项目上限、政策依据、支持范围、硬性门槛与申报提示，共 <span class="n">23</span> 张专项卡片。</p>
+    </header>
+    <div class="spec-legend"><span class="flag">⚠ 原文存疑</span><span>表示原文表格被水印遮挡或不同章节口径不一致，详见文末「口径说明」。</span></div>
+    <article class="domain" id="domain-1" style="--dc:#1F6FB2">
+      <header class="domain-head">
+        <div class="domain-title">
+          <span class="domain-idx">领域 01</span>
+          <h3>综合交通水利基建</h3>
+          <span class="domain-badge" style="background:#1F6FB214;color:#1F6FB2;border:1px solid #1F6FB238">4个专项</span>
+          <span class="domain-range">30%-70%</span>
+        </div>
+        <p class="domain-major"><b>十五五对应重大工程：</b>国家综合立体交通网、国家水网、气象防灾监测工程</p>
+        <p class="domain-sec">原文大纲：二、基建交通水利四大专项：“十五五”骨干工程核心资金渠道</p>
+        <p class="domain-lead">交通、水利、气象作为国家战略性基础设施，是“十五五”投资盘子最大、年度资金下达最早的板块，<span class="n">2027年</span>持续对中西部、欠发达地区提高补助比例，其中水利专项最高补助<span class="n">70%</span>，是地方争资首选赛道。</p>
+      </header>
+      <div class="spec-grid">
+      <article class="spec-card" data-spec="1">
+        <div class="spec-top">
+          <span class="spec-no">01</span>
+          <div class="spec-heading">
+            <h4>铁路专项</h4>
+            <p class="spec-sub">服务综合立体交通网建设</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 2.1</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>干线铁路 <span class="n">30%</span>、城际铁路 <span class="n">15%</span>、货运/中欧班列口岸 <span class="n">20%</span>（均为资本金补助）</li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>原文未提及金额上限（仅设比例）</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">发改基础规〔<span class="n">2023</span>〕<span class="n">1761号</span>；完全对接“十五五”铁路网中长期规划</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>中西部干线铁路、京津冀城际、货运提质、中欧班列口岸扩能</li><li>仅限纳入国家级铁路规划项目</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>项目须纳入国家级铁路规划（未纳入不予受理）</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b><span class="n">2027年</span>谋划重点：边疆国防通道、省际联通干线、大宗商品货运铁路改造。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="2">
+        <div class="spec-top">
+          <span class="spec-no">02</span>
+          <div class="spec-heading">
+            <h4>水运专项</h4>
+            <p class="spec-sub">长江黄金水道、西部陆海新通道配套</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 2.2</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>原文未给具体补助比例，仅列支持优先级</li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>原文未提及</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">发改基础规〔<span class="n">2024</span>〕<span class="n">306号</span>；“十五五”内河航运升级专项配套政策</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>支持优先级：内河航道 ＞ 通航建筑物 ＞ 航电枢纽 ＞ 沿海港口公益性设施</li><li>仅支持规划内公益性港航工程，不含港口经营性码头</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>限规划内公益性港航工程</li><li>不得含港口经营性码头</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b><span class="n">2027年</span>重点：长江干线船舶岸电、高等级航道疏浚、省际通航船闸新建改造。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="3">
+        <div class="spec-top">
+          <span class="spec-no">03</span>
+          <div class="spec-heading">
+            <h4>水利专项</h4>
+            <p class="spec-sub">补助力度全领域第一</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 2.3</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>蓄滞洪区、病险水库水闸加固：<span class="n">70%</span></li><li>江河防洪、区域排涝、海堤工程：<span class="n">60%</span></li><li>水土保持、水生态修复工程：<span class="n">50%</span></li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>小型水库实行定额：小Ⅰ型 <span class="n">500万元</span>、小Ⅱ型 <span class="n">200万元</span></span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">发改农经规〔<span class="n">2024</span>〕<span class="n">1761号</span>；落地“十五五”国家水网重大工程</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>蓄滞洪区、病险水库水闸加固</li><li>江河防洪、区域排涝、海堤工程</li><li>水土保持、水生态修复工程</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>江河防洪类仅限<span class="n">3000km²</span>以上重点中小河流干流</li><li>水土保持、水生态修复不得包含水景观、城镇污水治理内容</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b><span class="n">2027年</span>申报红利：病险水库除险加固、流域蓄滞洪区项目地方配套压力最小，入库通过率常年高于其他基建项目。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="4">
+        <div class="spec-top">
+          <span class="spec-no">04</span>
+          <div class="spec-heading">
+            <h4>气象基础设施专项</h4>
+            <p class="spec-sub">防灾监测预警体系升级</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 2.4</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>原文未提及具体比例</li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>原文未提及</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列文号（匹配“十五五”自然灾害综合监测预警工程）</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>覆盖气象卫星、雷达站、人工影响天气、基层台站、海洋气象保障八大类</li><li>全公益性、无经营性内容，市县均可常态化储备</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>须为全公益性项目，无经营性内容</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>适配“十五五”自然灾害综合监测预警工程。</div>
+        </div>
+      </article>
+      </div>
+    </article>
+    <article class="domain" id="domain-2" style="--dc:#2C6E9B">
+      <header class="domain-head">
+        <div class="domain-title">
+          <span class="domain-idx">领域 02</span>
+          <h3>城乡物流与安全保障</h3>
+          <span class="domain-badge" style="background:#2C6E9B14;color:#2C6E9B;border:1px solid #2C6E9B38">3个专项</span>
+          <span class="domain-range">30%-60%</span>
+        </div>
+        <p class="domain-major"><b>十五五对应重大工程：</b>现代物流体系、城市生命线安全工程、应急能力提升工程</p>
+        <p class="domain-sec">原文大纲：三、城乡安全与物流配套三大专项：城市更新、保供稳价核心抓手</p>
+        <p class="domain-lead">紧扣“十五五”城市生命线安全、现代流通体系建设要求，聚焦管网改造、冷链仓储、应急防灾，项目贴近民生，落地见效快，年度申报批次多、资金下达周期短。</p>
+      </header>
+      <div class="spec-grid">
+      <article class="spec-card" data-spec="5">
+        <div class="spec-top">
+          <span class="spec-no">05</span>
+          <div class="spec-heading">
+            <h4>城乡冷链和国家物流枢纽专项</h4>
+            <p class="spec-sub">保供稳价、现代流通体系</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 3.1</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>单个项目补助不超核定投资 <span class="n">30%</span></li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>原文未提及绝对金额上限（仅比例约束）</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li><span class="n">2027年</span>重点倾斜：单体库容 <span class="n">2万</span>m³以上公共冷库、国家物流枢纽多式联运场站、城郊保供大仓</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>必须纳入国家物流枢纽、骨干冷链基地清单</li><li>商业化冷链市场不予支持</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>项目贴近民生，年度申报批次多、资金下达周期短。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="6">
+        <div class="spec-top">
+          <span class="spec-no">06</span>
+          <div class="spec-heading">
+            <h4>城市地下管网及设施专项</h4>
+            <p class="spec-sub">城市生命线安全工程</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 3.2</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>原文未提及具体比例</li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>原文未提及</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">住建部门《地下管网改造实施方案》（原文未列文号）</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>燃气供热老旧管网更新、排水防涝、供水管网漏损治理</li><li><span class="n">2027年</span>重点支持老旧小区燃气立管、易涝点综合整治、智慧管网感知设备安装</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>必须纳入住建部门《地下管网改造实施方案》，未入库项目直接不予受理</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>属“入库即门槛”型专项，先入方案库再谋划资金。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="7">
+        <div class="spec-top">
+          <span class="spec-no">07</span>
+          <div class="spec-heading">
+            <h4>防灾减灾能力提升专项</h4>
+            <p class="spec-sub">国家应急体系建设工程</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 3.3</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>原文未提及具体比例</li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>原文未提及</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列文号（匹配“十五五”国家应急体系建设工程）</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>分灾后重建、综合防灾储备库、应急救援基地、水上安全监管四大方向</li><li>多灾易灾市县可常年储备救灾物资库、区域应急战训基地项目</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>须符合四大支持方向</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>原文称“无高额规模门槛，落地快”，适合县级应急部门常态化储备。</div>
+        </div>
+      </article>
+      </div>
+    </article>
+    <article class="domain" id="domain-3" style="--dc:#B4650F">
+      <header class="domain-head">
+        <div class="domain-title">
+          <span class="domain-idx">领域 03</span>
+          <h3>安居配套民生城建</h3>
+          <span class="domain-badge" style="background:#B4650F14;color:#B4650F;border:1px solid #B4650F38">1个专项</span>
+          <span class="domain-range">30%-50%</span>
+        </div>
+        <p class="domain-major"><b>十五五对应重大工程：</b>新型城镇化、城镇老旧小区更新工程</p>
+        <p class="domain-sec">原文大纲：四、安居配套、农业农村、区域协同五大专项：乡村振兴、粮食安全资金主力</p>
+        <p class="domain-lead">“十五五”将粮食安全、和美乡村、城乡融合列为刚性考核任务，本板块实行定额补助、县域打捆申报模式，是县级层面储备项目最多的领域。</p>
+      </header>
+      <div class="spec-grid">
+      <article class="spec-card" data-spec="8">
+        <div class="spec-top">
+          <span class="spec-no">08</span>
+          <div class="spec-heading">
+            <h4>保障性安居工程配套基础设施专项</h4>
+            <p class="spec-sub">安居配套民生城建</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 4.1</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>配套纯基础设施政府项目：最高补助配套投资 <span class="n">50%</span></li><li>含住宅建设项目：补助总投资 <span class="n">30%</span>（不含征拆）</li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>原文未提及金额上限</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>老旧小区、棚改、公租房、保障性租赁住房配套道路、管网、养老托幼、充电桩设施</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>严禁申报城市主干道、大型公园等非小区配套工程</li><li>须纳入省级年度安居目标任务清单</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>两类项目适用不同补助比例，注意区分“纯基础设施”与“含住宅建设”。</div>
+        </div>
+      </article>
+      </div>
+    </article>
+    <article class="domain" id="domain-4" style="--dc:#3C7A57">
+      <header class="domain-head">
+        <div class="domain-title">
+          <span class="domain-idx">领域 04</span>
+          <h3>农业农村与区域协同</h3>
+          <span class="domain-badge" style="background:#3C7A5714;color:#3C7A57;border:1px solid #3C7A5738">4个专项</span>
+          <span class="domain-range">定额/40%-80%</span>
+        </div>
+        <p class="domain-major"><b>十五五对应重大工程：</b>粮食产能提升、和美乡村、区域协调发展工程</p>
+        <p class="domain-sec">原文大纲：（同属四、安居配套、农业农村、区域协同五大专项）</p>
+        <p class="domain-lead">农业、乡村振兴、以工代赈以定额补助为主；长三角一体化是区域协同唯一专项，按固定资产投资比例补助。</p>
+      </header>
+      <div class="spec-grid">
+      <article class="spec-card" data-spec="9">
+        <div class="spec-top">
+          <span class="spec-no">09</span>
+          <div class="spec-heading">
+            <h4>农业专项</h4>
+            <p class="spec-sub">保障“十五五”千亿斤粮食产能</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 4.2</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>新建高标准农田 <span class="n">2400元</span>/亩；改造提升 <span class="n">2200元</span>/亩</li><li>大豆 <span class="n">400元</span>/亩、玉米 <span class="n">300元</span>/亩</li><li>现代种业、病死畜禽处理、病虫监测点项目：补助最高不超总投资 <span class="n">80%</span></li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>按亩定额，原文未给单个项目金额上限</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>高标准农田、大豆玉米单产提升、现代种业、动植物疫病防控四大类</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>全部实行定额补助，定额项目不得随意缩小建设规模</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>高标准农田属“硬性指标严卡”类，亩数、投资定额须达标。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="10">
+        <div class="spec-top">
+          <span class="spec-no">10</span>
+          <div class="spec-heading">
+            <h4>乡村振兴（和美乡村）专项</h4>
+            <p class="spec-sub">和美乡村人居 + 农村产业融合</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 4.3</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>和美乡村：单村补助上限 <span class="n">500万元</span>，单县总额不超 <span class="n">8000万元</span></li><li>产业融合项目：中央资金不超总投资 <span class="n">50%</span>，单县上限 <span class="n">4000万元</span></li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>单村 <span class="n">500万</span>；产业融合单县 <span class="n">4000万</span>；和美乡村单县 <span class="n">8000万</span></span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>和美乡村人居环境板块</li><li>农村产业融合板块：优先支持乡村振兴重点帮扶县、产业融合示范园</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>和美乡村仅限集聚提升类村庄</li><li>村集体年收入 <span class="n">20万</span>以上、常住人口 <span class="n">2000人</span>以上行政村</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>先核村庄分类（集聚提升类）与两项规模指标，再谈资金。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="11">
+        <div class="spec-top">
+          <span class="spec-no">11</span>
+          <div class="spec-heading">
+            <h4>以工代赈示范专项</h4>
+            <p class="spec-sub">就业增收与小型公益设施</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 4.4</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>单个项目中央投资 <span class="n">200万–800万元</span></li><li>劳务报酬占中央资金 <span class="n">30%</span>以上</li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span><span class="n">800万元</span>（单个项目中央投资上限）</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>乡村小型公益性道路、水利、产业配套工程</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>劳务报酬占中央资金 <span class="n">30%</span>以上</li><li>须吸纳本地群众务工增收</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>双约束：既有 <span class="n">200万–800万</span> 区间，又有劳务报酬占比硬指标。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="12">
+        <div class="spec-top">
+          <span class="spec-no">12</span>
+          <div class="spec-heading">
+            <h4>长三角一体化发展专项</h4>
+            <p class="spec-sub">区域协同唯一专项</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 4.5</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>无参照专项的项目：补助固定资产投资 <span class="n">45%</span>（不含征拆）</li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>原文未提及</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>省际互联互通、科创平台、生态共保、公共服务共享项目</li><li>重点倾斜省际毗邻园区、合肥综合性国家科学中心等“十五五”大科创载体</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>须为跨省际协同类项目</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>原文明确其为“区域协同唯一专项”。</div>
+        </div>
+      </article>
+      </div>
+    </article>
+    <article class="domain" id="domain-5" style="--dc:#2F7F73">
+      <header class="domain-head">
+        <div class="domain-title">
+          <span class="domain-idx">领域 05</span>
+          <h3>绿色低碳生态治理</h3>
+          <span class="domain-badge" style="background:#2F7F7314;color:#2F7F73;border:1px solid #2F7F7338">4个专项</span>
+          <span class="domain-range">15%-80%</span>
+        </div>
+        <p class="domain-major"><b>十五五对应重大工程：</b>双碳行动、流域生态保护、国土综合修复工程</p>
+        <p class="domain-sec">原文大纲：五、绿色低碳四大生态专项：“十五五”双碳战略重点倾斜赛道</p>
+        <p class="domain-lead">节能降碳、污染治理、生态修复、流域水环境治理四大专项，补助比例区间跨度大、示范类项目支持力度极强，<span class="n">2027年</span>国家将持续扩大绿色投资规模。</p>
+      </header>
+      <div class="spec-grid">
+      <article class="spec-card" data-spec="13">
+        <div class="spec-top">
+          <span class="spec-no">13</span>
+          <div class="spec-heading">
+            <h4>节能降碳专项</h4>
+            <p class="spec-sub">绿色低碳示范 / 行业改造 / 循环经济</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 五</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>绿色低碳示范项目 <span class="n">30%</span></li><li>行业节能改造 <span class="n">20%</span></li><li>循环经济项目 <span class="n">15%</span></li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span><span class="n">1亿元</span>（表<span class="n">3</span>三类细分项目均列 <span class="n">1亿元</span>）</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>绿色低碳示范项目、行业节能改造、循环经济项目</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>原文未提及（该专项无分项正文，仅表<span class="n">3</span>列示）</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>表<span class="n">3</span>口径：补助上限比例与单个项目资金限额分列。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="14">
+        <div class="spec-top">
+          <span class="spec-no">14</span>
+          <div class="spec-heading">
+            <h4>污染治理专项</h4>
+            <p class="spec-sub">城镇污水固废 / 清洁生产节水</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 五</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>城镇污水、固废综合整治 <span class="n">60%</span></li><li>清洁生产、行业节水 <span class="n">15%</span></li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span><span class="n">1亿元</span>（表<span class="n">3</span>两类细分项目均列 <span class="n">1亿元</span>）</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>城镇污水、固废综合整治；清洁生产、行业节水</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>原文未提及（仅表<span class="n">3</span>列示）</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>表<span class="n">3</span>口径：补助上限比例与单个项目资金限额分列。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="15">
+        <div class="spec-top">
+          <span class="spec-no">15</span>
+          <div class="spec-heading">
+            <h4>生态保护修复专项</h4>
+            <p class="spec-sub">重点生态工程、湿地修复</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 五</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>重点生态工程、湿地修复 <span class="n">70%–80%</span></li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>分类型定额（表<span class="n">3</span>原文，未给具体金额）</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>重点生态工程、湿地修复</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>原文未提及（仅表<span class="n">3</span>列示）</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>全文补助比例最高档之一（<span class="n">70%–80%</span>），入库通过率高。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="16">
+        <div class="spec-top">
+          <span class="spec-no">16</span>
+          <div class="spec-heading">
+            <h4>重点流域水环境综合治理</h4>
+            <p class="spec-sub">河道、湖库系统治理</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 五</span>
+        <span class="flag" title="表3“单个项目资金限额”单元格被水印遮挡，原文无法辨认">⚠ 原文存疑</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>河道、湖库系统治理 <span class="n">60%</span></li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>原文被公众号水印遮挡，未辨明</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>河道、湖库系统治理</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>不能单独申报新建污水厂</li><li>必须包含截污、底泥清淤、生态护坡、人工湿地综合治理内容；单一污水项目不予支持</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>打包成“综合治理”方案是本专项的生命线。</div>
+      <p class="flag-note"><b>⚠ 原文存疑：</b>表<span class="n">3</span>“单个项目资金限额”单元格被水印遮挡，原文无法辨认</p>
+        </div>
+      </article>
+      </div>
+    </article>
+    <article class="domain" id="domain-6" style="--dc:#5E5A9C">
+      <header class="domain-head">
+        <div class="domain-title">
+          <span class="domain-idx">领域 06</span>
+          <h3>科教产教基础设施</h3>
+          <span class="domain-badge" style="background:#5E5A9C14;color:#5E5A9C;border:1px solid #5E5A9C38">2个专项</span>
+          <span class="domain-range">60%（设单项上限）</span>
+        </div>
+        <p class="domain-major"><b>十五五对应重大工程：</b>教育强国推进、职业产教融合工程</p>
+        <p class="domain-sec">原文大纲：六、科教文卫民生七大专项：“十五五”“人的全面发展”核心支撑</p>
+        <p class="domain-lead">教育、实训、医疗、文化、养老托育、社会福利、粮食仓储<span class="n">7个</span>民生专项，公益性项目统一执行<span class="n">60%</span>基准补助，同时设置分级资金上限，适合区县、园区、院校、医疗机构批量储备项目。</p>
+      </header>
+      <div class="spec-grid">
+      <article class="spec-card" data-spec="17">
+        <div class="spec-top">
+          <span class="spec-no">17</span>
+          <div class="spec-heading">
+            <h4>教育强国基建专项</h4>
+            <p class="spec-sub">基础教育、高校、产教融合</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 6.1</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>补助工程投资 <span class="n">60%</span></li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>普通高中单校上限 <span class="n">5000万元</span>；双一流高校新校区最高 <span class="n">3亿元</span></span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>基础教育、高校、产教融合项目</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>按工程投资口径计算补助</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>同一板块内“教育强国基建 + 公共实训基地”两大专项常打包谋划。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="18">
+        <div class="spec-top">
+          <span class="spec-no">18</span>
+          <div class="spec-heading">
+            <h4>公共实训基地专项</h4>
+            <p class="spec-sub">省/市/县分级限额</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 6.1</span>
+        <span class="flag" title="表4“单项目最高3000万补助”与本节分级限额存在口径差异，原文未解释">⚠ 原文存疑</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>分级限额补助（板块导语：公益性项目统一执行 <span class="n">60%</span> 基准补助）</li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>省级 <span class="n">1亿元</span>、市级 <span class="n">7000万元</span>、县级 <span class="n">3000万元</span></span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>支持闲置厂房、校园改扩建</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>按省、市、县三级分级限额</li><li>表<span class="n">4</span>口径：县域项目单项目最高 <span class="n">3000万元</span>补助</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>表<span class="n">4</span>与分项正文金额口径不同（或表<span class="n">4</span>仅指县级），申报前需与主管部门核实。</div>
+      <p class="flag-note"><b>⚠ 原文存疑：</b>表<span class="n">4</span>“单项目最高<span class="n">3000万</span>补助”与本节分级限额存在口径差异，原文未解释</p>
+        </div>
+      </article>
+      </div>
+    </article>
+    <article class="domain" id="domain-7" style="--dc:#A93226">
+      <header class="domain-head">
+        <div class="domain-title">
+          <span class="domain-idx">领域 07</span>
+          <h3>民生公共服务保障</h3>
+          <span class="domain-badge" style="background:#A9322614;color:#A93226;border:1px solid #A9322638">5个专项</span>
+          <span class="domain-range">30%-80%</span>
+        </div>
+        <p class="domain-major"><b>十五五对应重大工程：</b>健康中国、一老一小普惠、粮食安全保障工程</p>
+        <p class="domain-sec">原文大纲：（同属六、科教文卫民生七大专项）</p>
+        <p class="domain-lead">公益性项目统一执行<span class="n">60%</span>基准补助，并设单项目金额上限；粮食仓储按储备主体区分<span class="n">70%</span>/<span class="n">30%</span>两档。</p>
+      </header>
+      <div class="spec-grid">
+      <article class="spec-card" data-spec="19">
+        <div class="spec-top">
+          <span class="spec-no">19</span>
+          <div class="spec-heading">
+            <h4>医疗卫生专项</h4>
+            <p class="spec-sub">优质医疗资源扩容</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 6.2</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>公益性项目统一执行 <span class="n">60%</span> 基准补助（板块导语）</li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>平急两用医院单项目最高 <span class="n">5000万元</span>；省级精神专科医院 <span class="n">2亿元</span></span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>平急两用医院、省级精神专科医院</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>两类项目分别设定金额上限</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>属“单项目上限明确”的专项，谋划规模宜与控制上限匹配。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="20">
+        <div class="spec-top">
+          <span class="spec-no">20</span>
+          <div class="spec-heading">
+            <h4>文化保护传承专项</h4>
+            <p class="spec-sub">历史文化街区、考古</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 6.2</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>公益性项目统一执行 <span class="n">60%</span> 基准补助（板块导语）</li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>历史文化街区最高 <span class="n">2亿元</span>；考古项目 <span class="n">3亿元</span></span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>历史文化街区、考古项目</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>两类项目分别设定金额上限</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>考古项目上限为全文单项目最高档之一（<span class="n">3亿元</span>）。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="21">
+        <div class="spec-top">
+          <span class="spec-no">21</span>
+          <div class="spec-heading">
+            <h4>一老一小（养老托育）专项</h4>
+            <p class="spec-sub">公办按比例、普惠按床位定额</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 6.2</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>公办设施补助 <span class="n">60%</span></li><li>普惠型实行床位定额补助（原文未给具体定额）</li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>原文未提及</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>公办养老托育设施、普惠型设施</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>区分公办与普惠型两类支持方式</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>普惠型按床位定额，需向主管部门确认当年定额标准。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="22">
+        <div class="spec-top">
+          <span class="spec-no">22</span>
+          <div class="spec-heading">
+            <h4>社会福利专项</h4>
+            <p class="spec-sub">全民健身、殡葬、儿童福利、退役军人设施</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 6.2</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>全民健身、殡葬、儿童福利、退役军人设施改建项目：补助减半</li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>原文未提及</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>全民健身、殡葬、儿童福利、退役军人设施改建项目</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>须属上述四类设施改建</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>“减半”系在 <span class="n">60%</span> 基准补助基础上减半，回报率低于同类民生项目。</div>
+        </div>
+      </article>
+      <article class="spec-card" data-spec="23">
+        <div class="spec-top">
+          <span class="spec-no">23</span>
+          <div class="spec-heading">
+            <h4>粮食仓储专项</h4>
+            <p class="spec-sub">粮食安全配套</p>
+          </div>
+          <div class="spec-side">
+            <span class="spec-code">原文 6.3</span>
+          </div>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-label">中央补助比例</div>
+          <ul class="ratio-list"><li>中央直属储备库补助 <span class="n">70%</span></li><li>地方粮食仓储、中转物流项目补助 <span class="n">30%</span></li></ul>
+        </div>
+        <div class="spec-cap"><span class="kv-k">单个项目上限</span><span>原文未提及（仅给比例）</span></div>
+        <div class="kv"><span class="kv-k">政策依据</span><span class="kv-v">原文未列具体文号</span></div>
+        <div class="kv"><span class="kv-k">支持范围</span><ul class="kv-list"><li>中央直属储备库、地方粮食仓储、中转物流项目</li></ul></div>
+        <div class="kv"><span class="kv-k">硬性门槛</span><ul class="kv-list"><li>标准化储备仓不低于 <span class="n">2.5万</span>吨</li><li>港口中转筒仓不低于 <span class="n">5万</span>吨</li></ul></div>
+        <div class="spec-tip">
+          <div class="tip"><b>申报提示：</b>按主体区分 <span class="n">70%</span>/<span class="n">30%</span> 两档，规模化门槛是硬约束。</div>
+        </div>
+      </article>
+      </div>
+    </article>
+  </div>
+</section>
+<section class="sec" id="ratio">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="kicker">PART 04 · SUBSIDY RATIO</span>
+      <h2 class="sec-title">补助比例区间可视化</h2>
+      <p class="sec-sub"><span class="n">7个</span>领域区间条由纯 CSS 绘制（含端点百分比标注）；下方按补助档次对<span class="n">23个</span>专项的全部比例标准归档排序，便于横向比较。</p>
+    </header>
+    <div class="chart-card">
+      <div class="chart-head">
+        <h3 class="chart-title">7大领域补助比例区间（中央资金占比）</h3>
+        <span class="chart-hint">数据取自表1「平均补助区间」；菱形为单点统一基准</span>
+      </div>
+      <div class="range-chart">
+      <div class="range-row">
+        <div class="range-name">综合交通水利基建</div>
+        <div class="range-track" style="--lo:30%;--hi:70%;--dc:#1F6FB2">
+          <span class="range-val lo">30%</span>
+          <span class="range-val hi">70%</span>
+          <span class="range-tick lo"></span>
+          <span class="range-bar" style="--w:40%"></span>
+          <span class="range-tick hi"></span>
+        </div>
+      </div>
+      <div class="range-row">
+        <div class="range-name">城乡物流与安全保障</div>
+        <div class="range-track" style="--lo:30%;--hi:60%;--dc:#2C6E9B">
+          <span class="range-val lo">30%</span>
+          <span class="range-val hi">60%</span>
+          <span class="range-tick lo"></span>
+          <span class="range-bar" style="--w:30%"></span>
+          <span class="range-tick hi"></span>
+        </div>
+      </div>
+      <div class="range-row">
+        <div class="range-name">安居配套民生城建</div>
+        <div class="range-track" style="--lo:30%;--hi:50%;--dc:#B4650F">
+          <span class="range-val lo">30%</span>
+          <span class="range-val hi">50%</span>
+          <span class="range-tick lo"></span>
+          <span class="range-bar" style="--w:20%"></span>
+          <span class="range-tick hi"></span>
+        </div>
+      </div>
+      <div class="range-row">
+        <div class="range-name">农业农村与区域协同</div>
+        <div class="range-track" style="--lo:40%;--hi:80%;--dc:#3C7A57">
+          <span class="range-val lo">40%</span>
+          <span class="range-val hi">80%</span>
+          <span class="range-tick lo"></span>
+          <span class="range-bar" style="--w:40%"></span>
+          <span class="range-tick hi"></span>
+        </div>
+      </div>
+      <div class="range-row">
+        <div class="range-name">绿色低碳生态治理</div>
+        <div class="range-track" style="--lo:15%;--hi:80%;--dc:#2F7F73">
+          <span class="range-val lo">15%</span>
+          <span class="range-val hi">80%</span>
+          <span class="range-tick lo"></span>
+          <span class="range-bar" style="--w:65%"></span>
+          <span class="range-tick hi"></span>
+        </div>
+      </div>
+      <div class="range-row">
+        <div class="range-name">科教产教基础设施</div>
+        <div class="range-track is-single" style="--lo:60%;--dc:#5E5A9C">
+          <span class="range-val lo">60%</span>
+          <span class="range-point"></span>
+        </div>
+      </div>
+      <div class="range-row">
+        <div class="range-name">民生公共服务保障</div>
+        <div class="range-track" style="--lo:30%;--hi:80%;--dc:#A93226">
+          <span class="range-val lo">30%</span>
+          <span class="range-val hi">80%</span>
+          <span class="range-tick lo"></span>
+          <span class="range-bar" style="--w:50%"></span>
+          <span class="range-tick hi"></span>
+        </div>
+      </div>
+      </div>
+      <div class="range-axis">
+        <div></div>
+        <div class="axis-scale"><span style="left:0%">0%</span><span style="left:20%">20%</span><span style="left:40%">40%</span><span style="left:60%">60%</span><span style="left:80%">80%</span><span style="left:100%">100%</span></div>
+      </div>
+      <div class="chart-legend">
+        <span class="legend-item"><span class="legend-swatch grey"></span>0–100% 标尺</span>
+        <span class="legend-item"><span class="legend-tick" style="background:#0B2545"></span>左端 = 该领域最低比例</span>
+        <span class="legend-item"><span class="legend-tick"></span>右端 = 该领域最高比例</span>
+        <span class="legend-item"><span class="legend-dot"></span>单点 = 统一基准值</span>
+      </div>
+    </div>
+    <div class="rank-card">
+      <div class="rank-head">
+        <h3 class="rank-title">补助档次排行</h3>
+        <span class="chart-hint">按各专项原文补助上限归档，共 36 条比例标准；同一专项多档比例分档拆列</span>
+      </div>
+      <div class="rank-row">
+        <div class="rank-tier"><span class="tv">80%</span><span class="tk">上限档</span></div>
+        <div class="rank-chips"><span class="rank-chip"><b>农业专项</b><span class="rt">现代种业、病死畜禽处理、病虫监测点项目：补助最高不超总投资 <span class="n">80%</span></span></span><span class="rank-chip"><b>生态保护修复专项</b><span class="rt">重点生态工程、湿地修复 <span class="n">70%–80%</span></span></span></div>
+      </div>
+      <div class="rank-row">
+        <div class="rank-tier"><span class="tv">70%</span><span class="tk">上限档</span></div>
+        <div class="rank-chips"><span class="rank-chip"><b>水利专项</b><span class="rt">蓄滞洪区、病险水库水闸加固：<span class="n">70%</span></span></span><span class="rank-chip"><b>粮食仓储专项</b><span class="rt">中央直属储备库补助 <span class="n">70%</span></span></span></div>
+      </div>
+      <div class="rank-row">
+        <div class="rank-tier"><span class="tv">60%</span><span class="tk">上限档</span></div>
+        <div class="rank-chips"><span class="rank-chip"><b>水利专项</b><span class="rt">江河防洪、区域排涝、海堤工程：<span class="n">60%</span></span></span><span class="rank-chip"><b>污染治理专项</b><span class="rt">城镇污水、固废综合整治 <span class="n">60%</span></span></span><span class="rank-chip"><b>重点流域水环境综合治理</b><span class="rt">河道、湖库系统治理 <span class="n">60%</span></span></span><span class="rank-chip"><b>教育强国基建专项</b><span class="rt">补助工程投资 <span class="n">60%</span></span></span><span class="rank-chip"><b>公共实训基地专项</b><span class="rt">分级限额补助（板块导语：公益性项目统一执行 <span class="n">60%</span> 基准补助）</span></span><span class="rank-chip"><b>医疗卫生专项</b><span class="rt">公益性项目统一执行 <span class="n">60%</span> 基准补助（板块导语）</span></span><span class="rank-chip"><b>文化保护传承专项</b><span class="rt">公益性项目统一执行 <span class="n">60%</span> 基准补助（板块导语）</span></span><span class="rank-chip"><b>一老一小（养老托育）专项</b><span class="rt">公办设施补助 <span class="n">60%</span></span></span></div>
+      </div>
+      <div class="rank-row">
+        <div class="rank-tier"><span class="tv">50%</span><span class="tk">上限档</span></div>
+        <div class="rank-chips"><span class="rank-chip"><b>水利专项</b><span class="rt">水土保持、水生态修复工程：<span class="n">50%</span></span></span><span class="rank-chip"><b>保障性安居工程配套基础设施专项</b><span class="rt">配套纯基础设施政府项目：最高补助配套投资 <span class="n">50%</span></span></span><span class="rank-chip"><b>乡村振兴（和美乡村）专项</b><span class="rt">产业融合项目：中央资金不超总投资 <span class="n">50%</span>，单县上限 <span class="n">4000万元</span></span></span></div>
+      </div>
+      <div class="rank-row">
+        <div class="rank-tier"><span class="tv">45%</span><span class="tk">上限档</span></div>
+        <div class="rank-chips"><span class="rank-chip"><b>长三角一体化发展专项</b><span class="rt">无参照专项的项目：补助固定资产投资 <span class="n">45%</span>（不含征拆）</span></span></div>
+      </div>
+      <div class="rank-row">
+        <div class="rank-tier"><span class="tv">30%</span><span class="tk">上限档</span></div>
+        <div class="rank-chips"><span class="rank-chip"><b>铁路专项</b><span class="rt">干线铁路 <span class="n">30%</span></span></span><span class="rank-chip"><b>城乡冷链和国家物流枢纽专项</b><span class="rt">单个项目补助不超核定投资 <span class="n">30%</span></span></span><span class="rank-chip"><b>保障性安居工程配套基础设施专项</b><span class="rt">含住宅建设项目：补助总投资 <span class="n">30%</span>（不含征拆）</span></span><span class="rank-chip"><b>节能降碳专项</b><span class="rt">绿色低碳示范项目 <span class="n">30%</span></span></span><span class="rank-chip"><b>粮食仓储专项</b><span class="rt">地方粮食仓储、中转物流项目补助 <span class="n">30%</span></span></span></div>
+      </div>
+      <div class="rank-row">
+        <div class="rank-tier"><span class="tv">20%</span><span class="tk">上限档</span></div>
+        <div class="rank-chips"><span class="rank-chip"><b>铁路专项</b><span class="rt">货运/中欧班列口岸 <span class="n">20%</span>（均为资本金补助）</span></span><span class="rank-chip"><b>节能降碳专项</b><span class="rt">行业节能改造 <span class="n">20%</span></span></span></div>
+      </div>
+      <div class="rank-row">
+        <div class="rank-tier"><span class="tv">15%</span><span class="tk">上限档</span></div>
+        <div class="rank-chips"><span class="rank-chip"><b>铁路专项</b><span class="rt">城际铁路 <span class="n">15%</span></span></span><span class="rank-chip"><b>节能降碳专项</b><span class="rt">循环经济项目 <span class="n">15%</span></span></span><span class="rank-chip"><b>污染治理专项</b><span class="rt">清洁生产、行业节水 <span class="n">15%</span></span></span></div>
+      </div>
+      <div class="rank-row">
+        <div class="rank-tier none"><span class="tv">定额</span><span class="tk">/ 未明确</span></div>
+        <div class="rank-chips"><span class="rank-chip"><b>水运专项</b><span class="rt">原文未给具体补助比例，仅列支持优先级</span></span><span class="rank-chip"><b>气象基础设施专项</b><span class="rt">原文未提及具体比例</span></span><span class="rank-chip"><b>城市地下管网及设施专项</b><span class="rt">原文未提及具体比例</span></span><span class="rank-chip"><b>防灾减灾能力提升专项</b><span class="rt">原文未提及具体比例</span></span><span class="rank-chip"><b>农业专项</b><span class="rt">新建高标准农田 <span class="n">2400元</span>/亩；改造提升 <span class="n">2200元</span>/亩</span></span><span class="rank-chip"><b>农业专项</b><span class="rt">大豆 <span class="n">400元</span>/亩、玉米 <span class="n">300元</span>/亩</span></span><span class="rank-chip"><b>乡村振兴（和美乡村）专项</b><span class="rt">和美乡村：单村补助上限 <span class="n">500万元</span>，单县总额不超 <span class="n">8000万元</span></span></span><span class="rank-chip"><b>以工代赈示范专项</b><span class="rt">单个项目中央投资 <span class="n">200万–800万元</span></span></span><span class="rank-chip"><b>一老一小（养老托育）专项</b><span class="rt">普惠型实行床位定额补助（原文未给具体定额）</span></span><span class="rank-chip"><b>社会福利专项</b><span class="rt">全民健身、殡葬、儿童福利、退役军人设施改建项目：补助减半</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="sec" id="tables">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="kicker">PART 05 · QUICK TABLES</span>
+      <h2 class="sec-title">重点专项补助速查表</h2>
+      <p class="sec-sub">表<span class="n">2</span> 水利差异化补助 · 表<span class="n">3</span> 生态环保四大专项 · 表<span class="n">4</span> 高补助、易入库优质赛道；三张表与正文数据同源，样式统一。</p>
+    </header>
+    <div class="table-card">
+      <div class="tbl-cap">表2　水利专项差异化补助标准明细</div>
+      <div class="tbl-scroll">
+        <table class="tbl" aria-label="表2　水利专项差异化补助标准明细">
+          <thead>
+            <tr><th scope="col">项目类型</th><th scope="col">中央补助比例</th><th scope="col">硬性约束条件</th></tr>
+          </thead>
+          <tbody>
+        <tr><td>蓄滞洪区、病险水库水闸加固</td><td><span class="pct-badge">70%</span></td><td>小型水库定额：小Ⅰ型<span class="n">500万</span>、小Ⅱ型<span class="n">200万</span></td></tr>
+        <tr><td>江河防洪、区域排涝、海堤工程</td><td><span class="pct-badge">60%</span></td><td>仅限<span class="n">3000km²</span>以上重点中小河流干流</td></tr>
+        <tr><td>水土保持、水生态修复工程</td><td><span class="pct-badge">50%</span></td><td>不得包含水景观、城镇污水治理内容</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="table-card">
+      <div class="tbl-cap">表3　生态环保四大专项补助标准对比表</div>
+      <div class="tbl-scroll">
+        <table class="tbl" aria-label="表3　生态环保四大专项补助标准对比表">
+          <thead>
+            <tr><th scope="col">专项名称</th><th scope="col">细分项目类型</th><th scope="col">补助上限比例</th><th scope="col">单个项目资金限额</th></tr>
+          </thead>
+          <tbody>
+        <tr><td class="td-merge" rowspan="3">节能降碳专项</td><td>绿色低碳示范项目</td><td><span class="pct-badge">30%</span></td><td><span class="n">1亿元</span></td></tr>
+        <tr><td>行业节能改造</td><td><span class="pct-badge">20%</span></td><td><span class="n">1亿元</span></td></tr>
+        <tr><td>循环经济项目</td><td><span class="pct-badge">15%</span></td><td><span class="n">1亿元</span></td></tr>
+        <tr><td class="td-merge" rowspan="2">污染治理专项</td><td>城镇污水、固废综合整治</td><td><span class="pct-badge">60%</span></td><td><span class="n">1亿元</span></td></tr>
+        <tr><td>清洁生产、行业节水</td><td><span class="pct-badge">15%</span></td><td><span class="n">1亿元</span></td></tr>
+        <tr><td class="td-merge">生态保护修复专项</td><td>重点生态工程、湿地修复</td><td><span class="pct-badge">70%-80%</span></td><td>分类型定额</td></tr>
+        <tr><td class="td-merge">重点流域水环境综合治理</td><td>河道、湖库系统治理</td><td><span class="pct-badge">60%</span></td><td>原文水印遮挡，未辨明</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="table-card">
+      <div class="tbl-cap">表4　2027年高补助、易入库优质赛道推荐清单（地方优先谋划）</div>
+      <div class="tbl-scroll">
+        <table class="tbl" aria-label="表4　2027年高补助、易入库优质赛道推荐清单（地方优先谋划）">
+          <thead>
+            <tr><th scope="col">赛道类型</th><th scope="col">对应专项</th><th scope="col">核心优势</th><th scope="col">适合申报单位</th></tr>
+          </thead>
+          <tbody>
+        <tr><td>病险水库、蓄滞洪区治理</td><td>水利专项</td><td>补助<span class="n">70%</span>，配套压力小</td><td>水利局、乡镇政府</td></tr>
+        <tr><td>湿地、自然保护地修复</td><td>生态保护修复</td><td>补助<span class="n">80%</span>，入库通过率高</td><td>林业局、生态环境局</td></tr>
+        <tr><td>县域救灾物资储备库</td><td>防灾减灾专项</td><td>无高额规模门槛，落地快</td><td>应急管理局</td></tr>
+        <tr><td>老旧小区配套管网改造</td><td>城市地下管网、安居配套</td><td>贴近民生，年度多批次申报</td><td>住建局、街道办</td></tr>
+        <tr><td>高标准农田新建项目</td><td>农业专项</td><td>定额补助，政策持续稳定</td><td>农业农村局</td></tr>
+        <tr><td>县域公共实训基地</td><td>公共实训基地专项</td><td>单项目最高<span class="n">3000万</span>补助</td><td>人社局、职业院校</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="sec" id="pits">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="kicker">PART 06 · KEY RISKS</span>
+      <h2 class="sec-title">申报避坑五条</h2>
+      <p class="sec-sub">以下为<span class="n">23个</span>专项共性的审核标准，任何一条不满足都可能被剔除出库或压减资金额度。</p>
+    </header>
+    <div class="pits">
+      <article class="pit-card" data-num="01">
+        <span class="pit-no">避坑1</span>
+        <h3>无规划、无实施方案项目一律剔除</h3>
+        <p class="pit-desc">所有专项均要求项目纳入对应国家级/省级专项规划、住建/农业/水利实施方案。例如管网项目必须进地下管网改造方案、和美乡村需村庄规划批复，无规划依据直接不予入库。</p>
+      </article>
+      <article class="pit-card" data-num="02">
+        <span class="pit-no">避坑2</span>
+        <h3>重复申报、同类项目交叉申报禁止</h3>
+        <p class="pit-desc">同一地块、同一建设内容不得同时申报生态修复＋流域治理、农业专项＋乡村振兴；已享受中央资金支持满<span class="n">5年</span>的同类设施，无提质扩容论证不得再次申报。</p>
+      </article>
+      <article class="pit-card" data-num="03">
+        <span class="pit-no">避坑3</span>
+        <h3>商业化盈利项目全部不予支持</h3>
+        <p class="pit-desc"><span class="n">23个</span>专项全部聚焦公益性、基础性、战略性工程，纯经营性市场项目、房地产配套商业、盈利性物流市场、商业文旅设施不得纳入储备库。</p>
+      </article>
+      <article class="pit-card" data-num="04">
+        <span class="pit-no">避坑4</span>
+        <h3>投资规模、定额指标严格卡死</h3>
+        <p class="pit-desc">高标准农田、冷库库容、实训基地分级限额、水库定额投资等硬性指标，不达标不得申报；水利、农业、以工代赈定额项目不得随意缩小建设规模。</p>
+      </article>
+      <article class="pit-card wide" data-num="05">
+        <span class="pit-no">避坑5</span>
+        <h3>前期手续不完善不予下达资金</h3>
+        <p class="pit-desc">项目需取得统一项目代码、可研/实施方案批复、用地预审、环评等手续；<span class="n">2027年</span>强化绩效前置审核，无开工时间表、无运营方案项目直接压减资金额度。</p>
+      </article>
+    </div>
+  </div>
+</section>
+<section class="sec" id="closing">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="kicker">PART 07 · CLOSING</span>
+      <h2 class="sec-title">写在最后</h2>
+      <p class="sec-sub">数据转录自原文截图，仅供项目谋划与争资参考；具体申报条件以官方最新文件为准。</p>
+    </header>
+    <div class="closing-card">
+      <p class="closing-kicker">CLOSING · 写在最后</p>
+      <div class="closing-body">
+      <p>以上<span class="n">23个</span>中央预算内投资专项，覆盖了基础设施、产业发展、民生保障、生态环保、区域协调等多个关键领域。各地在谋划项目时，应认真对照各专项的政策依据、支持范围和支持比例，精准对接国家资金投向，做好项目前期工作，确保项目符合申报条件。</p>
+      <p>项目资金采取直接投资与资本金注入方式，重点支持各专项领域建设，单个项目补助比例根据区域差异最高标准不同。</p>
+      </div>
+    </div>
+    <div class="notes-head">
+      <span class="kicker">APPENDIX · 口径说明</span>
+      <h3 id="notes">口径说明（编者整理，非原文）</h3>
+      <p>以下为编者对原文表格遮挡、章节口径差异的说明，正文均按原文照录，未作改动。</p>
+    </div>
+    <details class="notes-box" open>
+      <summary><span>口径说明 · 6 条</span><span class="sum-hint">原文存疑与口径差异汇总</span></summary>
+      <ol class="notes-list">
+      <li class="note-item">
+        <span class="note-no">01</span>
+        <div>
+          <h4>“8大领域”与表1的7行</h4>
+          <p>文章标题为“<span class="n">8</span>大领域<span class="n">23个</span>专项”，但表<span class="n">1</span>只列示<span class="n">7个</span>领域行（合计<span class="n">23个</span>专项）。若将表中“农业农村与区域协同（<span class="n">4个</span>）”按表内所含专项拆为“农业农村（农业、乡村振兴、以工代赈，<span class="n">3个</span>）”与“区域协同（长三角一体化，<span class="n">1个</span>）”，则恰为<span class="n">8</span>大领域、专项数<span class="n">8</span>+<span class="n">15</span>=<span class="n">23个</span>，与标题吻合。本文第三节按表<span class="n">1</span>原文的<span class="n">7</span>行呈现，并在此说明拆分口径。</p>
+        </div>
+      </li>
+      <li class="note-item">
+        <span class="note-no">02</span>
+        <div>
+          <h4>第四节“五大专项”与导语“4个专项”</h4>
+          <p>该节标题写“安居配套、农业农村、区域协同五大专项”，导语却称“本板块<span class="n">4个</span>专项”，而正文实际列出<span class="n">4.1–4.5</span>共<span class="n">5个</span>专项。此处以正文<span class="n">5个</span>专项为准。</p>
+        </div>
+      </li>
+      <li class="note-item">
+        <span class="note-no">03</span>
+        <div>
+          <h4>公共实训基地金额口径</h4>
+          <p>分项正文为“省级<span class="n">1亿</span>、市级<span class="n">7000万</span>、县级<span class="n">3000万</span>”分级限额；表<span class="n">4</span>表述为“县域公共实训基地——单项目最高<span class="n">3000万</span>补助”。两处口径不同（表<span class="n">4</span>或专指县级项目），原文未作解释。</p>
+        </div>
+      </li>
+      <li class="note-item">
+        <span class="note-no">04</span>
+        <div>
+          <h4>两份文号均为“1761号”</h4>
+          <p>铁路专项依据为“发改基础规〔<span class="n">2023</span>〕<span class="n">1761号</span>”，水利专项依据为“发改农经规〔<span class="n">2024</span>〕<span class="n">1761号</span>”，原文两处文号尾号相同，已按原文照录。</p>
+        </div>
+      </li>
+      <li class="note-item">
+        <span class="note-no">05</span>
+        <div>
+          <h4>民生领域专项列示差异</h4>
+          <p>表<span class="n">1</span>“民生公共服务保障”列<span class="n">5个</span>专项（医疗卫生、文化传承、社会福利、一老一小、粮食仓储）；主线<span class="n">4</span>表述为“教育、医疗、养老托育、文化、全民健身五大民生专项”。两者组合口径略有差异，以表<span class="n">1</span>与第六节正文为准。</p>
+        </div>
+      </li>
+      <li class="note-item">
+        <span class="note-no">06</span>
+        <div>
+          <h4>水利“小Ⅰ型500万、小Ⅱ型200万”</h4>
+          <p>原文表述为“小型水库定额”，属按项目类型的定额补助标准，并非统一的“单个项目支持上限”。</p>
+        </div>
+      </li>
+      </ol>
+    </details>
+  </div>
+</section>
+</main>
+<footer class="footer">
+  <div class="wrap footer-in">
+    <div>
+      <p class="footer-title">2027年中央预算内投资 · 8大领域 · 23个专项全解</p>
+      <p class="footer-src"><b>据微信公众号「建设信息网」2026年10月10日原文截图转录整理，具体以官方文件为准。</b></p>
+    </div>
+    <div class="footer-meta">
+      <span>整理日期：2026年11月</span>
+      <span>单文件离线版 · 无外部依赖</span>
+      <span>适配屏幕阅读与 A4 打印</span>
+    </div>
+  </div>
+  <div class="footer-bar">仅供学习与项目储备参考，不构成申报依据 · 政策条款以官方最新发布文件为准</div>
+</footer>
+
+<a class="to-top" href="#top" aria-label="返回顶部" title="返回顶部">↑</a>
+</body>
+</html>
